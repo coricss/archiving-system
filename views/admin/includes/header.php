@@ -13,8 +13,12 @@
   <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="../../assets/plugins/DataTables/datatables.min.css">
+  <!-- Sweet Alert -->
+  <link rel="stylesheet" href="../../assets/plugins/sweetalert2/sweetalert2.min.css">
   <!-- AdminLTE -->
   <link rel="stylesheet" href="../../assets/dist/css/adminlte.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../assets/dist/css/main.css">
 </head>
 <body class="sidebar-mini layout-fixed">
   

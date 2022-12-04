@@ -68,8 +68,8 @@
             <!-- Menu Footer-->
             <li class="user-footer">
                     <button type="button" class="btn btn-block btn-primary mb-2">
-                      <i class="nav-icon fas fa-lock" aria-hidden="true"></i> 
-                      Change password
+                      <i class="nav-icon fas fa-user-edit" aria-hidden="true"></i> 
+                      Edit profile
                     </button>
                 <form id="signout-form" action="{{ route('logout') }}" method="POST">
                     <button type="submit" class="btn btn-block btn-danger"><i class="nav-icon fas fa-sign-out-alt" aria-hidden="true"></i> Logout</button>
