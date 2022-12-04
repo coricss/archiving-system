@@ -1,7 +1,16 @@
 <?php 
-  include('../includes/header.php');
-  include_once('../includes/topbar.php');
-  include_once('../includes/sidebar.php');
+  if(!isset($_SESSION))
+  {
+    session_start();
+  }
+
+  $_SESSION['dashboard'] = 'active';
+
+  unset($_SESSION['user_management']);
+
+  include_once('includes/header.php');
+  include_once('includes/topbar.php');
+  include_once('includes/sidebar.php');
 ?>
 
 <!-- CONTENT -->
@@ -51,6 +60,7 @@
     </div>
   </section>
 </div>
+
 <?php
-  include_once('../includes/footer.php');
+  include_once('includes/footer.php');
 ?>
