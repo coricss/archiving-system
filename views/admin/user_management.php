@@ -43,6 +43,7 @@
                   <tr>
                     <th>#</th>
                     <th>User ID</th>
+                    <th>Picture</th>
                     <th>Name</th>
                     <th>Phone</th>
                     <th>Email</th>
@@ -80,21 +81,29 @@
         <form id="frm_user_details">
           <div class="modal-body">
             <div class="row">
+              <div class="col-md-12 mb-2">
+                <div class="form-group d-flex justify-content-center">
+                  <div class="w-50 text-center">
+                    <img src="../../assets/dist/img/users/default-150x150.png" alt="User Image" class="img-circle" width="150" height="150" id="img_user" style="cursor: pointer">
+                    <input type="file" class="form-control" id="file_picture" name="file_picture" accept="image/*"/ style="display: none">
+                  </div>
+                </div>
+              </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="txt_fname">First Name</label>
+                  <label for="txt_fname">First name</label>
                   <input type="text" class="form-control" id="txt_fname" name="txt_fname" placeholder="Enter first name" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="txt_mname">Middle Name</label>
+                  <label for="txt_mname">Middle name</label>
                   <input type="text" class="form-control" id="txt_mname" name="txt_mname" placeholder="Enter middle name">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="txt_lname">Last Name</label>
+                  <label for="txt_lname">Last name</label>
                   <input type="text" class="form-control" id="txt_lname" name="txt_lname" placeholder="Enter last name" required>
                 </div>
               </div>
@@ -124,7 +133,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                <label for="slc_role">Role</label>
+                  <label for="slc_role">Role</label>
                   <select class="form-control" id="slc_role" name="slc_role" required>
                     <option value="">Select Role</option>
                     <option value="1">Admin</option>
@@ -157,21 +166,29 @@
           <input type="hidden" id="txt_user_id" name="txt_user_id">
           <div class="modal-body">
             <div class="row">
+              <div class="col-md-12 mb-2">
+                <div class="form-group d-flex justify-content-center">
+                  <div class="w-50 text-center">
+                    <img src="../../assets/dist/img/users/default-150x150.png" alt="User Image" class="img-circle" width="150" height="150" id="img_edit_user" style="cursor: pointer">
+                    <input type="file" class="form-control" id="file_edit_picture" name="file_edit_picture" accept="image/*"/ style="display: none">
+                  </div>
+                </div>
+              </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="txt_edit_fname">First Name</label>
+                  <label for="txt_edit_fname">First name</label>
                   <input type="text" class="form-control" id="txt_edit_fname" name="txt_edit_fname" placeholder="Enter first name" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="txt_edit_mname">Middle Name</label>
+                  <label for="txt_edit_mname">Middle name</label>
                   <input type="text" class="form-control" id="txt_edit_mname" name="txt_edit_mname" placeholder="Enter middle name">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="txt_edit_lname">Last Name</label>
+                  <label for="txt_edit_lname">Last name</label>
                   <input type="text" class="form-control" id="txt_edit_lname" name="txt_edit_lname" placeholder="Enter last name" required>
                 </div>
               </div>
@@ -201,7 +218,7 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                <label for="slc_edit_role">Role</label>
+                  <label for="slc_edit_role">Role</label>
                   <select class="form-control" id="slc_edit_role" name="slc_edit_role" required>
                     <option value="">Select Role</option>
                     <option value="1">Admin</option>
@@ -209,6 +226,25 @@
                   </select>
                 </div>
               </div>
+              <div class="col-md-12">
+                <div class="form-group mt-3">
+                  <button type="button" class="btn btn-success btn-block d-none" id="btn_activate">Activate this account</button>
+                  <button type="button" class="btn btn-danger btn-block d-none" id="btn_deactivate">Deactivate this account</button>
+                  <input type="hidden" id="txt_edit_status" name="txt_edit_status">
+                </div>
+              </div>
+              <!-- <div class="col-md-12">
+                <div class="form-group d-flex justify-content-center">
+                  <div class="">
+                    <label for="swc_status">Status</label>
+                    <div class="custom-control custom-switch">
+                      <input type="checkbox" class="custom-control-input" name="swc_edit_status" id="swc_status">
+                      <label class="custom-control-label" id="lbl_status" for="swc_status"  style="cursor: pointer"></label>
+                      <input type="hidden" id="txt_edit_status" name="txt_edit_status">
+                    </div>
+                  </div>
+                </div>
+              </div> -->
             </div>
           </div>
           <div class="modal-footer">

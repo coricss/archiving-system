@@ -15,6 +15,7 @@ $(function(){
     columns: [
       { data: "id" },
       { data: "userid" },
+      { data: "picture" },
       { data: "fullname" },
       { data: "phone" },
       { data: "email" },
@@ -27,7 +28,15 @@ $(function(){
     ],
     columnDefs: [
       {
-        targets: [10],
+        targets: [2],
+        orderable: false,
+        className: "text-center",
+        render: function (data, type, row) {
+          return '<img src="../../assets/dist/img/users/' + data + '" class="img-circle" width="50" />';
+        }
+      },
+      {
+        targets: [11],
         orderable: false,
         className: "text-center"
       },
@@ -52,7 +61,7 @@ $(function(){
         }
       },
       {
-        text: '<i class="fas fa-file-excel"></i> Export',
+        text: '<i class="fas fa-download"></i> Export',
         title: 'Digita Archiving System Users',
         extend: 'excel',
         titleAttr: 'Export to excel',
@@ -128,6 +137,12 @@ $(function(){
             },
           });
         }else{
+
+          $('#frm_user_details').parents('div.modal').modal('hide');
+          $('#tbl_users').DataTable().ajax.reload();
+          $('#tbl_users').DataTable().order([0, 'asc']).draw();
+          $('#frm_user_details')[0].reset();
+          
           Swal.fire({
             title: 'Something went wrong!',
             icon: 'error',
@@ -149,14 +164,16 @@ $(function(){
   // Edit user
   $tbl_users.on('click', '.btn_edit_user', function(){
     var id = $(this).attr('data-id');
-
+    
     $.ajax({
       url: "../../model/UserModel.php?action=getUserDetails",
       type: "GET",
       data: {id:id},
       dataType: "json",
       success: function(result){
+        console.log(result.picture);
         $('#txt_user_id').val(result.id);
+        $('#img_edit_user').prop('src', '../../assets/dist/img/users/'+result.picture);
         $('#txt_edit_fname').val(result.first_name);
         $('#txt_edit_mname').val(result.middle_name);
         $('#txt_edit_lname').val(result.last_name);
@@ -165,7 +182,13 @@ $(function(){
         $('#txt_edit_address').val(result.address);
         $('#txt_edit_username').val(result.username);
         $('#slc_edit_role').val(result.is_admin);
-
+        if(result.status == 1){
+          $('#btn_activate').addClass('d-none');
+          $('#btn_deactivate').removeClass('d-none');
+        }else {
+          $('#btn_activate').removeClass('d-none');
+          $('#btn_deactivate').addClass('d-none');
+        }
         $('#frm_edit_user_details').parents('div.modal').modal({backdrop: 'static', keyboard: true});
       }
     });
@@ -220,5 +243,152 @@ $(function(){
       }
     });
   });
+
+  // Change user status
+
+  $('#btn_activate').on('click', function(){
+    var id = $('#txt_user_id').val();
+
+    $.ajax({
+      url: "../../model/UserModel.php?action=activateUser",
+      type: "POST",
+      data: {id:id},
+      success: function(result){
+          if(result == "success"){
+            Swal.fire({
+              title: 'Account activated!',
+              icon: 'success',
+              showConfirmButton: false,
+              toast: true,
+              position: 'top-end',
+              timer: 1500,
+              timerProgressBar: true,
+              iconColor: 'white',
+              customClass: {
+                popup: 'colored-toast'
+              },
+            });
+            $('#tbl_users').DataTable().ajax.reload();
+            $('#tbl_users').DataTable().order([0, 'asc']).draw();
+            $('#btn_activate').addClass('d-none');
+            $('#btn_deactivate').removeClass('d-none');
+          }else{
+            Swal.fire({
+              title: 'Something went wrong!',
+              icon: 'error',
+              showConfirmButton: false,
+              toast: true,
+              position: 'top-end',
+              timer: 1500,
+              timerProgressBar: true,
+              iconColor: 'white',
+              customClass: {
+                popup: 'colored-toast'
+              },
+            });
+          }
+        }
+      });
+
+  });
+
+  $('#btn_deactivate').on('click', function(){
+    var id = $('#txt_user_id').val();
+
+    $.ajax({
+      url: "../../model/UserModel.php?action=deactivateUser",
+      type: "POST",
+      data: {id:id},
+      success: function(result){
+        if(result == "success"){
+          Swal.fire({
+            title: 'Account deactivated!',
+            icon: 'error',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: 'white',
+            customClass: {
+              popup: 'colored-toast'
+            },
+          });
+          $('#tbl_users').DataTable().ajax.reload();
+          $('#tbl_users').DataTable().order([0, 'asc']).draw();
+          $('#btn_activate').removeClass('d-none');
+          $('#btn_deactivate').addClass('d-none');
+        } else{
+          Swal.fire({
+            title: 'Something went wrong!',
+            icon: 'error',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: 'white',
+            customClass: {
+              popup: 'colored-toast'
+            },
+          });
+        }
+      }
+    });
+  });
   
-})
+  //Reset password
+  $tbl_users.on('click', '.btn_reset_password', function(){
+    var id = $(this).attr('data-id');
+ 
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to reset this user's password?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#007bff',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, reset it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "../../model/UserModel.php?action=resetPassword",
+          type: "POST",
+          data: {id:id},
+          success: function(result){
+            if(result == "success"){
+              Swal.fire({
+                title: 'Password successfully reset!',
+                icon: 'success',
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end',
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: 'white',
+                customClass: {
+                  popup: 'colored-toast'
+                },
+              });
+            }else{
+              Swal.fire({
+                title: 'Something went wrong!',
+                icon: 'error',
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end',
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: 'white',
+                customClass: {
+                  popup: 'colored-toast'
+                },
+              });
+            }
+          }
+        });
+      }
+    });
+  });
+
+});

@@ -18,6 +18,7 @@
       $output[] = [
         'id' => $count,
         'userid' => $row['user_id'],
+        'picture' => $row['picture'],
         'fullname' => $row['first_name']." ".$row['middle_name']." ".$row['last_name'],
         'phone' => $row['phone_no'],
         'email' => $row['email'],
@@ -30,12 +31,8 @@
                       <button class='btn btn-success btn-sm btn_edit_user' title='Edit details' data-id='{$row['id']}'>
                         <i class='fas fa-edit'></i>
                       </button>
-                      <button class='btn btn-primary btn-sm' title='Reset password'>
+                      <button class='btn btn-primary btn-sm btn_reset_password' title='Reset password' data-id='{$row['id']}'>
                         <i class='fas fa-sync'></i>
-                      </button>
-                      <button class='btn btn-danger btn-sm' title='Deactivate'>
-                        <i class='fas fa-user-times'></i>
-                      </button>
                     "
       ];
     }
@@ -51,11 +48,21 @@
     $email = $_POST['txt_email'];
     $address = $_POST['txt_address'];
     $username = $_POST['txt_username'];
-    $password = "IETI_".date('Y');
+    $password = password_hash("IETI_".date('Y'), PASSWORD_DEFAULT);
     $role = $_POST['slc_role'];
     $date_added = date('Y-m-d H:i:s');
+    $picture = $_FILES['file_picture']['name'];
+    $file_loc = "../assets/dist/img/users/".$picture;
 
-    $query = "INSERT INTO user_accounts (user_id, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, date_added) VALUES ('$userid', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, '$date_added')";
+    if($picture != '') {
+        move_uploaded_file($_FILES["file_picture"]["tmp_name"], $file_loc);
+
+        $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, date_added) VALUES ('$userid', '$picture', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, '$date_added')";
+      
+    } else {
+      $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, date_added) VALUES ('$userid', 'default.png', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, '$date_added')";
+    }
+   
 
     $result = mysqli_query($con, $query);
 
@@ -65,7 +72,7 @@
       echo 'error';
     }
   } else if($_GET['action'] == 'getUserDetails') {
-    $query = "SELECT id, first_name, middle_name, last_name, phone_no, email, address, username, is_admin FROM user_accounts WHERE id = {$_GET['id']}";
+    $query = "SELECT id, picture, first_name, middle_name, last_name, phone_no, email, address, username, is_admin, status FROM user_accounts WHERE id = {$_GET['id']}";
     $data = mysqli_query($con, $query);
     
     $row = mysqli_fetch_assoc($data);
@@ -74,8 +81,58 @@
 
   } else if($_GET['action'] == 'updateUserDetails') {
 
-    $query = "UPDATE user_accounts SET first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
+    $picture = $_FILES['file_edit_picture']['name'];
+    $file_loc = "../assets/dist/img/users/".$picture;
 
+    $userImg = "SELECT picture FROM user_accounts WHERE id = {$_POST['txt_user_id']}";
+    $data = mysqli_query($con, $userImg);
+    $row = mysqli_fetch_assoc($data);
+
+    if($_FILES['file_edit_picture']['name'] != '') {
+      if(move_uploaded_file($_FILES['file_edit_picture']['tmp_name'], $file_loc)){
+        if($row['picture'] != 'default.png') {
+          unlink("../assets/dist/img/users/".$row['picture']);
+
+          $query = "UPDATE user_accounts SET picture = '$picture', first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
+        } else {
+          $query = "UPDATE user_accounts SET picture = '$picture', first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
+        }
+      } else {
+        $query = "UPDATE user_accounts SET first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
+      }
+
+      
+      $result = mysqli_query($con, $query);
+
+      if($result) {
+        echo 'success';
+      } else {
+        echo 'error';
+      }
+    } else {
+      $query = "UPDATE user_accounts SET first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
+      
+      $result = mysqli_query($con, $query);
+
+      if($result) {
+        echo 'success';
+      } else {
+        echo 'error';
+      }
+    }
+
+
+  } else if($_GET['action'] == 'activateUser') {
+      $query = "UPDATE user_accounts SET status = 1 WHERE id = {$_POST['id']}";
+      $result = mysqli_query($con, $query);
+
+      if($result) {
+        echo 'success';
+      } else {
+        echo 'error';
+      }
+  } else if($_GET['action'] == 'deactivateUser') {
+    $query = "UPDATE user_accounts SET status = 0 WHERE id = {$_POST['id']}";
     $result = mysqli_query($con, $query);
 
     if($result) {
@@ -83,5 +140,16 @@
     } else {
       echo 'error';
     }
+  } else if($_GET['action'] == 'resetPassword') {
+    $password = password_hash("IETI_".date('Y'), PASSWORD_DEFAULT);
 
+    $query = "UPDATE user_accounts SET password = '$password' WHERE id = {$_POST['id']}";
+    // $2y$10$jmKrofwnN7983ZAb8eb8huVCoUr1tdZubSfUtpKGKORjF9c54tc0u
+    $result = mysqli_query($con, $query);
+
+    if($result) {
+      echo 'success';
+    } else {
+      echo 'error';
+    }
   }
