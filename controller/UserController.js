@@ -32,8 +32,12 @@ $(function(){
         orderable: false,
         className: "text-center",
         render: function (data, type, row) {
-          return '<img src="../../assets/dist/img/users/' + data + '" class="img-circle" width="50" />';
+          return '<img src="../../assets/dist/img/users/' + data + '" class="img-circle" width="50" height="50" />';
         }
+      },
+      {
+        targets: [9],
+        className: "text-center"
       },
       {
         targets: [11],
