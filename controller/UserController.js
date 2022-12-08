@@ -46,6 +46,7 @@ $(function(){
       },
     ],
     deferRender: true,
+    lengthChange: false,
     buttons: [
       {
         text: '<i class="fas fa-eye fa-sm"></i> Show entries',
@@ -105,7 +106,9 @@ $(function(){
     ],  
   });
   
-
+  // align dt-buttons to filter
+  $('#tbl_users_filter').addClass('float-right');
+  $('.btn-group').addClass('float-left');
 
   // Add user
 

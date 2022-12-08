@@ -14,5 +14,6 @@
   <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../../assets/dist/js/adminlte.min.js"></script>
   <script src="../../assets/dist/js/main.js"></script>
+  <script src="../../controller/LoginController.js"></script>
 </body>
 </html>

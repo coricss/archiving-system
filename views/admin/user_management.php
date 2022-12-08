@@ -4,6 +4,10 @@
     session_start();
   }
 
+  if ((!isset($_SESSION['user_id'])) || ($_SESSION['user_type'] != 'admin')) {
+    header('location: /digital_archiving_management_system');
+  }
+
   $_SESSION['user_management'] = 'active';
 
   unset($_SESSION['dashboard']);
@@ -65,7 +69,7 @@
       </div>
     </div>
   </section>
-
+  
   <!-- MODALS -->
 
   <!-- ADD USERS -->
@@ -110,13 +114,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="txt_phone">Phone</label>
-                  <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="Enter phone number" required>
+                  <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="09X-XXX-XXXX" pattern="(\+?\d{2}?\s?\d{3}\s?\d{3}\s?\d{4})|([0]\d{3}\s?\d{3}\s?\d{4})" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="txt_email">Email</label>
-                  <input type="text" class="form-control" id="txt_email" name="txt_email" placeholder="Enter email address" required>
+                  <input type="email" class="form-control" id="txt_email" name="txt_email" placeholder="Enter email address" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -137,7 +141,7 @@
                   <select class="form-control" id="slc_role" name="slc_role" required>
                     <option value="">Select Role</option>
                     <option value="1">Admin</option>
-                    <option value="2">User</option>
+                    <option value="0">User</option>
                   </select>
                 </div>
               </div>
@@ -195,13 +199,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="txt_edit_phone">Phone</label>
-                  <input type="text" class="form-control" id="txt_edit_phone" name="txt_edit_phone" placeholder="Enter phone number" required>
+                  <input type="text" class="form-control" id="txt_edit_phone" name="txt_edit_phone" placeholder="09X-XXX-XXXX" pattern="(\+?\d{2}?\s?\d{3}\s?\d{3}\s?\d{4})|([0]\d{3}\s?\d{3}\s?\d{4})" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="txt_edit_email">Email</label>
-                  <input type="text" class="form-control" id="txt_edit_email" name="txt_edit_email" placeholder="Enter email address" required>
+                  <input type="email" class="form-control" id="txt_edit_email" name="txt_edit_email" placeholder="Enter email address" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -222,7 +226,7 @@
                   <select class="form-control" id="slc_edit_role" name="slc_edit_role" required>
                     <option value="">Select Role</option>
                     <option value="1">Admin</option>
-                    <option value="2">User</option>
+                    <option value="0">User</option>
                   </select>
                 </div>
               </div>

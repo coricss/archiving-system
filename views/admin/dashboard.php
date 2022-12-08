@@ -4,6 +4,10 @@
     session_start();
   }
 
+  if ((!isset($_SESSION['user_id'])) || ($_SESSION['user_type'] != 'admin')) {
+    header('location: /digital_archiving_management_system');
+  }
+
   $_SESSION['dashboard'] = 'active';
 
   unset($_SESSION['user_management']);

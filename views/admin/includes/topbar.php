@@ -55,15 +55,15 @@
     </li>
     <li class="nav-item dropdown user-menu">
         <a href="javascipt:void(0);" class="nav-link dropdown-toggle" data-toggle="dropdown">
-            <img src="../../assets/dist/img/avatar.png" class="user-image img-circle elevation-1 border border-success" alt="User Image">
-            <span class="d-none d-md-inline">John Doe</span>
+            <img src="../../assets/dist/img/users/<?php echo $_SESSION['user_picture']?>" class="user-image img-circle elevation-1 border border-success" alt="User Image">
+            <span class="d-none d-md-inline"><?php echo $_SESSION['fullname']?></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- User image -->
             <li class="user-header bg-success">
-                <img src="../../assets/dist/img/avatar.png" class="img-circle elevation-1" alt="User Image">
-                <p>johndoe@13</p>
-                <strong>John Doe</strong>
+                <img src="../../assets/dist/img/users/<?php echo $_SESSION['user_picture']?>" class="img-circle elevation-1" alt="User Image">
+                <p><?php echo $_SESSION['user_name']?></p>
+                <strong><?php echo $_SESSION['fullname']?></strong>
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
@@ -72,7 +72,7 @@
                       Edit profile
                     </button>
                 <form id="signout-form" action="{{ route('logout') }}" method="POST">
-                    <button type="submit" class="btn btn-block btn-danger"><i class="nav-icon fas fa-sign-out-alt" aria-hidden="true"></i> Logout</button>
+                    <button type="submit" class="btn btn-block btn-danger logout"><i class="nav-icon fas fa-sign-out-alt" data-id=<?php echo $_SESSION['id']?> aria-hidden="true"></i> Logout</button>
                 </form>
             </li>
         </ul>

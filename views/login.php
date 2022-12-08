@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="assets/plugins/sweetalert2/sweetalert2.min.css">
     <!-- AdminLTE -->
     <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
     <!-- Main CSS -->
@@ -26,9 +28,9 @@
       </div>
       <div class="card-body">
         <p class="login-box-msg">Log in to start your session</p>
-        <form action="" method="post">
+        <form id="frm_login">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="User ID">
+            <input type="text" class="form-control" name="txt_userid" id="txt_userid" placeholder="User ID or Username" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -36,7 +38,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control" name="txt_userpassword" id="txt_userpassword" placeholder="Password" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -70,6 +72,9 @@
 
   <script src="assets/plugins/jquery/jquery.min.js"></script>
   <script src="assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="assets/plugins/sweetalert2/sweetalert2.min.js"></script>
   <script src="assets/dist/js/adminlte.min.js"></script>
+  <script src="assets/dist/js/main.js"></script>
+  <script src="controller/LoginController.js"></script>
 </body>
 </html>
