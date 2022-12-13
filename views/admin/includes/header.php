@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="../../assets/plugins/sweetalert2/sweetalert2.min.css">
   <!-- AdminLTE -->
   <link rel="stylesheet" href="../../assets/dist/css/adminlte.min.css">
+  <!-- Password Requirements -->
+  <link rel="stylesheet" href="../../assets/plugins/validate-password-requirements/css/jquery.passwordRequirements.css">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../../assets/dist/css/main.css">
 </head>

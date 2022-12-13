@@ -1,3 +1,4 @@
+
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
@@ -56,7 +57,7 @@
     <li class="nav-item dropdown user-menu">
         <a href="javascipt:void(0);" class="nav-link dropdown-toggle" data-toggle="dropdown">
             <img src="../../assets/dist/img/users/<?php echo $_SESSION['user_picture']?>" class="user-image img-circle elevation-1 border border-success" alt="User Image">
-            <span class="d-none d-md-inline"><?php echo $_SESSION['fullname']?></span>
+            <span class="d-none d-md-inline"><?php echo $_SESSION['user_name']?></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- User image -->

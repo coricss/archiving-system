@@ -35,6 +35,10 @@ body {
   color: white;
 }
 
+#pr-box {
+  z-index: 1060
+}
+
 /* .dt-buttons.btn-group {
   margin-top: 10px !important;
 } */

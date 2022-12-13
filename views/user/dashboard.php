@@ -1,6 +1,5 @@
 <?php 
-  if(!isset($_SESSION))
-  {
+  if(!isset($_SESSION)) {
     session_start();
   }
 
@@ -9,7 +8,6 @@
   }
 
   $_SESSION['dashboard'] = 'active';
-
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');

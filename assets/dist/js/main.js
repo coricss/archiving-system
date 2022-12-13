@@ -33,4 +33,5 @@ $(function() {
 
     reader.readAsDataURL(file);
   });
+  
 });

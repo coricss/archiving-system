@@ -22,7 +22,7 @@
           $_SESSION['user_role'] = $row['is_admin'];
           $_SESSION['user_picture'] = $row['picture'];
           $_SESSION['user_type'] = 'admin';
-  
+
           echo 'admin';
         } else {
           session_start();
@@ -33,8 +33,13 @@
           $_SESSION['user_role'] = $row['is_admin'];
           $_SESSION['user_picture'] = $row['picture'];
           $_SESSION['user_type'] = 'user';
+
           echo 'user';
         }
+
+        $sql = "UPDATE user_accounts SET login_attempts = 3 WHERE user_id = '$userid' OR username ='$userid'";
+        $result = mysqli_query($con, $sql);
+        
       } else {
         
         //login attempts
