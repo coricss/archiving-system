@@ -192,7 +192,7 @@ $(function(){
               popup: 'colored-toast'
             },
           });
-          
+
         }
       }
     });
@@ -262,7 +262,41 @@ $(function(){
               popup: 'colored-toast'
             },
           });
-        }else{
+          
+        }else if (result == "user_exists"){
+
+          Swal.fire({
+            title: 'User Exists',
+            icon: 'info',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: 'white',
+            customClass: {
+              popup: 'colored-toast'
+            },
+          });
+
+        } else if (result == "email_exists"){
+
+          Swal.fire({
+            title: 'Email or Username Exists',
+            icon: 'info',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: 'white',
+            customClass: {
+              popup: 'colored-toast'
+            },
+          });
+
+        } else{
+
           Swal.fire({
             title: 'Something went wrong!',
             icon: 'error',
@@ -276,6 +310,7 @@ $(function(){
               popup: 'colored-toast'
             },
           });
+
         }
       }
     });
