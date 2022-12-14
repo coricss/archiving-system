@@ -54,22 +54,38 @@
     $picture = $_FILES['file_picture']['name'];
     $file_loc = "../assets/dist/img/users/".$picture;
 
-    if($picture != '') {
+    $name_sql = "SELECT * FROM user_accounts WHERE first_name = '$fname' AND last_name = '$lname'";
+    $user_name = mysqli_query($con, $name_sql);
+
+    $email_sql = "SELECT * FROM user_accounts WHERE email = '$email' OR username = '$username'";
+    $email_username = mysqli_query($con, $email_sql);
+
+    if(mysqli_num_rows($user_name) > 0) {
+
+      echo 'user_exists';
+
+    } else if(mysqli_num_rows($email_username) > 0){
+
+      echo 'email_exists';
+      
+    } else {
+
+      if($picture != '') {
         move_uploaded_file($_FILES["file_picture"]["tmp_name"], $file_loc);
 
         $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, login_attempts, date_added) VALUES ('$userid', '$picture', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 3, '$date_added')";
-      
-    } else {
-      $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, login_attempts, date_added) VALUES ('$userid', 'default.png', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 3, '$date_added')";
-    }
-   
 
-    $result = mysqli_query($con, $query);
+      } else {
+        $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, login_attempts, date_added) VALUES ('$userid', 'default.png', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 3, '$date_added')";
+      }
 
-    if($result) {
-      echo 'success';
-    } else {
-      echo 'error';
+      $result = mysqli_query($con, $query);
+
+      if($result) {
+        echo 'success';
+      } else {
+        echo 'error';
+      }
     }
   } else if($_GET['action'] == 'getUserDetails') {
     $query = "SELECT id, picture, first_name, middle_name, last_name, phone_no, email, address, username, is_admin, status FROM user_accounts WHERE id = {$_GET['id']}";

@@ -123,6 +123,7 @@ $(function(){
       processData: false,
       cache: false,
       success: function(result){
+
         if(result == "success"){
 
           $('#frm_user_details').parents('div.modal').modal('hide');
@@ -143,13 +144,41 @@ $(function(){
               popup: 'colored-toast'
             },
           });
-        }else{
 
-          $('#frm_user_details').parents('div.modal').modal('hide');
-          $('#tbl_users').DataTable().ajax.reload();
-          $('#tbl_users').DataTable().order([0, 'asc']).draw();
-          $('#frm_user_details')[0].reset();
-          
+        } else if (result == "user_exists"){
+
+          Swal.fire({
+            title: 'User Exists',
+            icon: 'info',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: 'white',
+            customClass: {
+              popup: 'colored-toast'
+            },
+          });
+
+        } else if (result == "email_exists"){
+
+          Swal.fire({
+            title: 'Email or Username Exists',
+            icon: 'info',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: 'white',
+            customClass: {
+              popup: 'colored-toast'
+            },
+          });
+
+        } else{
+
           Swal.fire({
             title: 'Something went wrong!',
             icon: 'error',
@@ -163,6 +192,7 @@ $(function(){
               popup: 'colored-toast'
             },
           });
+          
         }
       }
     });
