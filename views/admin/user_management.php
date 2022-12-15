@@ -78,7 +78,7 @@
       <div class="modal-content">
         <div class="modal-header bg-success">
           <h4 class="modal-title">Add New User</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
             <span class="text-white" aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -114,7 +114,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="txt_phone">Phone</label>
-                  <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="09X-XXX-XXXX" pattern="(\+?\d{2}?\s?\d{3}\s?\d{3}\s?\d{4})|([0]\d{3}\s?\d{3}\s?\d{4})" required>
+                  <input type="text" class="form-control" id="txt_phone" name="txt_phone" placeholder="09X-XXX-XXXX" maxlength="11" pattern="(\+?\d{2}?\s?\d{3}\s?\d{3}\s?\d{4})|([0]\d{3}\s?\d{3}\s?\d{4})" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -148,8 +148,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" id="btn_save_user">Save</button>
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="btn_save_user">Save</button>
+            <button type="button" class="btn btn-outline-secondary btn-close" data-dismiss="modal">Close</button>
           </div>
         </form>
       </div>
@@ -162,7 +162,7 @@
       <div class="modal-content">
         <div class="modal-header bg-success">
           <h4 class="modal-title">Edit User Details</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
             <span class="text-white" aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -199,7 +199,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="txt_edit_phone">Phone</label>
-                  <input type="text" class="form-control" id="txt_edit_phone" name="txt_edit_phone" placeholder="09X-XXX-XXXX" pattern="(\+?\d{2}?\s?\d{3}\s?\d{3}\s?\d{4})|([0]\d{3}\s?\d{3}\s?\d{4})" required>
+                  <input type="text" class="form-control" id="txt_edit_phone" name="txt_edit_phone" placeholder="09X-XXX-XXXX" maxlength="11" pattern="(\+?\d{2}?\s?\d{3}\s?\d{3}\s?\d{4})|([0]\d{3}\s?\d{3}\s?\d{4})" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -252,8 +252,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" id="btn_save_user">Save</button>
-            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="btn_update_user">Save</button>
+            <button type="button" class="btn btn-outline-secondary btn-close" data-dismiss="modal">Close</button>
           </div>
         </form>
       </div>

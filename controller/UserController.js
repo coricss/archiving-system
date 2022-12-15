@@ -110,7 +110,59 @@ $(function(){
   $('#tbl_users_filter').addClass('float-right');
   $('.btn-group').addClass('float-left');
 
+  $('.btn-close').on('click', function(){
+    var form_add_user = $('#frm_user_details');
+    var form_update_user = $('#frm_edit_user_details');
+    close_reset_form(form_add_user);
+    close_reset_form(form_update_user);
+  });
+
+  function close_reset_form(form) {
+    form[0].reset();
+    form.find('input:text, select')
+          .removeClass('is-invalid')
+          .parent()
+          .css('margin-bottom', '15px')
+          .find('label.error').remove();
+    form.find('select').val(null).trigger('change');
+    form.parents('div.modal').modal('hide');
+  }
+
   // Add user
+
+  (function () {
+    'use strict'
+    var add_user_forms = document.querySelectorAll('#frm_user_details');
+    var edit_user_forms = document.querySelectorAll('#frm_edit_user_details');
+
+    Array.prototype.slice.call(add_user_forms)
+      .forEach(function (form) {
+          $('#btn_save_user').on('click', function(event){
+            if (!add_user_forms[0].checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+
+            } else{
+              $(this).prop("type", "submit");
+            }
+            form.classList.add('was-validated');
+          })
+      });
+
+    Array.prototype.slice.call(edit_user_forms)
+      .forEach(function (form) {
+          $('#btn_update_user').on('click', function(event){
+            if (!edit_user_forms[0].checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            } else{
+              $(this).prop("type", "submit");
+            }
+            form.classList.add('was-validated');
+          })
+      });
+  })()
+
 
   $('#frm_user_details').on('submit', function(e){
     e.preventDefault();
@@ -208,7 +260,7 @@ $(function(){
       data: {id:id},
       dataType: "json",
       success: function(result){
-        console.log(result.picture);
+
         $('#txt_user_id').val(result.id);
         $('#img_edit_user').prop('src', '../../assets/dist/img/users/'+result.picture);
         $('#txt_edit_fname').val(result.first_name);

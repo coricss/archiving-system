@@ -5,7 +5,10 @@ $(function (){
     $.ajax({
       url: 'model/LoginModel.php?action=userLogin',
       type: 'POST',
-      data: data,
+      data: new FormData(this),
+      contentType: false,
+      processData: false,
+      cache: false,
       success: function (result){
         if (result == 'admin'){
           Swal.fire({
@@ -54,7 +57,27 @@ $(function (){
             customClass: {
               popup: 'colored-toast'
             },
-          })
+          }).then(function() {
+            location.reload();
+          });
+        } else if(result == 'no user found') {
+          Swal.fire({
+            title: 'No user found',
+            text: 'Please contact the admin to register your account.',
+            icon: 'error',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            timer: 1500,
+            timerProgressBar: true,
+            width: 500,
+            iconColor: 'white',
+            customClass: {
+              popup: 'colored-toast'
+            }
+          }).then(function() {
+            location.reload();
+          });
         } else {
           Swal.fire({
             title: 'Invalid Username or Password',
