@@ -11,37 +11,9 @@ $(function (){
       cache: false,
       success: function (result){
         if (result == 'admin'){
-          Swal.fire({
-            title: 'Welcome Admin!',
-            icon: 'success',
-            showConfirmButton: false,
-            toast: true,
-            position: 'top-end',
-            timer: 1500,
-            timerProgressBar: true,
-            iconColor: 'white',
-            customClass: {
-              popup: 'colored-toast'
-            },
-          }).then(function() {
-            window.location.href = 'views/admin/dashboard.php';
-          });
+          window.location.href = 'views/admin/dashboard.php';
         } else if(result == 'user'){
-          Swal.fire({
-            title: 'Welcome User!',
-            icon: 'success',
-            showConfirmButton: false,
-            toast: true,
-            position: 'top-end',
-            timer: 1500,
-            timerProgressBar: true,
-            iconColor: 'white',
-            customClass: {
-              popup: 'colored-toast'
-            },
-          }).then(function() {
-            window.location.href = 'views/user/dashboard.php';
-          });
+          window.location.href = 'views/user/dashboard.php';
         } else if(result == 'locked') {
           Swal.fire({
             title: 'Your account is deactivated!',

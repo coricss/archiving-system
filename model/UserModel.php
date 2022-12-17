@@ -70,7 +70,7 @@
       
     } else {
 
-      if($picture != '') {
+      if($_FILES['file_picture']['name'] != '') {
         move_uploaded_file($_FILES["file_picture"]["tmp_name"], $file_loc);
 
         $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, login_attempts, date_added) VALUES ('$userid', '$picture', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 3, '$date_added')";
@@ -97,7 +97,7 @@
 
   } else if($_GET['action'] == 'updateUserDetails') {
 
-    $picture = $_FILES['file_edit_picture']['name'];
+    $picture = time().$_FILES['file_edit_picture']['name'];
     $file_loc = "../assets/dist/img/users/".$picture;
 
     $userImg = "SELECT picture FROM user_accounts WHERE id = {$_POST['txt_user_id']}";

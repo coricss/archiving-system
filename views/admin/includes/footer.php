@@ -63,7 +63,8 @@
   <script src="../../controller/UserController.js"></script>
   <script src="../../controller/LoginController.js"></script>
   <script src="../../controller/PasswordController.js"></script>
-
+  <script src="../../controller/ProfileController.js"></script>
+  
   <?php
     include_once('../../database/connection.php');
 

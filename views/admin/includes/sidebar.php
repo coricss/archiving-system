@@ -14,10 +14,12 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="../../assets/dist/img/users/<?php echo $_SESSION['user_picture']?>" class="img-circle elevation-1" alt="User Image">
+        <img src="../../assets/dist/img/users/default.png" class="img-circle elevation-1 display-picture" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block"><?php echo $_SESSION['fullname']?></a>
+        <a href="../admin/profile.php" class="d-block">
+          <span class="profile-name <?php echo isset($_SESSION['profile']) ? 'text-success font-weight-bold' : ''?>"></span>
+        </a>
       </div>
     </div>
 

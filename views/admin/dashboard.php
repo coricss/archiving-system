@@ -10,6 +10,7 @@
   $_SESSION['dashboard'] = 'active';
 
   unset($_SESSION['user_management']);
+  unset($_SESSION['profile']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');

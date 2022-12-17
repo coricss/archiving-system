@@ -1,5 +1,5 @@
-body {
-  background: linear-gradient(45deg, #00ff6a67, #00441c93) !important;
+body.login-page{
+  background-image: linear-gradient(#4777558a, #1d7032d8, #06551a);
   color: #000;
 }
 

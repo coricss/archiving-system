@@ -11,6 +11,7 @@
   $_SESSION['user_management'] = 'active';
 
   unset($_SESSION['dashboard']);
+  unset($_SESSION['profile']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
@@ -40,7 +41,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card card-success card-outline">
             <div class="card-body" style="display: block;">
               <table class="table table-bordered table-hover table-sm w-100" id="tbl_users">
                 <thead class="bg-success">

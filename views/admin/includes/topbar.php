@@ -56,22 +56,22 @@
     </li>
     <li class="nav-item dropdown user-menu">
         <a href="javascipt:void(0);" class="nav-link dropdown-toggle" data-toggle="dropdown">
-            <img src="../../assets/dist/img/users/<?php echo $_SESSION['user_picture']?>" class="user-image img-circle elevation-1 border border-success" alt="User Image">
-            <span class="d-none d-md-inline"><?php echo $_SESSION['user_name']?></span>
+            <img src="../../assets/dist/img/users/default.png" class="user-image img-circle display-picture elevation-1 border border-success" alt="User Image">
+            <span class="d-none d-md-inline profile-username" style="font-size: 20px"></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- User image -->
             <li class="user-header bg-success">
-                <img src="../../assets/dist/img/users/<?php echo $_SESSION['user_picture']?>" class="img-circle elevation-1" alt="User Image">
-                <p><?php echo $_SESSION['user_name']?></p>
-                <strong><?php echo $_SESSION['fullname']?></strong>
+                <img src="../../assets/dist/img/users/default.png" class="img-circle elevation-1 display-picture" alt="User Image">
+                <p class="profile-username"></p>
+                <strong class="profile-name"></strong>
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
-                    <button type="button" class="btn btn-block btn-primary mb-2">
-                      <i class="nav-icon fas fa-user-edit" aria-hidden="true"></i> 
-                      Edit profile
-                    </button>
+                  <a href="profile.php" class="btn btn-block btn-primary mb-2">
+                    <i class="nav-icon fas fa-user-edit" aria-hidden="true"></i> 
+                    Edit profile
+                  </a>
                 <form id="signout-form" action="{{ route('logout') }}" method="POST">
                     <button type="submit" class="btn btn-block btn-danger logout"><i class="nav-icon fas fa-sign-out-alt" data-id=<?php echo $_SESSION['id']?> aria-hidden="true"></i> Logout</button>
                 </form>
