@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2022 at 12:54 PM
+-- Generation Time: Dec 18, 2022 at 12:34 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -41,8 +41,17 @@ CREATE TABLE `user_accounts` (
   `password` varchar(255) NOT NULL,
   `is_admin` int(11) NOT NULL,
   `status` int(11) NOT NULL,
+  `login_attempts` int(11) NOT NULL,
   `date_added` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_accounts`
+--
+
+INSERT INTO `user_accounts` (`id`, `user_id`, `picture`, `first_name`, `middle_name`, `last_name`, `phone_no`, `email`, `address`, `username`, `password`, `is_admin`, `status`, `login_attempts`, `date_added`) VALUES
+(1, '130352', '16713605911647245956_rics.jpg', 'DAMS', '', 'Admin', '09323232323', 'admin@gmail.com', 'jan lang', 'admin', '$2y$10$NubscrrQCTVskCrh6a2/LOrUuGFV.CFUN5B5wSER5hHrH.qhvbvwW', 1, 1, 3, '2022-12-14 14:58:45'),
+(2, '766563', '1671360442coco.png', 'User', '', 'User', '09891212121', 'user@gmail.com', 'user', 'user', '$2y$10$Ke9EDs0MZMR7N8aVOauhyepl/s/aP/gToaacYL2/ENzn8wEslirfy', 0, 1, 2, '2022-12-17 09:41:03');
 
 --
 -- Indexes for dumped tables
@@ -62,7 +71,7 @@ ALTER TABLE `user_accounts`
 -- AUTO_INCREMENT for table `user_accounts`
 --
 ALTER TABLE `user_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
