@@ -102,9 +102,9 @@
 				};
 				
 				// Show password hint 
-				// $(this).on("blur",function (){
-				// 	deleteMessage();
-				// });
+				$(this).on("blur",function (){
+					deleteMessage();
+				});
 				
 				
 				// Show or Hide password hint based on user's event
