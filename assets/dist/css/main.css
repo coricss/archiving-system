@@ -39,6 +39,9 @@ body.login-page{
   z-index: 1060
 }
 
+.display-picture {
+  cursor: pointer;
+}
 /* .dt-buttons.btn-group {
   margin-top: 10px !important;
 } */

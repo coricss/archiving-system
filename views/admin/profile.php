@@ -7,6 +7,10 @@
     session_start();
   }
 
+  if ((!isset($_SESSION['user_id'])) || ($_SESSION['user_type'] != 'admin')) {
+    header('location: /digital_archiving_management_system');
+  }
+
   $_SESSION['profile'] = 'active';
 
   unset($_SESSION['dashboard']);
@@ -36,6 +40,10 @@
             <div class="card-body box-profile">
               <div class="text-center">
                 <img class="profile-user-img img-fluid img-circle display-picture" id="profile-user-img" style="width: 200px" src="../../assets/dist/img/users/default.png" alt="User profile picture">
+                <form id="upload-picture-form" enctype="multipart/form-data">
+                  <input type="file" id="profile-picture" name="profile-picture" style="display: none;">
+                  <input type="submit" id="upload-picture" style="display: none;">
+                </form>
               </div>
               <p class="text-muted text-center m-0 mt-2 profile-username" id="profile-username">
               </p>
@@ -133,12 +141,35 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="mt-4 text-center">
-                       <button type="submit" class="btn btn-primary ">Update details</button>
-                       <button type="reset" class="btn btn-outline-secondary mr-2">Reset</button>
+                       <button type="button" class="btn btn-primary btn-update-details">Update details</button>
                       </div>
                     </div>
                   </div>
                 </form>
+              </div>
+            </div>
+          </div>
+          <!-- modal enter current password -->
+          <div class="modal fade" id="modal_enter_current_password" tabindex="-1" role="dialog" aria-labelledby="modal_enter_current_password" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-success">
+                  <h5 class="modal-title" id="modal_enter_current_password">User Validation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span class="text-white" aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="frm_current_password">
+                    <div class="form-group">
+                      <label for="current_password">Current Password</label>
+                      <input type="password" class="form-control" id="current_password" name="current_password" placeholder="Enter current password" required>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <button type="button" class="btn btn-primary btn-current-password btn-block">Enter</button>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
@@ -148,32 +179,31 @@
                 <h3 class="card-title">Change Password</h3>
               </div>
               <div class="card-body">
-                <form id="frm_edit_profile">
+                <form id="frm_change_password">
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="edit_profile_name">Current Password</label>
-                        <input type="password" class="form-control" id="edit_profile_name" name="edit_profile_name" placeholder="Enter name">
+                        <input type="password" class="form-control" id="update_current_password" name="update_current_password" placeholder="Enter current password" required>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="edit_profile_name">New Password</label>
-                        <input type="password" class="form-control" id="edit_profile_name" name="edit_profile_name" placeholder="Enter name">
+                        <input type="password" class="form-control" id="update_new_password" name="update_new_password" placeholder="Enter new password" required>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="edit_profile_name">Confirm Password</label>
-                        <input type="password" class="form-control" id="edit_profile_name" name="edit_profile_name" placeholder="Enter name">
+                        <input type="password" class="form-control" id="update_confirm_password" name="update_confirm_password" placeholder="Re-enter new password" required>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="mt-4 text-center">
-                       <button type="submit" class="btn btn-primary ">Change password</button>
-                       <button type="reset" class="btn btn-outline-secondary mr-2">Clear</button>
+                       <button type="button" class="btn btn-primary btn-change-password">Change password</button>
                       </div>
                     </div>
                   </div>

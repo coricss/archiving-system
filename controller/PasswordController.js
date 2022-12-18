@@ -26,7 +26,7 @@ $(function() {
               event.preventDefault();
               event.stopPropagation();
               newPass();
-              confirmPass()
+              confirmPass();
             } else if (confirmPass()){
 
             } else if (newPass()){
