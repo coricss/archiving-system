@@ -179,24 +179,29 @@
                 <h3 class="card-title">Change Password</h3>
               </div>
               <div class="card-body">
-                <form id="frm_change_password">
+                <form id="frm_change_password" class="frm_change_password">
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="edit_profile_name">Current Password</label>
-                        <input type="password" class="form-control" id="update_current_password" name="update_current_password" placeholder="Enter current password" required>
+                        <input type="password" class="form-control update_current_password" id="update_current_password" name="update_current_password" placeholder="Enter current password" required>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="edit_profile_name">New Password</label>
-                        <input type="password" class="form-control" id="update_new_password" name="update_new_password" placeholder="Enter new password" required>
+                        <input type="password" class="form-control update_new_password" id="update_new_password" name="update_new_password" placeholder="Enter new password" required>
+                        <small id="passres2" class="mt-1 passres2"></small>
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label for="edit_profile_name">Confirm Password</label>
-                        <input type="password" class="form-control" id="update_confirm_password" name="update_confirm_password" placeholder="Re-enter new password" required>
+                        <input type="password" class="form-control update_confirm_password" id="update_confirm_password" name="update_confirm_password" placeholder="Re-enter new password" required>
+                        <div class="custom-control custom-checkbox float-right">
+                          <input type="checkbox" class="custom-control-input show_change_password" id="show_change_password">
+                          <label class="custom-control-label text-muted" for="show_change_password">Show password</label>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -108,7 +108,7 @@ $(function(){
     'use strict'
     var edit_profile = document.querySelectorAll('#frm_edit_profile');
     var current_password = document.querySelectorAll('#frm_current_password');
-    var change_password = document.querySelectorAll('#frm_change_password');
+
 
     Array.prototype.slice.call(edit_profile)
       .forEach(function (form) {
@@ -136,19 +136,6 @@ $(function(){
             form.classList.add('was-validated');
           })
       })
-
-    Array.prototype.slice.call(change_password)
-      .forEach(function (form) {
-          $('.btn-change-password').on('click', function(event){
-            if (!change_password[0].checkValidity()) {
-              event.preventDefault();
-              event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-          })
-      })
-
-      $('#update_new_password').passwordRequirements();
 
       function checkUserIfExists() {
 

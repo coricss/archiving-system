@@ -35,8 +35,40 @@ body.login-page{
   color: white;
 }
 
-#pr-box {
-  z-index: 1060
+.popover div:first-child {
+  display: none !important;
+
+}
+
+.popover-header {
+  background-color: #28a745 !important;
+  color: #ffffff;
+  border-radius: 0%;
+  width: 300px;
+}
+
+.req-item{
+  font-size: smaller;
+}
+
+.req-item::marker {
+  content: '✗ ';
+  color: #dc3545;
+}
+
+.req-passed::marker {
+  content: '✓ ';
+  color: #28a745;
+}
+div.arrow {
+  border-top-color: #28a745 !important;
+}
+
+.popover-body {
+  background-color: #343a40 !important;
+  color: #ffffff;
+  height: auto;
+  width: 300px;
 }
 
 .display-picture {
