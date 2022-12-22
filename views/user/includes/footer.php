@@ -59,7 +59,8 @@
   <script src="../../assets/dist/js/main.js"></script>
   <script src="../../assets/plugins/validate-password-requirements/js/jquery.passwordRequirements.js"></script>
   <script src="../../controller/LoginController.js"></script>
-  <script src="../../controller/PasswordController.js"></script>
+  <script src="../../controller/PasswordController.js"></script>\
+  <script src="../../controller/ProfileController.js"></script>
 
   <?php
     include_once('../../database/connection.php');
