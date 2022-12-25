@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <footer class="main-footer fixed-bottom">
+  <footer class="main-footer">
       <strong class="footer-font ml-3 text-success">IETI &copy; <?php echo date('Y') ?> </strong>
       <div class="float-right d-none d-sm-inline-block">
         <strong class="footer-font mr-3">

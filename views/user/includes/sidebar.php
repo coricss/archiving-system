@@ -78,4 +78,5 @@
   </div>
   <!-- /.sidebar -->
 </aside>
-<div id="sidebar-overlay"></div>
+
+<div id="sidebar-overlay" class="sidebar-overlay"></div>

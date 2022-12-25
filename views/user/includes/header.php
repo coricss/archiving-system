@@ -20,7 +20,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="../../assets/dist/css/main.css">
 </head>
-<body class="sidebar-mini layout-fixed">
+<body class="sidebar-mini layout-fixed layout-footer-fixed">
   
 
   

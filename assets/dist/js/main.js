@@ -1,4 +1,9 @@
 $(function() {
+  $('body').Layout('fixLayoutHeight');
+  
+  $('.sidebar-overlay').on('click', function() {
+    $('body').removeClass('sidebar-open');
+  });
 
   setInterval(() => {
     $('.date').html(new Date().toDateString());

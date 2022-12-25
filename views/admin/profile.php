@@ -52,32 +52,53 @@
               <br>
               <div class="px-4">
                 <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <i class="fas fa-user"></i>
-                    <b>User ID: </b> <a class="float-right profile-userid fa-sm" id="profile-userid">
+                  <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <i class="fas fa-user fa-sm mr-1"></i>
+                      <b>User ID: </b> 
+                    </div>
+                    <a class="profile-userid" id="profile-userid">
                     </a>
                   </li>
-                  <li class="list-group-item">
-                    <i class="fas fa-envelope"></i>
-                    <b>Email: </b> <a class="float-right profile-email fa-sm" id="profile-email">
+                  <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <i class="fas fa-envelope fa-sm mr-1"></i>
+                      <b>Email: </b> 
+                    </div>
+                    <a class="profile-email" id="profile-email">
                     </a>
                   </li>
-                  <li class="list-group-item">
-                    <i class="fas fa-phone"></i>
-                    <b>Phone: </b> <a class="float-right profile-phone fa-sm" id="profile-phone">
+                  <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <i class="fas fa-phone fa-sm mr-1"></i>
+                      <b>Phone: </b>
+                    </div> 
+                    <a class="profile-phone" id="profile-phone">
                     </a>
                   </li>
-                  <li class="list-group-item">
-                    <i class="fas fa-map-marker-alt fa-sm"></i>
-                    <b>Address: </b> <a class="float-right profile-address" id="profile-address">
+                  <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <i class="fas fa-map-marker-alt fa-sm mr-1"></i>
+                      <b>Address: </b>
+                    </div>
+                    <a class="profile-address" id="profile-address">
                     </a>
                   </li>
-                  <li class="list-group-item">
-                    <i class="fas fa-calendar-alt fa-sm"></i>
-                    <b>Date added: </b> <a class="float-right profile-date-added" id="profile-date-added">
+                  <li class="list-group-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
+                      <i class="fas fa-calendar-alt fa-sm mr-1fa-sm mr-1"></i>
+                      <b>Joined: </b>
+                    </div> 
+                    <a class="profile-date-added" id="profile-date-added">
                     </a>
                   </li>
                 </ul>
+                <div class="py-4 mb-1">
+                  <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modal-delete-profile">
+                    <i class="fas fa-trash"></i>
+                    Delete Profile
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -140,7 +161,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <div class="mt-4 text-center">
+                      <div class="form-group mt-4 text-center">
                        <button type="button" class="btn btn-primary btn-update-details">Update details</button>
                       </div>
                     </div>
@@ -207,7 +228,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <div class="mt-4 text-center">
+                      <div class="form-group mt-4 text-center">
                        <button type="button" class="btn btn-primary btn-change-password">Change password</button>
                       </div>
                     </div>

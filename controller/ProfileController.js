@@ -29,7 +29,7 @@ $(function(){
           $('.profile-phone').html(data.phone);
           $('.profile-address').html(data.address);
           $('.profile-date-added').html(
-            new Date(data.date_added).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'})
+            new Date(data.date_added).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
           );
 
           //EDIT FORM
