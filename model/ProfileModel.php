@@ -116,4 +116,26 @@
       }
     }
 
+  } else if ($_GET['action'] == 'deactivateProfile') {
+    
+    $userid = $_SESSION['user_id'];
+
+    $query = "UPDATE user_accounts SET status = '0' WHERE user_id = '$userid'";
+
+    if(mysqli_query($con, $query)){
+      echo 'success';
+    } else {
+      echo 'error';
+    }
+  } else if ($_GET['action'] == 'activateProfile') {
+    
+    $userid = $_SESSION['user_id'];
+
+    $query = "UPDATE user_accounts SET status = '1' WHERE user_id = '$userid'";
+
+    if(mysqli_query($con, $query)){
+      echo 'success';
+    } else {
+      echo 'error';
+    }
   }

@@ -94,9 +94,13 @@
                   </li>
                 </ul>
                 <div class="py-4 mb-1">
-                  <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modal-delete-profile">
-                    <i class="fas fa-trash"></i>
-                    Delete Profile
+                  <button type="button" class="btn btn-success btn-block" id="btn_activate_profile" style="display: none">
+                    <i class="fas fa-user-check fa-sm mr-1"></i>
+                    Activate this account
+                  </button>
+                  <button type="button" class="btn btn-danger btn-block" id="btn_deactivate_profile" style="display: none">
+                    <i class="fas fa-user-times fa-sm mr-1"></i>
+                    Deactivate this account
                   </button>
                 </div>
               </div>

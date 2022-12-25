@@ -8,7 +8,112 @@ $(function(){
   });
   
   loadProfile();
+  $('#btn_deactivate_profile').click(function(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to deactivate this account?",
+      icon: 'warning',
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Deactivate'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: '../../model/ProfileModel.php?action=deactivateProfile',
+          type: 'POST',
+          success: function(result){
+            if (result == 'success'){
+              Swal.fire({
+                title: 'Deactivated!',
+                icon: 'success',
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end',
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: 'white',
+                customClass: {
+                  popup: 'colored-toast'
+                }
+              }).then(() => {
+                loadProfile();
+              });
+            } else {
+              Swal.fire({
+                title: 'Somtehing went wrong!',
+                icon: 'error',
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end',
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: 'white',
+                customClass: {
+                  popup: 'colored-toast'
+                }
+              })
+            }
+          }
+        });
+      }
+    });
+  });
 
+  $('#btn_activate_profile').click(function(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You want to activate this account?",
+      icon: 'warning',
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonColor: '#28a745',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Activate'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: '../../model/ProfileModel.php?action=activateProfile',
+          type: 'POST',
+          success: function(result){
+            if (result == 'success'){
+              Swal.fire({
+                title: 'Activated!',
+                icon: 'success',
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end',
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: 'white',
+                customClass: {
+                  popup: 'colored-toast'
+                }
+              }).then(() => {
+                loadProfile();
+              });
+            } else {
+              Swal.fire({
+                title: 'Somtehing went wrong!',
+                icon: 'error',
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end',
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: 'white',
+                customClass: {
+                  popup: 'colored-toast'
+                }
+              })
+            }
+          }
+        });
+      }
+    });
+  });
+  
   function loadProfile(){
     $.ajax({
       url: '../../model/ProfileModel.php?action=loadProfile',
@@ -17,7 +122,6 @@ $(function(){
       cache: false,
       beforeSend: function(){
         $('.profile-name, .profile-username, .profile-userid, .profile-email, .profile-phone, .profile-address, .profile-date-added').html('<div class="spinner-border spinner-border-sm text-success" role="status"></div>');
-
       },
       success: function(data){
         setTimeout(function(){
@@ -31,6 +135,8 @@ $(function(){
           $('.profile-date-added').html(
             new Date(data.date_added).toLocaleDateString('en-US', {year: 'numeric', month: 'short', day: 'numeric'})
           );
+          $('#btn_activate_profile').css('display', data.status == 1 ? 'none' : 'block');
+          $('#btn_deactivate_profile').css('display', data.status == 0 ? 'none' : 'block');
 
           //EDIT FORM
           $('#edit_first_name').val(data.first_name);

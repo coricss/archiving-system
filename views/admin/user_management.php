@@ -233,8 +233,14 @@
               </div>
               <div class="col-md-12">
                 <div class="form-group mt-3">
-                  <button type="button" class="btn btn-success btn-block d-none" id="btn_activate">Activate this account</button>
-                  <button type="button" class="btn btn-danger btn-block d-none" id="btn_deactivate">Deactivate this account</button>
+                  <button type="button" class="btn btn-success btn-block d-none" id="btn_activate">
+                    <i class="fas fa-user-check fa-sm mr-1"></i>
+                    Activate this account
+                  </button>
+                  <button type="button" class="btn btn-danger btn-block d-none" id="btn_deactivate">
+                    <i class="fas fa-user-times fa-sm mr-1"></i>
+                    Deactivate this account
+                  </button>
                   <input type="hidden" id="txt_edit_status" name="txt_edit_status">
                 </div>
               </div>
