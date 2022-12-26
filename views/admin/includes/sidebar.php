@@ -40,6 +40,12 @@
             <p>User Management</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="../admin/file_management.php" class="nav-link <?php echo isset($_SESSION['file_management']) ? 'active' : '' ?>">
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>File Management</p>
+          </a>
+        </li>
         <!-- <li class="nav-item">
           <a href="#" class="nav-link active">
             <i class="nav-icon fas fa-tachometer-alt"></i>

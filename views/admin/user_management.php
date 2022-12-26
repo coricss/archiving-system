@@ -12,6 +12,7 @@
 
   unset($_SESSION['dashboard']);
   unset($_SESSION['profile']);
+  unset($_SESSION['file_management']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
