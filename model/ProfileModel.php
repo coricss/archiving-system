@@ -29,12 +29,12 @@
     echo json_encode($data);
   } else if($_GET['action'] == 'checkUserIfExists'){
 
-    $edit_firstname = $_POST['edit_first_name'];
-    $edit_lastname = $_POST['edit_last_name'];
+    $edit_firstname = mysqli_real_escape_string($con, $_POST['edit_first_name']);
+    $edit_lastname = mysqli_real_escape_string($con, $_POST['edit_last_name']);
 
-    $edit_username = $_POST['edit_username'];
+    $edit_username = mysqli_real_escape_string($con, $_POST['edit_username']);
 
-    $edit_email = $_POST['edit_email'];
+    $edit_email = mysqli_real_escape_string($con, $_POST['edit_email']);
     
     $name_sql = "SELECT first_name, last_name  FROM user_accounts WHERE first_name = '$edit_firstname' AND last_name = '$edit_lastname' AND user_id != '$_SESSION[user_id]'";
     $user_name = mysqli_query($con, $name_sql);
@@ -58,7 +58,7 @@
 
     $userid = $_SESSION['user_id'];
 
-    $current_password = $_POST['current_password'];
+    $current_password = mysqli_real_escape_string($con, $_POST['current_password']);
     // $current_password = 'Admin_22';
 
     $query = "SELECT * FROM user_accounts WHERE user_id = '$userid'";
@@ -74,13 +74,13 @@
 
     $userid = $_SESSION['user_id'];
 
-    $edit_firstname = $_POST['edit_first_name'];
-    $edit_lastname = $_POST['edit_last_name'];
-    $edit_middlename = $_POST['edit_middle_name'];
-    $edit_username = $_POST['edit_username'];
-    $edit_email = $_POST['edit_email'];
-    $edit_phone = $_POST['edit_phone'];
-    $edit_address = $_POST['edit_address'];
+    $edit_firstname = mysqli_real_escape_string($con, $_POST['edit_first_name']);
+    $edit_lastname = mysqli_real_escape_string($con, $_POST['edit_last_name']);
+    $edit_middlename = mysqli_real_escape_string($con, $_POST['edit_middle_name']);
+    $edit_username = mysqli_real_escape_string($con, $_POST['edit_username']);
+    $edit_email = mysqli_real_escape_string($con, $_POST['edit_email']);
+    $edit_phone = mysqli_real_escape_string($con, $_POST['edit_phone']);
+    $edit_address = mysqli_real_escape_string($con, $_POST['edit_address']);
 
     $query = "UPDATE user_accounts SET first_name = '$edit_firstname', last_name = '$edit_lastname', middle_name = '$edit_middlename', username = '$edit_username', email = '$edit_email', phone_no = '$edit_phone', address = '$edit_address' WHERE user_id = '$userid'";
 

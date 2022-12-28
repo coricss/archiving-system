@@ -41,17 +41,17 @@
 
   } else if($_GET['action'] == 'addUserDetails') {
     $userid = random_int(100000, 999999);
-    $fname = $_POST['txt_fname'];
-    $mname = $_POST['txt_mname'];
-    $lname = $_POST['txt_lname'];
-    $phone = $_POST['txt_phone'];
-    $email = $_POST['txt_email'];
-    $address = $_POST['txt_address'];
-    $username = $_POST['txt_username'];
+    $fname = mysqli_real_escape_string($con, $_POST['txt_fname']);
+    $mname = mysqli_real_escape_string($con, $_POST['txt_mname']);
+    $lname = mysqli_real_escape_string($con, $_POST['txt_lname']);
+    $phone = mysqli_real_escape_string($con, $_POST['txt_phone']);
+    $email = mysqli_real_escape_string($con, $_POST['txt_email']);
+    $address = mysqli_real_escape_string($con, $_POST['txt_address']);
+    $username = mysqli_real_escape_string($con, $_POST['txt_username']);
     $password = password_hash("IETI_".date('Y'), PASSWORD_DEFAULT);
-    $role = $_POST['slc_role'];
+    $role = mysqli_real_escape_string($con, $_POST['slc_role']);
     $date_added = date('Y-m-d H:i:s');
-    $picture = time().$_FILES['file_picture']['name'];
+    $picture = time().mysqli_real_escape_string($con, $_FILES['file_picture']['name']);
     $file_loc = "../assets/dist/img/users/".$picture;
 
     $name_sql = "SELECT * FROM user_accounts WHERE first_name = '$fname' AND last_name = '$lname'";
@@ -97,17 +97,29 @@
 
   } else if($_GET['action'] == 'updateUserDetails') {
 
-    $picture = time().$_FILES['file_edit_picture']['name'];
+    $picture = time().mysqli_real_escape_string($con, $_FILES['file_edit_picture']['name']);
     $file_loc = "../assets/dist/img/users/".$picture;
 
-    $userImg = "SELECT picture FROM user_accounts WHERE id = {$_POST['txt_user_id']}";
+    $user_id = mysqli_real_escape_string($con, $_POST['txt_user_id']);
+    $txt_edit_fname = mysqli_real_escape_string($con, $_POST['txt_edit_fname']);
+    $txt_edit_lname = mysqli_real_escape_string($con, $_POST['txt_edit_lname']);
+    $txt_edit_mname = mysqli_real_escape_string($con, $_POST['txt_edit_mname']);
+
+    $txt_edit_email = mysqli_real_escape_string($con, $_POST['txt_edit_email']);
+    $txt_edit_username = mysqli_real_escape_string($con, $_POST['txt_edit_username']);
+
+    $txt_edit_phone = mysqli_real_escape_string($con, $_POST['txt_edit_phone']);
+    $txt_edit_address = mysqli_real_escape_string($con, $_POST['txt_edit_address']);
+    $slc_edit_role = mysqli_real_escape_string($con, $_POST['slc_edit_role']);
+
+    $userImg = "SELECT picture FROM user_accounts WHERE id = $user_id";
     $data = mysqli_query($con, $userImg);
     $row = mysqli_fetch_assoc($data);
 
-    $user_name = "SELECT * FROM user_accounts WHERE first_name = '{$_POST['txt_edit_fname']}' AND last_name = '{$_POST['txt_edit_lname']}' AND id != {$_POST['txt_user_id']}";
+    $user_name = "SELECT * FROM user_accounts WHERE first_name = '$txt_edit_fname' AND last_name = '$txt_edit_lname' AND id != $user_id";
     $username_result = mysqli_query($con, $user_name);
 
-    $email_username = "SELECT * FROM user_accounts WHERE (email = '{$_POST['txt_edit_email']}' OR username = '{$_POST['txt_edit_username']}') AND id != {$_POST['txt_user_id']}";
+    $email_username = "SELECT * FROM user_accounts WHERE (email = '$txt_edit_email' OR username = '$txt_edit_username') AND id != $user_id";
     $email_username_result = mysqli_query($con, $email_username);
 
     if(mysqli_num_rows($username_result) > 0){
@@ -120,16 +132,14 @@
         if(move_uploaded_file($_FILES['file_edit_picture']['tmp_name'], $file_loc)){
           if($row['picture'] != 'default.png') {
             unlink("../assets/dist/img/users/".$row['picture']);
-
-            $query = "UPDATE user_accounts SET picture = '$picture', first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
-          } else {
-            $query = "UPDATE user_accounts SET picture = '$picture', first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
-          }
+          } 
+          $query = "UPDATE user_accounts SET picture = '$picture', first_name = '$txt_edit_fname', middle_name = '$txt_edit_mname', last_name = '$txt_edit_lname', phone_no = '$txt_edit_phone', email = '$txt_edit_email', address = '$txt_edit_address', username = '$txt_edit_username', is_admin = '$slc_edit_role' WHERE id = $user_id";
+          
         } else {
-          $query = "UPDATE user_accounts SET first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
+          $query = "UPDATE user_accounts SET first_name = '$txt_edit_fname', middle_name = '$txt_edit_mname', last_name = '$txt_edit_lname', phone_no = '$txt_edit_phone', email = '$txt_edit_email', address = '$txt_edit_address', username = '$txt_edit_username', is_admin = '$slc_edit_role' WHERE id = $user_id";
         }
       } else {
-        $query = "UPDATE user_accounts SET first_name = '{$_POST['txt_edit_fname']}', middle_name = '{$_POST['txt_edit_mname']}', last_name = '{$_POST['txt_edit_lname']}', phone_no = '{$_POST['txt_edit_phone']}', email = '{$_POST['txt_edit_email']}', address = '{$_POST['txt_edit_address']}', username = '{$_POST['txt_edit_username']}', is_admin = '{$_POST['slc_edit_role']}' WHERE id = {$_POST['txt_user_id']}";
+        $query = "UPDATE user_accounts SET first_name = '$txt_edit_fname', middle_name = '$txt_edit_mname', last_name = '$txt_edit_lname', phone_no = '$txt_edit_phone', email = '$txt_edit_email', address = '$txt_edit_address', username = '$txt_edit_username', is_admin = '$slc_edit_role' WHERE id = $user_id";
       }
 
       $result = mysqli_query($con, $query);

@@ -14,7 +14,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="../../assets/dist/img/users/default.png" class="img-circle elevation-1 display-picture" alt="User Image">
+        <img src="../../assets/dist/img/users/default.png" class="img-circle elevation-1 display-picture" alt="User Image" style="width: 35px; height: 35px">
       </div>
       <div class="info">
         <a href="../admin/profile.php" class="d-block">
@@ -41,9 +41,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="../admin/file_management.php" class="nav-link <?php echo isset($_SESSION['file_management']) ? 'active' : '' ?>">
+          <a href="../admin/file_archive.php" class="nav-link <?php echo isset($_SESSION['file_archive']) ? 'active' : '' ?>">
             <i class="nav-icon fas fa-file-alt"></i>
-            <p>File Management</p>
+            <p>File Archives</p>
           </a>
         </li>
         <!-- <li class="nav-item">

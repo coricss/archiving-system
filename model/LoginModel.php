@@ -2,8 +2,8 @@
   include_once('../database/connection.php');
 
   if($_GET['action'] == 'userLogin'){
-    $userid = $_POST['txt_userid'];
-    $password = $_POST['txt_userpassword'];
+    $userid = mysqli_real_escape_string($con, $_POST['txt_userid']);
+    $password = mysqli_real_escape_string($con, $_POST['txt_userpassword']);
 
     $query = "SELECT * FROM user_accounts WHERE user_id = '$userid' OR username ='$userid'";
     $result = mysqli_query($con, $query);

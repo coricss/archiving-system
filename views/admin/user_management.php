@@ -12,7 +12,7 @@
 
   unset($_SESSION['dashboard']);
   unset($_SESSION['profile']);
-  unset($_SESSION['file_management']);
+  unset($_SESSION['file_archive']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
@@ -56,8 +56,8 @@
                     <th>Address</th>
                     <th>Username</th>
                     <th>Role</th>
-                    <th>Status</th>
                     <th>Date added</th>
+                    <th>Status</th>
                     <th>Actions</th>
                   </tr>
                 </thead>

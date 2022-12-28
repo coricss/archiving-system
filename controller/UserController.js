@@ -49,8 +49,8 @@ $(function(){
       { data: "address" },
       { data: "username" },
       { data: "role" },
-      { data: "status" },
       { data: "date_added" },
+      { data: "status" },
       { data: "action" },
     ],
     columnDefs: [
@@ -63,11 +63,7 @@ $(function(){
         }
       },
       {
-        targets: [9],
-        className: "text-center"
-      },
-      {
-        targets: [11],
+        targets: [10, 11],
         orderable: false,
         className: "text-center"
       },
@@ -151,6 +147,7 @@ $(function(){
           .parent()
           .css('margin-bottom', '15px')
           .find('label.error').remove();
+    form.removeClass('was-validated');
     form.find('select').val(null).trigger('change');
     form.parents('div.modal').modal('hide');
   }
@@ -421,7 +418,6 @@ $(function(){
               },
             });
             $('#tbl_users').DataTable().ajax.reload();
-            $('#tbl_users').DataTable().order([0, 'asc']).draw();
             $('#btn_activate').addClass('d-none');
             $('#btn_deactivate').removeClass('d-none');
           }else{
@@ -467,7 +463,6 @@ $(function(){
             },
           });
           $('#tbl_users').DataTable().ajax.reload();
-          $('#tbl_users').DataTable().order([0, 'asc']).draw();
           $('#btn_activate').removeClass('d-none');
           $('#btn_deactivate').addClass('d-none');
         } else{

@@ -39,7 +39,7 @@
           <div class="card card-success card-outline">
             <div class="card-body box-profile">
               <div class="text-center">
-                <img class="profile-user-img img-fluid img-circle display-picture" id="profile-user-img" style="width: 200px" src="../../assets/dist/img/users/default.png" alt="User profile picture">
+                <img class="profile-user-img img-fluid img-circle display-picture" id="profile-user-img" src="../../assets/dist/img/users/default.png" alt="User profile picture" style="width: 200px; height: 200px">
                 <form id="upload-picture-form" enctype="multipart/form-data">
                   <input type="file" id="profile-picture" name="profile-picture" style="display: none;">
                   <input type="submit" id="upload-picture" style="display: none;">
@@ -94,9 +94,13 @@
                   </li>
                 </ul>
                 <div class="py-4 mb-1">
-                  <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#modal-delete-profile">
-                    <i class="fas fa-trash"></i>
-                    Delete Profile
+                  <button type="button" class="btn btn-success btn-block m-0" id="btn_activate_profile" style="display: none">
+                    <i class="fas fa-user-check fa-sm mr-1"></i>
+                    Activate this account
+                  </button>
+                  <button type="button" class="btn btn-danger btn-block m-0" id="btn_deactivate_profile" style="display: none">
+                    <i class="fas fa-user-times fa-sm mr-1"></i>
+                    Deactivate this account
                   </button>
                 </div>
               </div>
