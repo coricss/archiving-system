@@ -56,13 +56,13 @@
                     <thead class="bg-success">
                       <tr>
                         <th>#</th>
-                        <th>Owner</th>
                         <th>Picture</th>
+                        <th>Owner</th>
                         <th>File name</th>
                         <th>File type</th>
-                        <th>Status</th>
                         <th>Uploaded by</th>
                         <th>Date uploaded</th>
+                        <th>Status</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
@@ -146,6 +146,97 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="btn_update_file_type">Save</button>
+            <button type="button" class="btn btn-outline-secondary btn-close-files" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+
+  <!-- ADD FILE -->
+  <div class="modal fade" id="addFileModal">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h4 class="modal-title">Add File</h4>
+          <button type="button" class="close btn-close-files" data-dismiss="modal" aria-label="Close">
+            <span class="text-white" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="frm_file" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="slc_owner">Owner</label>
+                  <select class="form-control slc_owner" id="slc_owner" name="slc_owner" required>
+                    <option value="" disabled="true" selected="true">-- Please select --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="slc_file_type">File type </label>
+                  <select class="form-control slc_file_type w-100" id="slc_file_type" name="slc_file_type" required>
+                    <option value="" disabled="true" selected="true">-- Please select --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="file_record">File</label>
+                  <input type="file" class="form-control file_record" id="file_record" name="file_record" placeholder="Enter file type" accept=".pdf, .csv, .xlsx, .pptx, .docx" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="btn_save_file">Save</button>
+            <button type="button" class="btn btn-outline-secondary btn-close-files" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div> 
+  <!-- EDIT FILE -->
+  <div class="modal fade" id="editFileModal">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h4 class="modal-title">Edit File</h4>
+          <button type="button" class="close btn-close-files" data-dismiss="modal" aria-label="Close">
+            <span class="text-white" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="frm_edit_file" enctype="multipart/form-data">
+          <input type="hidden" id="txt_file_id" name="txt_file_id">
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="slc_edit_owner">Owner</label>
+                  <select class="form-control slc_edit_owner" id="slc_edit_owner" name="slc_edit_owner" required>
+                    <option value="" disabled="true" selected="true">-- Please select --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="slc_edit_file_type">File type</label>
+                  <select class="form-control slc_edit_file_type w-100" id="slc_edit_file_type" name="slc_edit_file_type" required>
+                    <option value="" disabled="true" selected="true">-- Please select --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="file_edit_record" class="w-100">File
+                    <a href="#" class="float-right" id="recent_file" target="_blank">
+                      <small style="display: inline-block">
+                        <i class="fas fa-link fs-5"></i>
+                        View recent file
+                      </small>
+                    </a>
+                  </label>
+                  <input type="file" class="form-control file_edit_record" id="file_edit_record" name="file_edit_record" placeholder="Enter file type" accept=".pdf, .csv, .xlsx, .pptx, .docx">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="btn_save_file">Save</button>
             <button type="button" class="btn btn-outline-secondary btn-close-files" data-dismiss="modal">Close</button>
           </div>
         </form>

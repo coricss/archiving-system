@@ -55,6 +55,7 @@
   <script src="../../assets/plugins/jquery/jquery.min.js"></script>
   <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../../assets/plugins/DataTables/datatables.min.js"></script>
+  <script src="../../assets/plugins/select2/js/select2.full.min.js"></script>
   <script src="../../assets/plugins/sweetalert2/sweetalert2.min.js"></script>
   <script src="../../assets/dist/js/jquery.validate.js"></script>
   <script src="../../assets/dist/js/adminlte.min.js"></script>

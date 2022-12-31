@@ -77,3 +77,8 @@ div.arrow {
 /* .dt-buttons.btn-group {
   margin-top: 10px !important;
 } */
+
+.file-view {
+  width: 100% !important;
+  height: 100% !important;
+}

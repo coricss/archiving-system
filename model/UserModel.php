@@ -2,7 +2,7 @@
   include_once('../database/connection.php');
 
   if($_GET['action'] == 'loadUserDetails') {
-    $query = "SELECT * FROM user_accounts";
+    $query = "SELECT * FROM user_accounts ORDER BY id";
 
     $data = mysqli_query($con, $query);
 
