@@ -25,7 +25,7 @@
 
     <!-- Sidebar Menu -->
     <nav class="mt-3">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+      <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item">
@@ -40,11 +40,32 @@
             <p>My Archives</p>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="../user/user_management.php" class="nav-link <?php echo isset($_SESSION['user_management']) ? 'active' : '' ?>">
+        <li class="nav-item <?php echo isset($_SESSION['pending']) || isset($_SESSION['approved']) || isset($_SESSION['rejected']) ? 'menu-open' : '' ?>">
+          <a href="#" class="nav-link <?php echo isset($_SESSION['pending']) || isset($_SESSION['approved']) || isset($_SESSION['rejected']) ? 'active' : '' ?>">
             <i class="nav-icon fas fa-question-circle"></i>
             <p>Requests</p>
+            <i class="fas fa-angle-left right"></i>
           </a>
+          <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="../user/pending_requests.php" class="nav-link <?php echo isset($_SESSION['pending']) ? 'active' : '' ?>">
+                    <i class="fas fa-file-alt nav-icon"></i>
+                      <p>Pending Requests</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="../user/approved_requests.php" class="nav-link <?php echo isset($_SESSION['approved']) ? 'active' : '' ?>">
+                      <i class="fas fa-thumbs-up nav-icon"></i>
+                      <p>Approved Requests</p>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a href="../user/rejected_requests.php" class="nav-link <?php echo isset($_SESSION['rejected']) ? 'active' : '' ?>">
+                      <i class="fas fa-thumbs-down fa-flip-horizontal nav-icon" style=""></i>
+                      <p>Rejected Requests</p>
+                  </a>
+              </li>
+          </ul>
         </li>
         <!-- <li class="nav-item">
           <a href="#" class="nav-link active">
@@ -69,7 +90,7 @@
             </li>
           </ul>
         </li> -->
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
@@ -77,7 +98,7 @@
               <span class="right badge badge-danger">New</span>
             </p>
           </a>
-        </li>
+        </li> -->
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

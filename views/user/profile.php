@@ -15,6 +15,9 @@
 
   unset($_SESSION['dashboard']);
   unset($_SESSION['archives']);
+  unset($_SESSION['pending']);
+  unset($_SESSION['approved']);
+  unset($_SESSION['rejected']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');

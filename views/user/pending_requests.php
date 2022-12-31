@@ -7,11 +7,11 @@
     header('location: /digital_archiving_management_system');
   }
 
-  $_SESSION['dashboard'] = 'active';
+  $_SESSION['pending'] = 'active';
 
+  unset($_SESSION['dashboard']);
   unset($_SESSION['profile']);
   unset($_SESSION['archives']);
-  unset($_SESSION['pending']);
   unset($_SESSION['approved']);
   unset($_SESSION['rejected']);
 
@@ -20,14 +20,13 @@
   include_once('includes/sidebar.php');
 
 ?>
-
-<!-- CONTENT -->
+  <!-- CONTENT -->
 <div class="content-wrapper" style="min-height: 1599.06px;">
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>User Dashboard</h1>
+          <h1>My Archives</h1>
         </div>
         <!-- <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -41,30 +40,27 @@
   </section>
   <section class="content">
     <div class="container-fluid">
-      <!-- <div class="row">
+    <div class="row">
         <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Title</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
+          <div class="card card-success card-outline">
             <div class="card-body" style="display: block;">
-              Start creating your amazing application!
-            </div>
-
-            <div class="card-footer" style="display: block;">
-              Footer
+              <table class="table table-bordered table-hover table-sm w-100" id="tbl_pending_user">
+                <thead class="bg-success">
+                  <tr>
+                    <th>#</th>
+                    <th>File name</th>
+                    <th>File type</th>
+                    <th>Reason</th>
+                    <th>Date requested</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+              </table>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </section>
 </div>

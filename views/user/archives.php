@@ -11,6 +11,7 @@
 
   unset($_SESSION['dashboard']);
   unset($_SESSION['profile']);
+  unset($_SESSION['pending']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
