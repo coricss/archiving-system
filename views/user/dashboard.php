@@ -9,6 +9,9 @@
 
   $_SESSION['dashboard'] = 'active';
 
+  unset($_SESSION['profile']);
+  unset($_SESSION['archives']);
+
   include_once('includes/header.php');
   include_once('includes/topbar.php');
   include_once('includes/sidebar.php');

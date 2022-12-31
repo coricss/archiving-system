@@ -69,14 +69,7 @@
         'username' => $row['username'],
         'role' => $row['is_admin'] == 1 ? 'Admin' : 'User',
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
-        'date_added' => date('F d, Y', strtotime($row['date_added'])),
-        'action' => "
-                      <button class='btn btn-success btn-sm btn_edit_user' title='Edit details' data-id='{$row['id']}'>
-                        <i class='fas fa-edit'></i>
-                      </button>
-                      <button class='btn btn-primary btn-sm btn_reset_password' title='Reset password' data-id='{$row['id']}'>
-                        <i class='fas fa-sync'></i>
-                    "
+        'date_added' => date('F d, Y', strtotime($row['date_added']))
       ];
     }
 
@@ -144,25 +137,7 @@
         'file_type' => $row['file_type'],
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'created_by' => $row['admin'],
-        'date_created' => date('F d, Y', strtotime($row['date_created'])),
-        'action' => $row['status'] == 0 ? 
-                      "
-                        <button class='btn btn-success btn-sm btn_edit_file_type px-2' title='Edit details' data-id='{$row['id']}'>
-                          <i class='fas fa-edit'></i>
-                        </button>
-                        <button class='btn btn-primary btn-sm btn_activate_file_type px-2' title='Activate file type' data-id='{$row['id']}'>
-                          <i class='fas fa-check-circle'></i>
-                        </button>
-                      " 
-                    : 
-                      "
-                        <button class='btn btn-success btn-sm btn_edit_file_type px-2' title='Edit details' data-id='{$row['id']}'>
-                          <i class='fas fa-edit'></i>
-                        </button>
-                        <button class='btn btn-danger btn-sm btn_deactivate_file_type px-2' title='Deactivate file type' data-id='{$row['id']}'>
-                          <i class='fas fa-ban'></i>
-                        </button>
-                      "
+        'date_created' => date('F d, Y', strtotime($row['date_created']))
       ];
     }
 

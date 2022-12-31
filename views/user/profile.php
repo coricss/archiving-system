@@ -14,7 +14,7 @@
   $_SESSION['profile'] = 'active';
 
   unset($_SESSION['dashboard']);
-  unset($_SESSION['user_management']);
+  unset($_SESSION['archives']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');

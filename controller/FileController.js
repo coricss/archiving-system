@@ -624,7 +624,7 @@ $(function () {
         // });
 
         $.ajax({
-          url: "../../model/FileModel.php?action=loadStudents",
+          url: "../../model/FileModel.php?action=loadActiveStudents",
           type: "GET",
           dataType: "json",
           success: function(data){
@@ -639,7 +639,7 @@ $(function () {
         });
         
         $.ajax({
-          url: "../../model/FileModel.php?action=loadFileTypes",
+          url: "../../model/FileModel.php?action=loadActiveFileTypes",
           type: "GET",
           dataType: "json",
           success: function(data){

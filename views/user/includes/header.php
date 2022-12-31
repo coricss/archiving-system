@@ -11,6 +11,13 @@
   <link rel="stylesheet" href="../../assets/plugins/fontawesome/css/all.min.css">
   <!-- Bootstrap -->
   <link rel="stylesheet" href="../../assets/plugins/bootstrap/css/bootstrap.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="../../assets/plugins/DataTables/datatables.min.css">
+  <!-- Select 2 -->
+  <link rel="stylesheet" href="../../assets/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="../../assets/plugins/select2/css/select2-bootstrap4.min.css">
+  <!-- Summernote -->
+  <link rel="stylesheet" href="../../assets/plugins/summernote/dist/summernote-bs4.min.css">
   <!-- Sweet Alert -->
   <link rel="stylesheet" href="../../assets/plugins/sweetalert2/sweetalert2.min.css">
   <!-- AdminLTE -->

@@ -53,14 +53,17 @@
   <script src="../../assets/plugins/jquery/jquery.min.js"></script>
   <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../../assets/plugins/DataTables/datatables.min.js"></script>
+  <script src="../../assets/plugins/select2/js/select2.full.min.js"></script>
+  <script src="../../assets/plugins/summernote/dist/summernote-bs4.js"></script>
   <script src="../../assets/plugins/sweetalert2/sweetalert2.min.js"></script>
   <script src="../../assets/dist/js/jquery.validate.js"></script>
   <script src="../../assets/dist/js/adminlte.min.js"></script>
   <script src="../../assets/dist/js/main.js"></script>
-  <script src="../../assets/plugins/validate-password-requirements/js/jquery.passwordRequirements.js"></script>
   <script src="../../controller/LoginController.js"></script>
-  <script src="../../controller/PasswordController.js"></script>\
+  <script src="../../controller/PasswordController.js"></script>
   <script src="../../controller/ProfileController.js"></script>
+  <script src="../../controller/ArchiveController.js"></script>
+  <script src="../../assets/plugins/validate-password-requirements/js/jquery.passwordRequirements.js"></script>
 
   <?php
     include_once('../../database/connection.php');

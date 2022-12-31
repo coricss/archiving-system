@@ -29,15 +29,21 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="../admin/dashboard.php" class="nav-link <?php echo isset($_SESSION['dashboard']) ? 'active' : '' ?>">
+          <a href="../user/dashboard.php" class="nav-link <?php echo isset($_SESSION['dashboard']) ? 'active' : '' ?>">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="../admin/user_management.php" class="nav-link <?php echo isset($_SESSION['user_management']) ? 'active' : '' ?>">
-            <i class="nav-icon fas fa-users"></i>
-            <p>User Management</p>
+          <a href="../user/archives.php" class="nav-link <?php echo isset($_SESSION['archives']) ? 'active' : '' ?>">
+            <i class="nav-icon fas fa-archive"></i>
+            <p>My Archives</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="../user/user_management.php" class="nav-link <?php echo isset($_SESSION['user_management']) ? 'active' : '' ?>">
+            <i class="nav-icon fas fa-question-circle"></i>
+            <p>Requests</p>
           </a>
         </li>
         <!-- <li class="nav-item">
