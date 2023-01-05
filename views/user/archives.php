@@ -69,7 +69,7 @@
       <div class="modal-content">
         <div class="modal-header bg-success">
           <h4 class="modal-title">File Request</h4>
-          <button type="button" class="close btn-close-files" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close btn-close-request" data-dismiss="modal" aria-label="Close">
             <span class="text-white" aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -111,7 +111,7 @@
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary" id="btn_request_file">Make request</button>
-            <button type="button" class="btn btn-outline-secondary btn-close-files" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-secondary btn-close-request" data-dismiss="modal">Close</button>
           </div>
         </form>
       </div>

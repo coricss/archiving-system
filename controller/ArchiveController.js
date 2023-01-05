@@ -162,6 +162,7 @@ $(function () {
     });
   })();
 
+
   $("#frm_file_request").on("submit", function (e) {
     e.preventDefault();
 
@@ -207,8 +208,27 @@ $(function () {
               popup: "colored-toast",
             },
           });
+        } else if (result == 'already requested') {
+          Swal.fire({
+            title: 'You have already requested this file',
+            icon: 'error',
+            showConfirmButton: false,
+            toast: true,
+            position: "top-end",
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: "white",
+            customClass: {
+              popup: "colored-toast",
+            },
+          });
         }
       },
     });
   });
+
+  $(".btn-close-request").on("click", function () {
+    $("#txt_reason").summernote('reset');
+  });
+
 });
