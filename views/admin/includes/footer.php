@@ -66,6 +66,7 @@
   <script src="../../controller/PasswordController.js"></script>
   <script src="../../controller/ProfileController.js"></script>
   <script src="../../controller/FileController.js"></script>
+  <script src="../../controller/RequestController.js"></script>
   <script src="../../assets/plugins/validate-password-requirements/js/jquery.passwordRequirements.js"></script>
   
   <?php

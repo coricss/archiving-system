@@ -7,27 +7,28 @@
     header('location: /digital_archiving_management_system');
   }
 
-  $_SESSION['dashboard'] = 'active';
+  $_SESSION['approved_admin'] = 'active';
 
-  unset($_SESSION['user_management']);
+  unset($_SESSION['dashboard']);
   unset($_SESSION['profile']);
   unset($_SESSION['file_archive']);
+  unset($_SESSION['user_management']);
+  unset($_SESSION['archives_admin']);
   unset($_SESSION['pending_admin']);
-  unset($_SESSION['approved_admin']);
   unset($_SESSION['rejected_admin']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
   include_once('includes/sidebar.php');
-?>
 
-<!-- CONTENT -->
-<div class="content-wrapper" style="min-height: 1599.06px;">
+?>
+  <!-- CONTENT -->
+  <div class="content-wrapper" style="min-height: 1599.06px;">
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Admin Dashboard</h1>
+          <h1>Approved Requests</h1>
         </div>
         <!-- <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -41,34 +42,33 @@
   </section>
   <section class="content">
     <div class="container-fluid">
-      <div class="row">
+    <div class="row">
         <div class="col-12">
-          <!-- <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Title</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
+          <div class="card card-success card-outline">
             <div class="card-body" style="display: block;">
-              Start creating your amazing application!
+              <table class="table table-bordered table-hover table-sm w-100" id="tbl_approved_admin">
+                <thead class="bg-success">
+                  <tr>
+                    <th>#</th>
+                    <th>Picture</th>
+                    <th>Requested by</th>
+                    <th>File name</th>
+                    <th>File type</th>
+                    <th width="200px">Reason</th>
+                    <th width="200px">Remarks</th>
+                    <th>Date requested</th>
+                    <th>Date approved</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+              </table>
             </div>
-
-            <div class="card-footer" style="display: block;">
-              Footer
-            </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
   </section>
 </div>
-
 <?php
   include_once('includes/footer.php');
 ?>

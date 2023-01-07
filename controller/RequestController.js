@@ -1,4 +1,8 @@
 $(function (){
+  $('.btn-close-files').on('click', function(){
+    $("#file_approve_remarks").summernote('reset');
+    $("#file_reject_remarks").summernote('reset');
+  });
   var $tbl_pending_user = $('#tbl_pending_user').DataTable({
     dom: "Bfrtip",
     processing: true,
@@ -48,7 +52,7 @@ $(function (){
       },
       {
         text: '<i class="fas fa-download"></i> Export',
-        title: "Digita Archiving System Pending Requests",
+        title: "Digital Archiving System Pending Requests",
         extend: "excel",
         titleAttr: "Export to excel",
         className: "btn btn-sm bg-primary",
@@ -61,7 +65,7 @@ $(function (){
       },
       {
         text: '<i class="fas fa-print"></i> Print',
-        title: "Digita Archiving System Pending Requests",
+        title: "Digital Archiving System Pending Requests",
         extend: "print",
         titleAttr: "Print table",
         className: "btn btn-sm bg-primary",
@@ -289,12 +293,13 @@ $(function (){
       { data: "reason" },
       { data: "remarks" },
       { data: "date_requested" },
+      { data: "date_approved" },
       { data: "status" },
       { data: "action" }
     ],
     columnDefs: [
       {
-        targets: [6, 7],
+        targets: [7, 8],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -312,7 +317,7 @@ $(function (){
       },
       {
         text: '<i class="fas fa-download"></i> Export',
-        title: "Digita Archiving System Approved Requests",
+        title: "Digital Archiving System Approved Requests",
         extend: "excel",
         titleAttr: "Export to excel",
         className: "btn btn-sm bg-primary",
@@ -325,7 +330,7 @@ $(function (){
       },
       {
         text: '<i class="fas fa-print"></i> Print',
-        title: "Digita Archiving System Approved Requests",
+        title: "Digital Archiving System Approved Requests",
         extend: "print",
         titleAttr: "Print table",
         className: "btn btn-sm bg-primary",
@@ -354,4 +359,669 @@ $(function (){
    // align dt-buttons to filter
    $("#tbl_approved_user_filter").addClass("float-right");
    $(".btn-group").addClass("float-left");
+
+   var $tbl_rejected_user = $('#tbl_rejected_user').DataTable({
+    dom: "Bfrtip",
+    processing: true,
+    responsive: true,
+    order: [[0, "asc"]],
+    lengthMenu: [
+      [10, 25, 50, -1],
+      [
+        "Show 10 entries",
+        "Show 25 entries",
+        "Show 50 entries",
+        "Show all entries",
+      ],
+    ],
+    ajax: {
+      url: "../../model/RequestModel.php?action=loadRejectedRequestUser",
+      type: "GET",
+      dataType: "json",
+      dataSrc: "",
+    },
+    columns: [
+      { data: "id" },
+      { data: "file_name" },
+      { data: "file_type" },
+      { data: "reason" },
+      { data: "remarks" },
+      { data: "date_requested" },
+      { data: "date_rejected" },
+      { data: "status" }
+    ],
+    columnDefs: [
+      {
+        targets: [6, 7],
+        orderable: false,
+        searchable: false,
+        className: "text-center",
+      }
+    ],
+    buttons: [
+      {
+        text: '<i class="fas fa-eye fa-sm"></i> Show entries',
+        extend: "pageLength",
+        // titleAttr: 'Show entries',
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+      },
+      {
+        text: '<i class="fas fa-download"></i> Export',
+        title: "Digital Archiving System Approved Requests",
+        extend: "excel",
+        titleAttr: "Export to excel",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-print"></i> Print',
+        title: "Digital Archiving System Approved Requests",
+        extend: "print",
+        titleAttr: "Print table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-sync fa-sm"></i> Refresh',
+        titleAttr: "Click to refresh table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        action: function (e, dt, node, config) {
+          $("#tbl_approved_user").DataTable().ajax.reload();
+          $("#tbl_approved_user").DataTable().order([0, "asc"]).draw();
+        },
+      },
+    ]
+  });
+   // align dt-buttons to filter
+  $("#tbl_rejected_user_filter").addClass("float-right");
+  $(".btn-group").addClass("float-left");
+
+  var $tbl_pending_admin = $('#tbl_pending_admin').DataTable({
+    dom: "Bfrtip",
+    processing: true,
+    responsive: true,
+    order: [[0, "asc"]],
+    lengthMenu: [
+      [10, 25, 50, -1],
+      [
+        "Show 10 entries",
+        "Show 25 entries",
+        "Show 50 entries",
+        "Show all entries",
+      ],
+    ],
+    ajax: {
+      url: "../../model/RequestModel.php?action=loadPendingRequestAdmin",
+      type: "GET",
+      dataType: "json",
+      dataSrc: "",
+    },
+    columns: [
+      { data: "id" },
+      { data: "picture" },
+      { data: "requested_by" },
+      { data: "file_name" },
+      { data: "file_type" },
+      { data: "reason" },
+      { data: "date_requested" },
+      { data: "status" },
+      { data: "action"}
+    ],
+    columnDefs: [
+      {
+        targets: [7, 8],
+        orderable: false,
+        searchable: false,
+        className: "text-center",
+      },
+      {
+        targets: [1],
+        orderable: false,
+        className: "text-center",
+        render: function (data, type, row) {
+          return `<img src="../../assets/dist/img/users/${data}" class="img-circle" width="50" height="50">`;
+        }
+      },
+      {
+        targets: [3],
+        render: function (data, type, row) {
+          return `<a href="../../storage/files/${data}" target="_blank">${data}</a>`;
+        }
+      }
+    ],
+    buttons: [
+      {
+        text: '<i class="fas fa-eye fa-sm"></i> Show entries',
+        extend: "pageLength",
+        // titleAttr: 'Show entries',
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+      },
+      {
+        text: '<i class="fas fa-download"></i> Export',
+        title: "Digital Archiving System Pending Requests",
+        extend: "excel",
+        titleAttr: "Export to excel",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-print"></i> Print',
+        title: "Digital Archiving System Pending Requests",
+        extend: "print",
+        titleAttr: "Print table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-sync fa-sm"></i> Refresh',
+        titleAttr: "Click to refresh table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        action: function (e, dt, node, config) {
+          $("#tbl_pending_admin").DataTable().ajax.reload();
+          $("#tbl_pending_admin").DataTable().order([0, "asc"]).draw();
+        },
+      },
+    ]
+  });
+
+  // align dt-buttons to filter
+  $("#tbl_pending_admin_filter").addClass("float-right");
+  $(".btn-group").addClass("float-left");
+
+
+  $('#file_approve_remarks').summernote(
+    {
+      placeholder: 'Enter remarks for this request',
+      height: 100,
+      toolbar: [
+        ['font', ['fontname', 'fontsize', 'bold', 'italic', 'underline', 'color']],
+        ['script', ['strikethrough', 'superscript', 'subscript', 'clear']],
+        ['para', ['ul', 'ol', 'paragraph']],
+      ]
+    }
+   
+  );
+
+  $tbl_pending_admin.on("click", ".btn_approve_request", function () {
+
+    var $id = $(this).attr("data-id");
+    $.ajax({
+      url: "../../model/RequestModel.php?action=getFileRequest",
+      type: "POST",
+      data: { id: $id },
+      dataType: "json",
+      success: function (data) {
+        $("#file_approve_id").val(data.id);
+        $('#file_approve_requested_by').html(data.requested_by);
+        $("#file_approve_file_name").html(data.file_name);
+        $("#file_approve_file_type").html(data.file_type);
+        $("#file_approve_reason").html(data.reason);
+        $("#file_approve_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+        $("#file_approve_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+      }
+    })
+
+    $('#frm_approve_file_request').parents('div.modal').modal({ backdrop: 'static', keyboard: false });
+    
+    
+  });
+
+  (function () {
+    "use strict";
+
+    var frm_approve_file_request = document.querySelectorAll("#frm_approve_file_request");
+    var frm_reject_file_request = document.querySelectorAll("#frm_reject_file_request");
+
+    Array.prototype.slice.call(frm_approve_file_request).forEach(function (form) {
+      $("#btn_approve_request_file").on("click", function (event) {
+        if (!frm_approve_file_request[0].checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          Swal.fire({
+            title: "Please enter your remarks",
+            icon: "error",
+            showConfirmButton: false,
+            toast: true,
+            position: "top-end",
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: "white",
+            customClass: {
+              popup: "colored-toast",
+            },
+          });
+        } else {
+          $(this).prop("type", "submit");
+        }
+        form.classList.add("was-validated");
+      });
+    });
+    Array.prototype.slice.call(frm_reject_file_request).forEach(function (form) {
+      $("#btn_reject_request_file").on("click", function (event) {
+        if (!frm_reject_file_request[0].checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          Swal.fire({
+            title: "Please enter your remarks",
+            icon: "error",
+            showConfirmButton: false,
+            toast: true,
+            position: "top-end",
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: "white",
+            customClass: {
+              popup: "colored-toast",
+            },
+          });
+        } else {
+          $(this).prop("type", "submit");
+        }
+        form.classList.add("was-validated");
+      });
+    });
+  })();
+
+  $('#frm_approve_file_request').on('submit', function(e){
+    e.preventDefault();
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to approve this request?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#007bff",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, approve it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "../../model/RequestModel.php?action=approveRequest",
+          type: "POST",
+          data: $(this).serialize(),
+          success: function (data) {
+            if (data == "success") {
+              Swal.fire({
+                title: 'Request has been approved',
+                icon: 'success',
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end",
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: "white",
+                customClass: {
+                  popup: "colored-toast",
+                },
+              });
+              $tbl_pending_admin.ajax.reload();
+              $tbl_pending_admin.order([0, "asc"]).draw();
+            } else if(result == "empty reason"){
+              Swal.fire({
+                title: 'Please enter your reason',
+                icon: 'error',
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end",
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: "white",
+                customClass: {
+                  popup: "colored-toast",
+                },
+              });
+            } else {
+              Swal.fire({
+                title: 'Request failed to approve',
+                icon: 'error',
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end",
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: "white",
+                customClass: {
+                  popup: "colored-toast",
+                },
+              });
+            }
+          },
+        });
+
+        $('#frm_approve_file_request').parents('div.modal').modal('hide');
+      }
+    });
+  });
+
+  $('#frm_reject_file_request').on('submit', function(e){
+    e.preventDefault();
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to reject this request?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#007bff",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reject it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        var id = $(this).attr("data-id");
+        $.ajax({
+          url: "../../model/RequestModel.php?action=rejectRequest",
+          type: "POST",
+          data: $(this).serialize(),
+          success: function (data) {
+            if (data == "success") {
+              Swal.fire({
+                title: 'Request has been rejected',
+                icon: 'success',
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end",
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: "white",
+                customClass: {
+                  popup: "colored-toast",
+                },
+              });
+              $tbl_pending_admin.ajax.reload();
+              $tbl_pending_admin.order([0, "asc"]).draw();
+            } else {
+              Swal.fire({
+                title: 'Request failed to reject',
+                icon: 'error',
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end",
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: "white",
+                customClass: {
+                  popup: "colored-toast",
+                },
+              });
+            }
+          },
+        });
+
+        $('#frm_reject_file_request').parents('div.modal').modal('hide');
+      }
+    });
+  });
+
+  $('#file_reject_remarks').summernote(
+    {
+      placeholder: 'Enter remarks for this request',
+      height: 100,
+      toolbar: [
+        ['font', ['fontname', 'fontsize', 'bold', 'italic', 'underline', 'color']],
+        ['script', ['strikethrough', 'superscript', 'subscript', 'clear']],
+        ['para', ['ul', 'ol', 'paragraph']],
+      ]
+    }
+   
+  );
+
+  $tbl_pending_admin.on("click", ".btn_reject_request", function () {
+
+    var $id = $(this).attr("data-id");
+    $.ajax({
+      url: "../../model/RequestModel.php?action=getFileRequest",
+      type: "POST",
+      data: { id: $id },
+      dataType: "json",
+      success: function (data) {
+        $("#file_reject_id").val(data.id);
+        $('#file_reject_requested_by').html(data.requested_by);
+        $("#file_reject_file_name").html(data.file_name);
+        $("#file_reject_file_type").html(data.file_type);
+        $("#file_reject_reason").html(data.reason);
+        $("#file_reject_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+        $("#file_reject_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+      }
+    })
+
+    $('#frm_reject_file_request').parents('div.modal').modal({ backdrop: 'static', keyboard: false });
+
+    
+  });
+
+  var $tbl_approved_admin = $('#tbl_approved_admin').DataTable({
+    dom: "Bfrtip",
+    processing: true,
+    responsive: true,
+    order: [[0, "asc"]],
+    lengthMenu: [
+      [10, 25, 50, -1],
+      [
+        "Show 10 entries",
+        "Show 25 entries",
+        "Show 50 entries",
+        "Show all entries",
+      ],
+    ],
+    ajax: {
+      url: "../../model/RequestModel.php?action=loadApprovedRequestAdmin",
+      type: "GET",
+      dataType: "json",
+      dataSrc: "",
+    },
+    columns: [
+      { data: "id" },
+      { data: "picture" },
+      { data: "requested_by" },
+      { data: "file_name" },
+      { data: "file_type" },
+      { data: "reason" },
+      { data: "remarks" },
+      { data: "date_requested" },
+      { data: "date_approved" },
+      { data: "status" }
+    ],
+    columnDefs: [
+      {
+        targets: [9],
+        orderable: false,
+        searchable: false,
+        className: "text-center",
+      },
+      {
+        targets: [1],
+        orderable: false,
+        className: "text-center",
+        render: function (data, type, row) {
+          return `<img src="../../assets/dist/img/users/${data}" class="img-circle" width="50" height="50">`;
+        }
+      },
+    ],
+    buttons: [
+      {
+        text: '<i class="fas fa-eye fa-sm"></i> Show entries',
+        extend: "pageLength",
+        // titleAttr: 'Show entries',
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+      },
+      {
+        text: '<i class="fas fa-download"></i> Export',
+        title: "Digital Archiving System Approved Requests",
+        extend: "excel",
+        titleAttr: "Export to excel",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-print"></i> Print',
+        title: "Digital Archiving System Approved Requests",
+        extend: "print",
+        titleAttr: "Print table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-sync fa-sm"></i> Refresh',
+        titleAttr: "Click to refresh table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        action: function (e, dt, node, config) {
+          $("#tbl_approved_admin").DataTable().ajax.reload();
+          $("#tbl_approved_admin").DataTable().order([0, "asc"]).draw();
+        },
+      },
+    ]
+  });
+
+   // align dt-buttons to filter
+   $("#tbl_approved_admin_filter").addClass("float-right");
+   $(".btn-group").addClass("float-left");
+
+   var $tbl_rejected_admin = $('#tbl_rejected_admin').DataTable({
+    dom: "Bfrtip",
+    processing: true,
+    responsive: true,
+    order: [[0, "asc"]],
+    lengthMenu: [
+      [10, 25, 50, -1],
+      [
+        "Show 10 entries",
+        "Show 25 entries",
+        "Show 50 entries",
+        "Show all entries",
+      ],
+    ],
+    ajax: {
+      url: "../../model/RequestModel.php?action=loadRejectedRequestAdmin",
+      type: "GET",
+      dataType: "json",
+      dataSrc: "",
+    },
+    columns: [
+      { data: "id" },
+      { data: "picture" },
+      { data: "requested_by" },
+      { data: "file_name" },
+      { data: "file_type" },
+      { data: "reason" },
+      { data: "remarks" },
+      { data: "date_requested" },
+      { data: "date_rejected" },
+      { data: "status" }
+    ],
+    columnDefs: [
+      {
+        targets: [9],
+        orderable: false,
+        searchable: false,
+        className: "text-center",
+      },
+      {
+        targets: [1],
+        orderable: false,
+        className: "text-center",
+        render: function (data, type, row) {
+          return `<img src="../../assets/dist/img/users/${data}" class="img-circle" width="50" height="50">`;
+        }
+      },
+    ],
+    buttons: [
+      {
+        text: '<i class="fas fa-eye fa-sm"></i> Show entries',
+        extend: "pageLength",
+        // titleAttr: 'Show entries',
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+      },
+      {
+        text: '<i class="fas fa-download"></i> Export',
+        title: "Digital Archiving System Rejected Requests",
+        extend: "excel",
+        titleAttr: "Export to excel",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-print"></i> Print',
+        title: "Digital Archiving System Rejected Requests",
+        extend: "print",
+        titleAttr: "Print table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-sync fa-sm"></i> Refresh',
+        titleAttr: "Click to refresh table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        action: function (e, dt, node, config) {
+          $("#tbl_rejected_admin").DataTable().ajax.reload();
+          $("#tbl_rejected_admin").DataTable().order([0, "asc"]).draw();
+        },
+      },
+    ]
+  });
+   // align dt-buttons to filter
+  $("#tbl_rejected_admin_filter").addClass("float-right");
+  $(".btn-group").addClass("float-left");
 });

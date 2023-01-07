@@ -61,7 +61,7 @@
 
       $user_id = $_SESSION['user_id'];
 
-      $sql = "SELECT * FROM file_requests WHERE file_id = {$_POST['txt_file_id']} AND user_id = $user_id AND status = 1";
+      $sql = "SELECT * FROM file_requests WHERE file_id = {$_POST['txt_file_id']} AND user_id = $user_id AND status = 1 AND is_approved != 2";
 
       $data = mysqli_query($con, $sql);
 

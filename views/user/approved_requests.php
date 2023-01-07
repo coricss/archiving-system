@@ -53,6 +53,7 @@
                     <th>Reason</th>
                     <th>Remarks</th>
                     <th>Date requested</th>
+                    <th>Date approved</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>

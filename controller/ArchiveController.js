@@ -49,7 +49,7 @@ $(function () {
       },
       {
         text: '<i class="fas fa-download"></i> Export',
-        title: "Digita Archiving System My Archives",
+        title: "Digital Archiving System My Archives",
         extend: "excel",
         titleAttr: "Export to excel",
         className: "btn btn-sm bg-primary",
@@ -62,7 +62,7 @@ $(function () {
       },
       {
         text: '<i class="fas fa-print"></i> Print',
-        title: "Digita Archiving System My Archives",
+        title: "Digital Archiving System My Archives",
         extend: "print",
         titleAttr: "Print table",
         className: "btn btn-sm bg-primary",

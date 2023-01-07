@@ -43,8 +43,9 @@
         <li class="nav-item <?php echo isset($_SESSION['pending']) || isset($_SESSION['approved']) || isset($_SESSION['rejected']) ? 'menu-open' : '' ?>">
           <a href="#" class="nav-link <?php echo isset($_SESSION['pending']) || isset($_SESSION['approved']) || isset($_SESSION['rejected']) ? 'active' : '' ?>">
             <i class="nav-icon fas fa-question-circle"></i>
-            <p>Requests</p>
-            <i class="fas fa-angle-left right"></i>
+            <p>Requests
+              <i class="fas fa-angle-left right"></i>
+            </p>
           </a>
           <ul class="nav nav-treeview">
               <li class="nav-item">

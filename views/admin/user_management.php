@@ -13,6 +13,9 @@
   unset($_SESSION['dashboard']);
   unset($_SESSION['profile']);
   unset($_SESSION['file_archive']);
+  unset($_SESSION['pending_admin']);
+  unset($_SESSION['approved_admin']);
+  unset($_SESSION['rejected_admin']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');

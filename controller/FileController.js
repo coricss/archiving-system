@@ -77,7 +77,7 @@ $(function () {
       },
       {
         text: '<i class="fas fa-download"></i> Export',
-        title: "Digita Archiving System File Types",
+        title: "Digital Archiving System File Types",
         extend: "excel",
         titleAttr: "Export to excel",
         className: "btn btn-sm bg-primary",
@@ -90,7 +90,7 @@ $(function () {
       },
       {
         text: '<i class="fas fa-print"></i> Print',
-        title: "Digita Archiving System File Types",
+        title: "Digital Archiving System File Types",
         extend: "print",
         titleAttr: "Print table",
         className: "btn btn-sm bg-primary",
@@ -459,7 +459,7 @@ $(function () {
       },
       {
         text: '<i class="fas fa-download"></i> Export',
-        title: "Digita Archiving System Files",
+        title: "Digital Archiving System Files",
         extend: "excel",
         titleAttr: "Export to excel",
         className: "btn btn-sm bg-primary",
@@ -472,7 +472,7 @@ $(function () {
       },
       {
         text: '<i class="fas fa-print"></i> Print',
-        title: "Digita Archiving System Files",
+        title: "Digital Archiving System Files",
         extend: "print",
         titleAttr: "Print table",
         className: "btn btn-sm bg-primary",

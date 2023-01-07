@@ -93,7 +93,7 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-md-6">
-                      <b>Uploaded by</b>
+                      <b>Date uploaded</b>
                       <p id="edit_date_uploaded"></p>
                     </div>
                     <div class="col-md-6">
