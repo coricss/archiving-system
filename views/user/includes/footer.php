@@ -64,6 +64,7 @@
   <script src="../../controller/ProfileController.js"></script>
   <script src="../../controller/ArchiveController.js"></script>
   <script src="../../controller/RequestController.js"></script>
+  <script src="../../controller/NotificationController.js"></script>
   <script src="../../assets/plugins/validate-password-requirements/js/jquery.passwordRequirements.js"></script>
 
   <?php

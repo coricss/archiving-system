@@ -61,6 +61,8 @@
 
       $user_id = $_SESSION['user_id'];
 
+      $date_created = date('Y-m-d H:i:s');
+
       $sql = "SELECT * FROM file_requests WHERE file_id = {$_POST['txt_file_id']} AND user_id = $user_id AND status = 1 AND is_approved != 2";
 
       $data = mysqli_query($con, $sql);
@@ -77,8 +79,10 @@
           $date_requested = date('Y-m-d H:i:s');
       
           $sql = "INSERT INTO file_requests (file_id, user_id, reason, is_approved, remarks, status, date_requested) VALUES ($file_id, $user_id, '$reason', 0, NULL, 1, '$date_requested')";
+
+          $notif = "INSERT INTO notifications (user_id, file_id, activity, status, date_created) VALUES ($user_id, $file_id, 'request', 1, '$date_created')";
       
-          if(mysqli_query($con, $sql)) {
+          if((mysqli_query($con, $sql)) && (mysqli_query($con, $notif))) {
             echo 'success';
           } else {
             echo 'error';

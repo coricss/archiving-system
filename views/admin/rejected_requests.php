@@ -58,6 +58,7 @@
                     <th width="200px">Remarks</th>
                     <th>Date requested</th>
                     <th>Date rejected</th>
+                    <th>Rejected by</th>
                     <th>Status</th>
                   </tr>
                 </thead>
@@ -68,6 +69,7 @@
       </div>
     </div>
   </section>
+</div>
 <?php
   include_once('includes/footer.php');
 ?>

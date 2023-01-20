@@ -294,12 +294,13 @@ $(function (){
       { data: "remarks" },
       { data: "date_requested" },
       { data: "date_approved" },
+      { data: "approved_by" },
       { data: "status" },
       { data: "action" }
     ],
     columnDefs: [
       {
-        targets: [7, 8],
+        targets: [8, 9],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -388,11 +389,12 @@ $(function (){
       { data: "remarks" },
       { data: "date_requested" },
       { data: "date_rejected" },
+      { data: "rejected_by" },
       { data: "status" }
     ],
     columnDefs: [
       {
-        targets: [6, 7],
+        targets: [8],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -850,11 +852,12 @@ $(function (){
       { data: "remarks" },
       { data: "date_requested" },
       { data: "date_approved" },
+      { data: "approved_by" },
       { data: "status" }
     ],
     columnDefs: [
       {
-        targets: [9],
+        targets: [10],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -953,11 +956,12 @@ $(function (){
       { data: "remarks" },
       { data: "date_requested" },
       { data: "date_rejected" },
+      { data: "rejected_by" },
       { data: "status" }
     ],
     columnDefs: [
       {
-        targets: [9],
+        targets: [10],
         orderable: false,
         searchable: false,
         className: "text-center",

@@ -31,24 +31,25 @@
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="fas fa-bell"></i>
-        <span class="badge badge-danger navbar-badge">0</span>
+        <span class="badge badge-danger navbar-badge count-admin-notif"></span>
       </a>
-      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-        <span class="dropdown-header">15 Notifications</span>
+      <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+        <span class="dropdown-header"><span class="count-admin-notifs"></span> Notification(s)</span>
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item">
-          <i class="fas fa-envelope mr-2"></i> 4 new messages
-          <span class="float-right text-muted text-sm">3 mins</span>
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-users mr-2"></i> 8 friend requests
-          <span class="float-right text-muted text-sm">12 hours</span>
-        </a>
-        <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">
-          <i class="fas fa-file mr-2"></i> 3 new reports
-          <span class="float-right text-muted text-sm">2 days</span>
+          <div class="notif-row">
+            <image width="60px" height="60px" src="../../assets/dist/img/users/default.png" class="img-circle">
+              <div class="notif-activity">
+                <p class="notif-msg">
+                  <b>Rico Estribo Guinanao</b>
+                  <small>requested a file</small>
+                </p>
+                <div style="align-contents: center;">
+                  <i class="far fa-clock text-muted" style="font-size: 13px; margin-right: 3px"></i>
+                  <small class="notif-time" style="font-size: 12px; color: #043ea7">Just now</small>
+                </div>
+              </div>
+          </div>
         </a>
         <div class="dropdown-divider"></div>
         <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>

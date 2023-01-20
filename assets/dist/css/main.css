@@ -82,3 +82,23 @@ div.arrow {
   width: 100% !important;
   height: 100% !important;
 }
+
+.notif-row {
+
+  display: flex;
+  vertical-align: baseline;
+
+  cursor: pointer;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.notif-activity {
+  margin-left: 12px;
+  width: 70%;
+}
+
+.notif-msg {
+  margin: 0;
+  line-height: 18px;
+}

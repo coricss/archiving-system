@@ -58,6 +58,7 @@
                     <th width="200px">Remarks</th>
                     <th>Date requested</th>
                     <th>Date approved</th>
+                    <th>Approved by</th>
                     <th>Status</th>
                   </tr>
                 </thead>
