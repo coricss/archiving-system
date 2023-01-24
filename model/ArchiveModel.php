@@ -80,9 +80,9 @@
       
           $sql = "INSERT INTO file_requests (file_id, user_id, reason, is_approved, remarks, status, date_requested) VALUES ($file_id, $user_id, '$reason', 0, NULL, 1, '$date_requested')";
 
-          $notif = "INSERT INTO notifications (user_id, file_id, activity, status, date_created) VALUES ($user_id, $file_id, 'request', 1, '$date_created')";
+          // $notif = "INSERT INTO notifications (user_id, file_id, activity, status, date_created) VALUES ($user_id, $file_id, 'request', 1, '$date_created')";
       
-          if((mysqli_query($con, $sql)) && (mysqli_query($con, $notif))) {
+          if((mysqli_query($con, $sql))) {
             echo 'success';
           } else {
             echo 'error';

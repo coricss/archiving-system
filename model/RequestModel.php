@@ -190,8 +190,8 @@
     $sql = "UPDATE file_requests SET status = 0 WHERE id = '$id'";
     $result = mysqli_query($con, $sql);
 
-    $notif_sql = "UPDATE notifications SET status = 0 WHERE notif_id = '$id'";
-    $notif_result = mysqli_query($con, $notif_sql);
+    // $notif_sql = "UPDATE notifications SET status = 0 WHERE notif_id = '$id'";
+    // $notif_result = mysqli_query($con, $notif_sql);
 
     if($result && $notif_result) {
       echo 'success';
