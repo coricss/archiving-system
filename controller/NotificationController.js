@@ -51,7 +51,6 @@ $(function(){
           $('button.notif-item').click(function() {
             var id = $(this).attr('request-id');
             var activity = $(this).attr('activity');
-
             if(activity == 0) {
               $.ajax({
                 url: '../../model/RequestModel.php?action=getFileRequest',
