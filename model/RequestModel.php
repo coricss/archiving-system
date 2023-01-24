@@ -77,6 +77,7 @@
     $user_id = $_SESSION['user_id'];
 
     $request_id = $_POST['file_approve_id'];
+    $file_id = $_POST['file_approve_file_id'];
     $remarks = mysqli_real_escape_string($con, $_POST['file_approve_remarks']);
     $date = date('Y-m-d H:i:s');
 
@@ -93,10 +94,55 @@
       }
     }
 
+  } else if ($_GET['action'] == 'approveNotifRequest') {
+    $user_id = $_SESSION['user_id'];
+
+    $request_id = $_POST['file_process_id'];
+    $file_id = $_POST['file_process_file_id'];
+    $remarks = mysqli_real_escape_string($con, $_POST['file_process_remarks']);
+    $date = date('Y-m-d H:i:s');
+
+    if($remarks === "<br>") {
+      echo 'empty reason';
+    } else {
+      $sql = "UPDATE file_requests SET is_approved = 1, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date' WHERE id = '$request_id'";
+      $result = mysqli_query($con, $sql);
+
+      if ($result) {
+        echo 'success';
+      } else {
+        echo 'error';
+      }
+    }
+
   } else if ($_GET['action'] == 'rejectRequest') {
+    $user_id = $_SESSION['user_id'];
 
     $request_id = $_POST['file_reject_id'];
+    $file_id = $_POST['file_reject_file_id'];
     $remarks = mysqli_real_escape_string($con, $_POST['file_reject_remarks']);
+    $date = date('Y-m-d H:i:s');
+
+    if($remarks === "<br>") {
+      echo 'empty reason';
+    } else {
+      $sql = "UPDATE file_requests SET is_approved = 2, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date', status = 0 WHERE id = '$request_id'";
+      $result = mysqli_query($con, $sql);
+
+
+      if ($result) {
+        echo 'success';
+      } else {
+        echo 'error';
+      }
+    }
+
+  } else if ($_GET['action'] == 'rejectNotifRequest') {
+    $user_id = $_SESSION['user_id'];
+
+    $request_id = $_POST['file_process_id'];
+    $file_id = $_POST['file_process_file_id'];
+    $remarks = mysqli_real_escape_string($con, $_POST['file_process_remarks']);
     $date = date('Y-m-d H:i:s');
 
     if($remarks === "<br>") {
@@ -115,7 +161,7 @@
   } else if ($_GET['action'] == 'getFileRequest') {
     $file_id = $_POST['id'];
 
-    $sql = "SELECT CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, files.date_uploaded AS date_uploaded, requests.date_requested AS date_requested, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.is_approved = 0 AND requests.id = '$file_id'";
+    $sql = "SELECT CONCAT(users.first_name, ' ', users.last_name) AS requested_by, CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.remarks AS remarks, files.date_uploaded AS date_uploaded, requests.date_requested AS date_requested, requests.date_processed AS date_processed, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.id = '$file_id'";
     $result = mysqli_query($con, $sql);
 
     $row = mysqli_fetch_assoc($result);
@@ -144,7 +190,10 @@
     $sql = "UPDATE file_requests SET status = 0 WHERE id = '$id'";
     $result = mysqli_query($con, $sql);
 
-    if($result) {
+    $notif_sql = "UPDATE notifications SET status = 0 WHERE notif_id = '$id'";
+    $notif_result = mysqli_query($con, $notif_sql);
+
+    if($result && $notif_result) {
       echo 'success';
     } else {
       echo 'error';

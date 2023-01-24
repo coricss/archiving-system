@@ -87,6 +87,7 @@
                       <b>Requested by</b>
                       <p id="file_approve_requested_by"></p>
                       <input type="hidden" name="file_approve_id" id="file_approve_id">
+                      <input type="hidden" name="file_approve_file_id" id="file_approve_file_id">
                     </div>
                     <div class="col-md-6">
                       <b>File name</b>
@@ -154,6 +155,7 @@
                       <b>Requested by</b>
                       <p id="file_reject_requested_by"></p>
                       <input type="hidden" name="file_reject_id" id="file_reject_id">
+                      <input type="hidden" name="file_reject_file_id" id="file_reject_file_id">
                     </div>
                     <div class="col-md-6">
                       <b>File name</b>

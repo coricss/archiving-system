@@ -563,7 +563,7 @@ $(function (){
   $(".btn-group").addClass("float-left");
 
 
-  $('#file_approve_remarks').summernote(
+  $('#file_approve_remarks, #file_process_remarks').summernote(
     {
       placeholder: 'Enter remarks for this request',
       height: 100,
@@ -586,6 +586,7 @@ $(function (){
       dataType: "json",
       success: function (data) {
         $("#file_approve_id").val(data.id);
+        $("#file_approve_file_id").val(data.file_id);
         $('#file_approve_requested_by').html(data.requested_by);
         $("#file_approve_file_name").html(data.file_name);
         $("#file_approve_file_type").html(data.file_type);
@@ -605,6 +606,204 @@ $(function (){
 
     var frm_approve_file_request = document.querySelectorAll("#frm_approve_file_request");
     var frm_reject_file_request = document.querySelectorAll("#frm_reject_file_request");
+    var frm_approve_reject = document.querySelectorAll("#frm_approve_reject");
+
+    Array.prototype.slice.call(frm_approve_reject).forEach(function (form) {
+      $("#btn_notif_approve_request_file").on("click", function (event) {
+        if (!frm_approve_reject[0].checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          Swal.fire({
+            title: "Please enter your remarks",
+            icon: "error",
+            showConfirmButton: false,
+            toast: true,
+            position: "top-end",
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: "white",
+            customClass: {
+              popup: "colored-toast",
+            },
+          });
+        } else {
+          $(this).prop("type", "submit");
+          $('#frm_approve_reject').on('submit', function(e){
+            e.preventDefault();
+        
+            Swal.fire({
+              title: "Are you sure?",
+              text: "You want to approve this request?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#007bff",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, approve it!",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $.ajax({
+                  url: "../../model/RequestModel.php?action=approveNotifRequest",
+                  type: "POST",
+                  data: $(this).serialize(),
+                  success: function (data) {
+                    if (data == "success") {
+                      Swal.fire({
+                        title: 'Request has been approved',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        timerProgressBar: true,
+                        iconColor: "white",
+                        customClass: {
+                          popup: "colored-toast",
+                        },
+                      });
+                      $tbl_pending_admin.ajax.reload();
+                      $tbl_pending_admin.order([0, "asc"]).draw();
+                      $("#tbl_approved_admin").DataTable().ajax.reload();
+                      $("#tbl_approved_admin").DataTable().order([0, "asc"]).draw();
+                      $("#tbl_rejected_admin").DataTable().ajax.reload();
+                      $("#tbl_rejected_admin").DataTable().order([0, "asc"]).draw();
+                    } else if(result == "empty reason"){
+                      Swal.fire({
+                        title: 'Please enter your reason',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        timerProgressBar: true,
+                        iconColor: "white",
+                        customClass: {
+                          popup: "colored-toast",
+                        },
+                      });
+                    } else {
+                      Swal.fire({
+                        title: 'Request failed to approve',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        timerProgressBar: true,
+                        iconColor: "white",
+                        customClass: {
+                          popup: "colored-toast",
+                        },
+                      });
+                    }
+                  },
+                });
+        
+                $('#frm_approve_reject').parents('div.modal').modal('hide');
+              }
+            });
+          });
+        }
+        form.classList.add("was-validated");
+      });
+    });
+    Array.prototype.slice.call(frm_approve_reject).forEach(function (form) {
+      $("#btn_notif_reject_request_file").on("click", function (event) {
+        if (!frm_approve_reject[0].checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+          Swal.fire({
+            title: "Please enter your remarks",
+            icon: "error",
+            showConfirmButton: false,
+            toast: true,
+            position: "top-end",
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: "white",
+            customClass: {
+              popup: "colored-toast",
+            },
+          });
+        } else {
+          $(this).prop("type", "submit");
+          $('#frm_approve_reject').on('submit', function(e){
+            e.preventDefault();
+        
+            Swal.fire({
+              title: "Are you sure?",
+              text: "You want to reject this request?",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#007bff",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, reject it!",
+            }).then((result) => {
+              if (result.isConfirmed) {
+                $.ajax({
+                  url: "../../model/RequestModel.php?action=rejectNotifRequest",
+                  type: "POST",
+                  data: $(this).serialize(),
+                  success: function (data) {
+                    if (data == "success") {
+                      Swal.fire({
+                        title: 'Request has been rejected',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        timerProgressBar: true,
+                        iconColor: "white",
+                        customClass: {
+                          popup: "colored-toast",
+                        },
+                      });
+                      $tbl_pending_admin.ajax.reload();
+                      $tbl_pending_admin.order([0, "asc"]).draw();
+                      $("#tbl_approved_admin").DataTable().ajax.reload();
+                      $("#tbl_approved_admin").DataTable().order([0, "asc"]).draw();
+                      $("#tbl_rejected_admin").DataTable().ajax.reload();
+                      $("#tbl_rejected_admin").DataTable().order([0, "asc"]).draw();
+                    } else if(result == "empty reason"){
+                      Swal.fire({
+                        title: 'Please enter your reason',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        timerProgressBar: true,
+                        iconColor: "white",
+                        customClass: {
+                          popup: "colored-toast",
+                        },
+                      });
+                    } else {
+                      Swal.fire({
+                        title: 'Request failed to approve',
+                        icon: 'error',
+                        showConfirmButton: false,
+                        toast: true,
+                        position: "top-end",
+                        timer: 1500,
+                        timerProgressBar: true,
+                        iconColor: "white",
+                        customClass: {
+                          popup: "colored-toast",
+                        },
+                      });
+                    }
+                  },
+                });
+        
+                $('#frm_approve_reject').parents('div.modal').modal('hide');
+              }
+            });
+          });
+        }
+        form.classList.add("was-validated");
+      });
+    });
 
     Array.prototype.slice.call(frm_approve_file_request).forEach(function (form) {
       $("#btn_approve_request_file").on("click", function (event) {
@@ -808,6 +1007,7 @@ $(function (){
       dataType: "json",
       success: function (data) {
         $("#file_reject_id").val(data.id);
+        $("#file_reject_file_id").val(data.file_id);
         $('#file_reject_requested_by').html(data.requested_by);
         $("#file_reject_file_name").html(data.file_name);
         $("#file_reject_file_type").html(data.file_type);
