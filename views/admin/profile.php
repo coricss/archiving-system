@@ -13,7 +13,7 @@
 
   $_SESSION['profile'] = 'active';
 
-  unset($_SESSION['dashboard']);
+  unset($_SESSION['announcements']);
   unset($_SESSION['user_management']);
   unset($_SESSION['file_archive']);
   unset($_SESSION['pending_admin']);

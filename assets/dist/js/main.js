@@ -39,4 +39,24 @@ $(function() {
     reader.readAsDataURL(file);
   });
   
+  $('#btn-messenger').click(function(e){
+    e.preventDefault();
+
+    $('.fb-page-box').toggle();
+  });
+
+  var mouse_is_inside = false;
+
+  $('.fb-page-box, #btn-messenger').hover(function(){ 
+    mouse_is_inside=true; 
+  }, function(){ 
+      mouse_is_inside=false; 
+  });
+
+  $('body').mouseup(function(){ 
+      if(! mouse_is_inside) {
+      $('.fb-page-box').hide();
+      }
+  });
+
 });

@@ -10,7 +10,7 @@
 
   $_SESSION['file_archive'] = 'active';
 
-  unset($_SESSION['dashboard']);
+  unset($_SESSION['announcements']);
   unset($_SESSION['profile']);
   unset($_SESSION['user_management']);
   unset($_SESSION['pending_admin']);

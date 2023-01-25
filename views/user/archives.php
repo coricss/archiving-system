@@ -9,7 +9,7 @@
 
   $_SESSION['archives'] = 'active';
 
-  unset($_SESSION['dashboard']);
+  unset($_SESSION['announcements']);
   unset($_SESSION['profile']);
   unset($_SESSION['pending']);
   unset($_SESSION['approved']);

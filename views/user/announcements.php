@@ -7,7 +7,7 @@
     header('location: /digital_archiving_management_system');
   }
 
-  $_SESSION['dashboard'] = 'active';
+  $_SESSION['announcements'] = 'active';
 
   unset($_SESSION['profile']);
   unset($_SESSION['archives']);
@@ -27,7 +27,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>User Dashboard</h1>
+          <h1>Announcements</h1>
         </div>
         <!-- <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">

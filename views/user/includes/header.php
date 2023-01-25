@@ -29,5 +29,11 @@
 </head>
 <body class="sidebar-mini layout-fixed layout-footer-fixed">
   
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=710821700066021&autoLogAppEvents=1" nonce="53v7m8js"></script>
 
-  
+<a id="btn-messenger"><i class="fab fa-facebook-messenger" id="messenger-icon"></i></a>
+
+<div class="fb-page-box" style="display: none">
+  <div class="fb-page" data-href="https://web.facebook.com/ieticalamba" data-tabs="messages,events,timeline" data-width="280" data-height="380" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://web.facebook.com/ieticalamba" class="fb-xfbml-parse-ignore"><a href="https://web.facebook.com/ieticalamba">IETI Calamba</a></blockquote></div>
+</div>
