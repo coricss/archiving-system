@@ -41,19 +41,15 @@
   </section>
   <section class="content">
     <div class="container-fluid">
-      <div class="row">
-        <!-- <div class="text-center" style="width: 100%">
-         
-        </div>  -->
-        <div class="col-md-6">
-          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fweb.facebook.com%2Fieticalamba%2Fposts%2Fpfbid02Sh9ja5mXszew3VWdAUVjmGZ72guJxmjZXsNEggHN5ke4Fs6v3MTmYRkM32rPqcSxl&show_text=true&width=400" width="400" height="520" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+      <div class="row mb-3">
+        <div class="col-md-12 d-flex align-items-center justify-content-center">
+          <div class="fb-post" data-href="https://m.facebook.com/story.php?story_fbid=pfbid0P9WYev9B2taEfwcraxS9n7JTooxy2A27JGoeYctGSfv2VVWUV9Xp3HwcpmP5YASfl&amp;id=1701405803265785&amp;mibextid=Nif5oz" data-width="750" data-show-text="true"><blockquote cite="https://www.facebook.com/ieticalamba/posts/8303299653076334" class="fb-xfbml-parse-ignore"><p>Greetings! IETI calamba is now open for Enrollment for S.Y. 2022-2023. Just click the link below https://forms.gle/ggxQs893dyfvqa196</p>Posted by <a href="https://facebook.com/ieticalamba">IETI Calamba</a> on&nbsp;<a href="https://www.facebook.com/ieticalamba/posts/8303299653076334">Thursday, June 16, 2022</a></blockquote></div>
         </div>
-        <div class="col-md-6">
-          <div class="fb-container w-100">
-           
-          <div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12 d-flex align-items-center justify-content-center">
+          <div class="fb-post" data-href="https://fb.watch/iibKCb3Euc/" data-width="750" data-show-text="true"><blockquote cite="https://www.facebook.com/ieticalamba/videos/175837706636820/" class="fb-xfbml-parse-ignore">Posted by <a href="https://facebook.com/ieticalamba">IETI Calamba</a> on&nbsp;<a href="https://www.facebook.com/ieticalamba/videos/175837706636820/">Sunday, April 21, 2019</a></blockquote></div>
         </div>
-        
       </div>
     </div>
   </section>

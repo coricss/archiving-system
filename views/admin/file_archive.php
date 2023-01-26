@@ -55,6 +55,35 @@
               </nav>
               <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active py-3" id="nav-file" role="tabpanel" aria-labelledby="nav-file-tab">
+                  <b>Filter by:</b>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                      <div class="form-group">
+                        <select class="form-control" id="sel_file_type" name="sel_file_type">
+                          <!-- <option value="0">File type</option> -->
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                      <div class="form-group">
+                        <select class="form-control" id="sel_owner" name="sel_owner">
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                      <div class="form-group">
+                        <select class="form-control" id="sel_batch" name="sel_batch">
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                      <div class="form-group">
+                        <select class="form-control" id="sel_date_uploaded" name="sel_date_uploaded">
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  
                   <table class="table table-bordered table-hover table-sm w-100" id="tbl_files">
                     <thead class="bg-success">
                       <tr>

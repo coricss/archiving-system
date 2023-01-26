@@ -41,30 +41,16 @@
   </section>
   <section class="content">
     <div class="container-fluid">
-      <!-- <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Title</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-            <div class="card-body" style="display: block;">
-              Start creating your amazing application!
-            </div>
-
-            <div class="card-footer" style="display: block;">
-              Footer
-            </div>
-          </div>
+      <div class="row mb-3">
+        <div class="col-md-12 d-flex align-items-center justify-content-center">
+          <div class="fb-post" data-href="https://m.facebook.com/story.php?story_fbid=pfbid0P9WYev9B2taEfwcraxS9n7JTooxy2A27JGoeYctGSfv2VVWUV9Xp3HwcpmP5YASfl&amp;id=1701405803265785&amp;mibextid=Nif5oz" data-width="750" data-show-text="true"><blockquote cite="https://www.facebook.com/ieticalamba/posts/8303299653076334" class="fb-xfbml-parse-ignore"><p>Greetings! IETI calamba is now open for Enrollment for S.Y. 2022-2023. Just click the link below https://forms.gle/ggxQs893dyfvqa196</p>Posted by <a href="https://facebook.com/ieticalamba">IETI Calamba</a> on&nbsp;<a href="https://www.facebook.com/ieticalamba/posts/8303299653076334">Thursday, June 16, 2022</a></blockquote></div>
         </div>
-      </div> -->
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12 d-flex align-items-center justify-content-center">
+          <div class="fb-post" data-href="https://fb.watch/iibKCb3Euc/" data-width="750" data-show-text="true"><blockquote cite="https://www.facebook.com/ieticalamba/videos/175837706636820/" class="fb-xfbml-parse-ignore">Posted by <a href="https://facebook.com/ieticalamba">IETI Calamba</a> on&nbsp;<a href="https://www.facebook.com/ieticalamba/videos/175837706636820/">Sunday, April 21, 2019</a></blockquote></div>
+        </div>
+      </div>
     </div>
   </section>
 </div>

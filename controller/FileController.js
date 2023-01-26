@@ -358,10 +358,34 @@ $(function () {
   });
 
   //FILES
+  $('#sel_file_type').select2({
+    theme: 'bootstrap4',
+    dropdownPosition: 'below',
+    width: '100%',
+    placeholder: 'File type',
+  });
+  $('#sel_owner').select2({
+    theme: 'bootstrap4',
+    dropdownPosition: 'below',
+    width: '100%',
+    placeholder: 'Owner',
+  });
+  $('#sel_batch').select2({
+    theme: 'bootstrap4',
+    dropdownPosition: 'below',
+    width: '100%',
+    placeholder: 'Batch',
+  });
+  $('#sel_date_uploaded').select2({
+    theme: 'bootstrap4',
+    dropdownPosition: 'below',
+    width: '100%',
+    placeholder: 'Date Uploaded',
+  });
 
   var $tbl_files = $("#tbl_files").DataTable({
     dom: "Bfrtip",
-    processing: true,
+    // processing: true,
     responsive: true,
     order: [[0, "asc"]],
     lengthMenu: [
@@ -493,9 +517,137 @@ $(function () {
         action: function (e, dt, node, config) {
           $("#tbl_files").DataTable().ajax.reload();
           $("#tbl_files").DataTable().order([0, "asc"]).draw();
+          $("#sel_file_type, #sel_owner, #sel_batch, #sel_date_uploaded").val("ALL").trigger("change");
         },
       },
     ],
+    initComplete: function(settings, json) {
+      var api = this.api();
+
+      // FILE TYPE FILTER
+      api.columns(4).each(function (index) {
+        var column = this;
+
+        var select = $('#sel_file_type');
+
+        var option = api.columns(4).data()[0].length > 0 ? '<option value="ALL">File type</option>' : '<option value=""></option>';
+
+        select.empty().html(option).select2().on('change', function() {
+            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+            var search = val !== 'ALL' ? val : '';
+
+            column
+                .search(search ? '^' + search + '$' : '', true, false)
+                .draw();
+        }).val('').trigger('change.select2');
+
+        api.column(4).data().unique().sort().each(function (value, j) {
+            if (value !== null) {
+                select.append('<option value="' + value + '">' + value + '</option>');
+            }
+        });
+
+        select.select2({
+            theme: 'bootstrap4',
+            dropdownPosition: 'below',
+            placeholder: 'Select category name'
+        })
+      });
+
+      // OWNER FILTER
+      api.columns(2).each(function (index) {
+        var column = this;
+
+        var select = $('#sel_owner');
+
+        var option = api.columns(2).data()[0].length > 0 ? '<option value="ALL">Owner</option>' : '<option value=""></option>';
+
+        select.empty().html(option).select2().on('change', function() {
+            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+            var search = val !== 'ALL' ? val : '';
+
+            column
+                .search(search ? '^' + search + '$' : '', true, false)
+                .draw();
+        }).val('').trigger('change.select2');
+
+        api.column(2).data().unique().sort().each(function (value, j) {
+            if (value !== null) {
+                select.append('<option value="' + value + '">' + value + '</option>');
+            }
+        });
+
+        select.select2({
+            theme: 'bootstrap4',
+            dropdownPosition: 'below',
+            placeholder: 'Select category name'
+        })
+      });
+
+      // BATCH FILTER
+      // api.columns(7).each(function (index) {
+      //   var column = this;
+
+      //   var select = $('#sel_batch');
+
+      //   var option = api.columns(7).data()[0].length > 0 ? '<option value="ALL">Batch</option>' : '<option value=""></option>';
+
+      //   select.empty().html(option).select2().on('change', function() {
+      //       var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+      //       var search = val !== 'ALL' ? val : '';
+
+      //       column
+      //           .search(search ? '^' + search + '$' : '', true, false)
+      //           .draw();
+      //   }).val('').trigger('change.select2');
+
+      //   api.column(7).data().unique().sort().each(function (value, j) {
+      //       if (value !== null) {
+      //           select.append('<option value="' + value + '">' + value + '</option>');
+      //       }
+      //   });
+
+      //   select.select2({
+      //       theme: 'bootstrap4',
+      //       dropdownPosition: 'below',
+      //       placeholder: 'Select category name'
+      //   })
+      // });
+
+      // DATE UPLOADED FILTER
+      api.columns(6).each(function (index) {
+        var column = this;
+
+        var select = $('#sel_date_uploaded');
+
+        var option = api.columns(6).data()[0].length > 0 ? '<option value="ALL">Date Uploaded</option>' : '<option value=""></option>';
+
+        select.empty().html(option).select2().on('change', function() {
+            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+            var search = val !== 'ALL' ? val : '';
+
+            column
+                .search(search ? '^' + search + '$' : '', true, false)
+                .draw();
+        }).val('').trigger('change.select2');
+
+        api.column(6).data().unique().sort().each(function (value, j) {
+            if (value !== null) {
+                select.append('<option value="' + value + '">' + value + '</option>');
+            }
+        });
+
+        select.select2({
+            theme: 'bootstrap4',
+            dropdownPosition: 'below',
+            placeholder: 'Select category name'
+        })
+      });
+    }
   });
 
   // align dt-buttons to filter

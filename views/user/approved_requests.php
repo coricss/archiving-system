@@ -56,7 +56,7 @@
                     <th>Date approved</th>
                     <th>Approved by</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <!-- <th>Action</th> -->
                   </tr>
                 </thead>
               </table>

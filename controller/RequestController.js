@@ -295,12 +295,13 @@ $(function (){
       { data: "date_requested" },
       { data: "date_approved" },
       { data: "approved_by" },
-      { data: "status" },
-      { data: "action" }
+      { data: "status" }
+      // { data: "action" }
     ],
     columnDefs: [
       {
-        targets: [8, 9],
+        // targets: [8, 9],
+        targets: [8],
         orderable: false,
         searchable: false,
         className: "text-center",
