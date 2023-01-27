@@ -1,5 +1,4 @@
 $(function () {
-
   $(".btn-close-files").on("click", function () {
     var form_file_type = $("#frm_file_type");
     var form_edit_file_type = $("#frm_edit_file_type");
@@ -411,13 +410,14 @@ $(function () {
       { data: "file_type" },
       { data: "uploaded_by" },
       { data: "date_uploaded" },
+      { data: "batch" },
       { data: "status" },
       { data: "action" }
     ],
     deferRender: true,
     lengthChange: false,
     columnDefs: [
-      { targets: [7, 8], className: "text-center", orderable: false },
+      { targets: [8, 9], className: "text-center", orderable: false },
       {
         targets: [1],
         orderable: false,
@@ -479,6 +479,23 @@ $(function () {
               }
             }
           });
+
+          $('#slc_batch').select2({
+            theme: 'bootstrap4',
+            dropdownPosition: 'below'
+          });
+        
+          var select = document.getElementById("slc_batch");
+          var currentYear = new Date().getFullYear();
+          var yearEstablished = 2017;
+          var yearDiff = currentYear - yearEstablished;
+        
+          for (var i = currentYear; i >= currentYear - yearDiff; i--) {
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            select.appendChild(option);
+          }
         },
       },
       {
@@ -587,35 +604,35 @@ $(function () {
       });
 
       // BATCH FILTER
-      // api.columns(7).each(function (index) {
-      //   var column = this;
+      api.columns(7).each(function (index) {
+        var column = this;
 
-      //   var select = $('#sel_batch');
+        var select = $('#sel_batch');
 
-      //   var option = api.columns(7).data()[0].length > 0 ? '<option value="ALL">Batch</option>' : '<option value=""></option>';
+        var option = api.columns(7).data()[0].length > 0 ? '<option value="ALL">Batch</option>' : '<option value=""></option>';
 
-      //   select.empty().html(option).select2().on('change', function() {
-      //       var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        select.empty().html(option).select2().on('change', function() {
+            var val = $.fn.dataTable.util.escapeRegex($(this).val());
 
-      //       var search = val !== 'ALL' ? val : '';
+            var search = val !== 'ALL' ? val : '';
 
-      //       column
-      //           .search(search ? '^' + search + '$' : '', true, false)
-      //           .draw();
-      //   }).val('').trigger('change.select2');
+            column
+                .search(search ? '^' + search + '$' : '', true, false)
+                .draw();
+        }).val('').trigger('change.select2');
 
-      //   api.column(7).data().unique().sort().each(function (value, j) {
-      //       if (value !== null) {
-      //           select.append('<option value="' + value + '">' + value + '</option>');
-      //       }
-      //   });
+        api.column(7).data().unique().sort().each(function (value, j) {
+            if (value !== null) {
+                select.append('<option value="' + value + '">' + value + '</option>');
+            }
+        });
 
-      //   select.select2({
-      //       theme: 'bootstrap4',
-      //       dropdownPosition: 'below',
-      //       placeholder: 'Select category name'
-      //   })
-      // });
+        select.select2({
+            theme: 'bootstrap4',
+            dropdownPosition: 'below',
+            placeholder: 'Select category name'
+        })
+      });
 
       // DATE UPLOADED FILTER
       api.columns(6).each(function (index) {
@@ -758,7 +775,7 @@ $(function () {
   });
 
 
-  //Edit file 
+  //Edit file
 
   $tbl_files.on("click", ".btn_edit_file", function () {
     var id = $(this).attr("data-id");
@@ -807,6 +824,25 @@ $(function () {
         $("#txt_file_id").val(result.id);
         $("#slc_edit_owner").html(`<option value=${result.user_id}>${result.owner}</option>`);
         $("#slc_edit_file_type").html(`<option value=${result.file_type_id}>${result.file_type}</option>`);
+        $("#slc_edit_batch").html(`<option value=${result.batch}>${result.batch}</option>`);
+
+        $('#slc_edit_batch').select2({
+          theme: 'bootstrap4',
+          dropdownPosition: 'below'
+        });
+      
+        var select = document.getElementById("slc_edit_batch");
+        var currentYear = new Date().getFullYear();
+        var yearEstablished = 2017;
+        var yearDiff = currentYear - yearEstablished;
+      
+        for (var i = currentYear; i >= currentYear - yearDiff; i--) {
+          var option = document.createElement("option");
+          option.value = i;
+          option.text = i;
+          select.appendChild(option);
+        }
+
         $('#recent_file').attr('href', `../../storage/files/${result.file_name}`);
         $("#frm_edit_file")
           .parents("div.modal")

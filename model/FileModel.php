@@ -217,7 +217,7 @@
     }
   } else if($_GET['action'] == 'loadFiles') {
 
-    $sql = "SELECT files.id AS id, files.user_id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS owner, users.picture AS picture, files.file_name AS file_name, types.id AS file_type_id, types.file_type AS file_type, files.uploaded_by AS uploaded_by_id, CONCAT(uploader.first_name, ' ', uploader.last_name) AS uploader, files.status AS status, files.date_uploaded AS date_uploaded FROM file_details AS files INNER JOIN file_types AS types ON files.file_type_id = types.id INNER JOIN user_accounts AS users ON files.user_id = users.user_id INNER JOIN user_accounts AS uploader ON files.uploaded_by = uploader.user_id ORDER BY files.date_uploaded";
+    $sql = "SELECT files.id AS id, files.user_id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS owner, users.picture AS picture, files.file_name AS file_name, types.id AS file_type_id, types.file_type AS file_type, files.uploaded_by AS uploaded_by_id, CONCAT(uploader.first_name, ' ', uploader.last_name) AS uploader, files.status AS status, files.batch AS batch, files.date_uploaded AS date_uploaded FROM file_details AS files INNER JOIN file_types AS types ON files.file_type_id = types.id INNER JOIN user_accounts AS users ON files.user_id = users.user_id INNER JOIN user_accounts AS uploader ON files.uploaded_by = uploader.user_id ORDER BY files.date_uploaded";
     $data = mysqli_query($con, $sql);
 
     $output = [];
@@ -240,6 +240,7 @@
         'uploaded_by' => $row['uploader'],
         'date_uploaded' => date('F d, Y', strtotime($row['date_uploaded'])),
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
+        'batch' => $row['batch'],
         'action' => $row['status'] == 0 ? 
                       "
                         <button class='btn btn-success btn-sm btn_edit_file px-2' title='Edit file details' data-id='{$row['id']}'>
@@ -268,6 +269,7 @@
     $owner = mysqli_real_escape_string($con, $_POST['slc_owner']);
     $file_type = mysqli_real_escape_string($con, $_POST['slc_file_type']);
     $file =  time().mysqli_real_escape_string($con, $_FILES['file_record']['name']);
+    $batch = mysqli_real_escape_string($con, $_POST['slc_batch']);
     $file_loc = "../storage/files/".$file;
     $uploaded_by = $_SESSION['user_id'];
     $date_uploaded = date('Y-m-d H:i:s');
@@ -281,7 +283,7 @@
     } else {
       move_uploaded_file($_FILES["file_record"]["tmp_name"], $file_loc);
 
-      $sql = "INSERT INTO file_details (user_id, file_type_id, file_name, status, uploaded_by, date_uploaded) VALUES ('$owner', '$file_type', '$file', 1, '$uploaded_by', '$date_uploaded')";
+      $sql = "INSERT INTO file_details (user_id, file_type_id, file_name, status, batch, uploaded_by, date_uploaded) VALUES ('$owner', '$file_type', '$file', 1, '$batch', '$uploaded_by', '$date_uploaded')";
       $result = mysqli_query($con, $sql);
 
       if($result) {
@@ -293,7 +295,7 @@
     
   } else if ($_GET['action'] == 'getFile') {
 
-    $sql = "SELECT files.id AS id, files.user_id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS owner, users.picture AS picture, files.file_name AS file_name, types.id AS file_type_id, types.file_type AS file_type, files.uploaded_by AS uploaded_by_id, CONCAT(uploader.first_name, ' ', uploader.last_name) AS uploader, files.status AS status, files.date_uploaded AS date_uploaded FROM file_details AS files INNER JOIN file_types AS types ON files.file_type_id = types.id INNER JOIN user_accounts AS users ON files.user_id = users.user_id INNER JOIN user_accounts AS uploader ON files.uploaded_by = uploader.user_id WHERE files.id = {$_GET['id']}";
+    $sql = "SELECT files.id AS id, files.user_id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS owner, users.picture AS picture, files.file_name AS file_name, types.id AS file_type_id, types.file_type AS file_type, files.uploaded_by AS uploaded_by_id, CONCAT(uploader.first_name, ' ', uploader.last_name) AS uploader, files.status AS status, files.batch AS batch, files.date_uploaded AS date_uploaded FROM file_details AS files INNER JOIN file_types AS types ON files.file_type_id = types.id INNER JOIN user_accounts AS users ON files.user_id = users.user_id INNER JOIN user_accounts AS uploader ON files.uploaded_by = uploader.user_id WHERE files.id = {$_GET['id']}";
     $data = mysqli_query($con, $sql);
 
     $row = mysqli_fetch_assoc($data);
@@ -305,6 +307,7 @@
     $id = mysqli_real_escape_string($con, $_POST['txt_file_id']);
     $owner = mysqli_real_escape_string($con, $_POST['slc_edit_owner']);
     $file_type = mysqli_real_escape_string($con, $_POST['slc_edit_file_type']);
+    $edit_batch = mysqli_real_escape_string($con, $_POST['slc_edit_batch']);
     $file =  time().mysqli_real_escape_string($con, $_FILES['file_edit_record']['name']);
     $file_loc = "../storage/files/".$file;
 
@@ -316,7 +319,7 @@
 
     if($_FILES['file_edit_record']['name'] == ''){
       
-      $sql = "UPDATE file_details SET user_id = '$owner', file_type_id = '$file_type' WHERE id = $id";
+      $sql = "UPDATE file_details SET user_id = '$owner', file_type_id = '$file_type', batch = '$edit_batch' WHERE id = $id";
       $result = mysqli_query($con, $sql);
 
       if($result) {
@@ -336,7 +339,7 @@
 
         move_uploaded_file($_FILES["file_edit_record"]["tmp_name"], $file_loc);
   
-        $sql = "UPDATE file_details SET user_id = '$owner', file_type_id = '$file_type', file_name = '$file' WHERE id = $id";
+        $sql = "UPDATE file_details SET user_id = '$owner', file_type_id = '$file_type', batch = '$edit_batch', file_name = '$file' WHERE id = $id";
         $result = mysqli_query($con, $sql);
   
         if($result) {

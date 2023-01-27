@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2023 at 01:42 PM
+-- Generation Time: Jan 27, 2023 at 02:07 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -33,6 +33,7 @@ CREATE TABLE `file_details` (
   `file_type_id` int(11) NOT NULL,
   `file_name` varchar(255) NOT NULL,
   `status` int(11) NOT NULL,
+  `batch` varchar(255) NOT NULL,
   `uploaded_by` varchar(255) NOT NULL,
   `date_uploaded` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -41,12 +42,13 @@ CREATE TABLE `file_details` (
 -- Dumping data for table `file_details`
 --
 
-INSERT INTO `file_details` (`id`, `user_id`, `file_type_id`, `file_name`, `status`, `uploaded_by`, `date_uploaded`) VALUES
-(1, 766563, 1, '1673095857Cover-page.docx', 1, '130352', '2023-01-07 13:50:57'),
-(2, 766563, 2, '1673095998RESUME_GUINANAO_RICO.pdf', 1, '130352', '2023-01-07 13:53:18'),
-(3, 745059, 2, '1674373292Cover-page.docx', 1, '130352', '2023-01-22 08:41:32'),
-(4, 830402, 2, '1674373313Cover-page.docx', 1, '130352', '2023-01-22 08:41:53'),
-(5, 830402, 3, '1674373326RESUME_GUINANAO_RICO.pdf', 1, '130352', '2023-01-22 08:42:06');
+INSERT INTO `file_details` (`id`, `user_id`, `file_type_id`, `file_name`, `status`, `batch`, `uploaded_by`, `date_uploaded`) VALUES
+(1, 766563, 1, '1673095857Cover-page.docx', 1, '2018', '130352', '2023-01-07 13:50:57'),
+(2, 766563, 2, '1673095998RESUME_GUINANAO_RICO.pdf', 1, '2022', '130352', '2023-01-07 13:53:18'),
+(3, 745059, 2, '1674373292Cover-page.docx', 1, '2022', '130352', '2023-01-22 08:41:32'),
+(4, 830402, 2, '1674373313Cover-page.docx', 1, '2018', '130352', '2023-01-22 08:41:53'),
+(5, 830402, 3, '1674373326RESUME_GUINANAO_RICO.pdf', 1, '2018', '130352', '2023-01-22 08:42:06'),
+(6, 745059, 3, '1674823270OJT-pics.docx', 1, '2017', '130352', '2023-01-27 13:41:10');
 
 -- --------------------------------------------------------
 
@@ -170,7 +172,7 @@ ALTER TABLE `user_accounts`
 -- AUTO_INCREMENT for table `file_details`
 --
 ALTER TABLE `file_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `file_requests`

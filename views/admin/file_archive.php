@@ -94,6 +94,7 @@
                         <th>File type</th>
                         <th>Uploaded by</th>
                         <th>Date uploaded</th>
+                        <th>Batch</th>
                         <th>Status</th>
                         <th>Actions</th>
                       </tr>
@@ -212,6 +213,12 @@
                   </select>
                 </div>
                 <div class="form-group">
+                  <label for="slc_batch">Batch </label>
+                  <select class="form-control slc_batch w-100" id="slc_batch" name="slc_batch" required>
+                    <option value="" disabled="true" selected="true">-- Please select --</option>
+                  </select>
+                </div>
+                <div class="form-group">
                   <label for="file_record">File</label>
                   <input type="file" class="form-control file_record" id="file_record" name="file_record" placeholder="Enter file type" accept=".pdf, .csv, .xlsx, .pptx, .docx" required>
                 </div>
@@ -250,6 +257,12 @@
                 <div class="form-group">
                   <label for="slc_edit_file_type">File type</label>
                   <select class="form-control slc_edit_file_type w-100" id="slc_edit_file_type" name="slc_edit_file_type" required>
+                    <option value="" disabled="true" selected="true">-- Please select --</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="slc_edit_batch">Batch </label>
+                  <select class="form-control slc_edit_batch w-100" id="slc_edit_batch" name="slc_edit_batch" required>
                     <option value="" disabled="true" selected="true">-- Please select --</option>
                   </select>
                 </div>
