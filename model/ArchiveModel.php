@@ -63,13 +63,13 @@
 
       $date_created = date('Y-m-d H:i:s');
 
-      $sql = "SELECT * FROM file_requests WHERE file_id = {$_POST['txt_file_id']} AND user_id = $user_id AND status = 1 AND is_approved != 2";
+      // $sql = "SELECT * FROM file_requests WHERE file_id = {$_POST['txt_file_id']} AND user_id = $user_id AND status = 1 AND is_approved != 2";
 
-      $data = mysqli_query($con, $sql);
+      // $data = mysqli_query($con, $sql);
 
-      if(mysqli_num_rows($data) > 0) {
-        echo 'already requested';
-      } else {
+      // if(mysqli_num_rows($data) > 0) {
+      //   echo 'already requested';
+      // } else {
         if(mysqli_real_escape_string($con, $_POST['txt_reason']) === "<br>") {
           echo 'empty reason';
         } else {
@@ -88,6 +88,6 @@
             echo 'error';
           }
         }
-      }
+      // }
     
   }

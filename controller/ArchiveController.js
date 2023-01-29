@@ -208,21 +208,21 @@ $(function () {
               popup: "colored-toast",
             },
           });
-        } else if (result == 'already requested') {
-          Swal.fire({
-            title: 'You have already requested this file',
-            icon: 'error',
-            showConfirmButton: false,
-            toast: true,
-            position: "top-end",
-            timer: 1500,
-            timerProgressBar: true,
-            iconColor: "white",
-            customClass: {
-              popup: "colored-toast",
-            },
-          });
-        }
+        } //else if (result == 'already requested') {
+        //   Swal.fire({
+        //     title: 'You have already requested this file',
+        //     icon: 'error',
+        //     showConfirmButton: false,
+        //     toast: true,
+        //     position: "top-end",
+        //     timer: 1500,
+        //     timerProgressBar: true,
+        //     iconColor: "white",
+        //     customClass: {
+        //       popup: "colored-toast",
+        //     },
+        //   });
+        // }
       },
     });
   });

@@ -1071,6 +1071,13 @@ $(function (){
           return `<img src="../../assets/dist/img/users/${data}" class="img-circle" width="50" height="50">`;
         }
       },
+      {
+        targets: [3],
+        className: "text-center",
+        render: function (data, type, row) {
+          return `<a href="../../storage/files/${data}" target="_blank">${data}</a>`;
+        }
+      },
     ],
     buttons: [
       {
@@ -1173,6 +1180,13 @@ $(function (){
         className: "text-center",
         render: function (data, type, row) {
           return `<img src="../../assets/dist/img/users/${data}" class="img-circle" width="50" height="50">`;
+        }
+      },
+      {
+        targets: [3],
+        className: "text-center",
+        render: function (data, type, row) {
+          return `<a href="../../storage/files/${data}" target="_blank">${data}</a>`;
         }
       },
     ],
