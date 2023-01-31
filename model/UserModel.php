@@ -48,7 +48,7 @@
     $email = mysqli_real_escape_string($con, $_POST['txt_email']);
     $address = mysqli_real_escape_string($con, $_POST['txt_address']);
     $username = mysqli_real_escape_string($con, $_POST['txt_username']);
-    $password = password_hash("IETI_".date('Y'), PASSWORD_DEFAULT);
+    $password = password_hash("IETI_".$userid, PASSWORD_DEFAULT);
     $role = mysqli_real_escape_string($con, $_POST['slc_role']);
     $date_added = date('Y-m-d H:i:s');
     $picture = time().mysqli_real_escape_string($con, $_FILES['file_picture']['name']);
@@ -170,7 +170,14 @@
       echo 'error';
     }
   } else if($_GET['action'] == 'resetPassword') {
-    $password = password_hash("IETI_".date('Y'), PASSWORD_DEFAULT);
+
+    $sql = "SELECT * FROM user_accounts WHERE id = {$_POST['id']}";
+    $data = mysqli_query($con, $sql);
+    $row = mysqli_fetch_assoc($data);
+
+    $user_id = $row['user_id'];
+
+    $password = password_hash("IETI_".$user_id, PASSWORD_DEFAULT);
 
     $query = "UPDATE user_accounts SET password = '$password' WHERE id = {$_POST['id']}";
     // $2y$10$jmKrofwnN7983ZAb8eb8huVCoUr1tdZubSfUtpKGKORjF9c54tc0u

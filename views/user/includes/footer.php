@@ -71,12 +71,13 @@
     include_once('../../database/connection.php');
 
     $userid = $_SESSION['user_id'];
+    $user_name = $_SESSION['user_name'];
 
-    $sql = "SELECT * FROM user_accounts WHERE user_id = '$userid' OR username = '$userid'";
+    $sql = "SELECT * FROM user_accounts WHERE user_id = '$userid' OR username = '$user_name'";
     $result = mysqli_query($con, $sql);
     $row = mysqli_fetch_assoc($result);
   
-    if(password_verify('IETI_'.date('Y'), $row['password'])){
+    if(password_verify('IETI_'.$userid, $row['password'])){
       echo "<script>
               $(document).ready(function(){
                 $('#modalNewPassword').modal({
