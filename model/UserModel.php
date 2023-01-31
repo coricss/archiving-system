@@ -26,7 +26,7 @@
         'username' => $row['username'],
         'role' => $row['is_admin'] == 1 ? 'Admin' : 'User',
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
-        'date_added' => date('F d, Y', strtotime($row['date_added'])),
+        'date_added' => date('M d, Y - h:i A', strtotime($row['date_added'])),
         'action' => "
                       <button class='btn btn-success btn-sm btn_edit_user' title='Edit details' data-id='{$row['id']}'>
                         <i class='fas fa-edit'></i>

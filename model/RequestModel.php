@@ -25,7 +25,7 @@
         'file_type_id' => $row['file_type_id'],
         'file_type' => $row['file_type'],
         'reason' => $row['reason'],
-        'date_requested' =>  date('F d, Y', strtotime($row['date_requested'])),
+        'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'action' => "
                     <button class='btn btn-success btn-sm btn_edit_file_request px-2' title='Edit file request reason' data-id='{$row['id']}'>
@@ -59,7 +59,7 @@
         'file_type_id' => $row['file_type_id'],
         'file_type' => $row['file_type'],
         'reason' => $row['reason'],
-        'date_requested' =>  date('F d, Y', strtotime($row['date_requested'])),
+        'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'action' => "
                     <button class='btn btn-success btn-sm btn_approve_request px-2' title='Approve' data-id='{$row['id']}'>
@@ -218,8 +218,8 @@
         'file_type_id' => $row['file_type_id'],
         'file_type' => $row['file_type'],
         'reason' => $row['reason'],
-        'date_requested' =>  date('F d, Y', strtotime($row['date_requested'])),
-        'date_approved' =>  date('F d, Y', strtotime($row['date_approved'])),
+        'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
+        'date_approved' =>  date('M d, Y - h:i A', strtotime($row['date_approved'])),
         'approved_by' => $row['approved_by'],
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'remarks' => $row['remarks'],
@@ -253,8 +253,8 @@
         'file_type_id' => $row['file_type_id'],
         'file_type' => $row['file_type'],
         'reason' => $row['reason'],
-        'date_requested' =>  date('F d, Y', strtotime($row['date_requested'])),
-        'date_approved' =>  date('F d, Y', strtotime($row['date_approved'])),
+        'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
+        'date_approved' =>  date('M d, Y - h:i A', strtotime($row['date_approved'])),
         'approved_by' => $row['approved_by'],
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'remarks' => $row['remarks']
@@ -282,8 +282,8 @@
         'file_type_id' => $row['file_type_id'],
         'file_type' => $row['file_type'],
         'reason' => $row['reason'],
-        'date_requested' =>  date('F d, Y', strtotime($row['date_requested'])),
-        'date_rejected' =>  date('F d, Y', strtotime($row['date_rejected'])),
+        'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
+        'date_rejected' =>  date('M d, Y - h:i A', strtotime($row['date_rejected'])),
         'rejected_by' => $row['rejected_by'],
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'remarks' => $row['remarks']
@@ -312,8 +312,8 @@
         'file_type_id' => $row['file_type_id'],
         'file_type' => $row['file_type'],
         'reason' => $row['reason'],
-        'date_requested' =>  date('F d, Y', strtotime($row['date_requested'])),
-        'date_rejected' =>  date('F d, Y', strtotime($row['date_rejected'])),
+        'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
+        'date_rejected' =>  date('M d, Y - h:i A', strtotime($row['date_rejected'])),
         'rejected_by' => $row['rejected_by'],
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'remarks' => $row['remarks']

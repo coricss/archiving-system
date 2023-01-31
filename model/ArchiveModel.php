@@ -33,7 +33,7 @@
         'file_type' => $row['file_type'],
         'uploaded_by_id' => $row['uploaded_by_id'],
         'uploaded_by' => $row['uploader'],
-        'date_uploaded' => date('F d, Y', strtotime($row['date_uploaded'])),
+        'date_uploaded' => date('M d, Y - h:i A', strtotime($row['date_uploaded'])),
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'action' => "
                       <button class='btn btn-primary btn-sm btn_file_request px-2' title='Make a file request' data-id='{$row['id']}'>
