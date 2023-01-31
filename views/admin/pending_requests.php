@@ -16,6 +16,7 @@
   unset($_SESSION['archives_admin']);
   unset($_SESSION['approved_admin']);
   unset($_SESSION['rejected_admin']);
+  unset($_SESSION['dashboard']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
