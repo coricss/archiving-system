@@ -24,7 +24,7 @@
         'email' => $row['email'],
         'address' => $row['address'],
         'username' => $row['username'],
-        'role' => $row['is_admin'] == 1 ? 'Admin' : 'User',
+        'role' => $row['is_admin'] == 1 ? 'Admin' : ($row['is_admin'] == 2 ? 'Director' : 'User'),
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'date_added' => date('M d, Y - h:i A', strtotime($row['date_added'])),
         'action' => "
@@ -60,6 +60,9 @@
     $email_sql = "SELECT * FROM user_accounts WHERE email = '$email' OR username = '$username'";
     $email_username = mysqli_query($con, $email_sql);
 
+    $director_sql = "SELECT * FROM user_accounts WHERE is_admin = '$role' AND status = 1";
+    $director = mysqli_query($con, $director_sql);
+
     if(mysqli_num_rows($user_name) > 0) {
 
       echo 'user_exists';
@@ -67,6 +70,10 @@
     } else if(mysqli_num_rows($email_username) > 0){
 
       echo 'email_exists';
+      
+    } else if(mysqli_num_rows($director) > 0){
+
+      echo 'director_exists';
       
     } else {
 

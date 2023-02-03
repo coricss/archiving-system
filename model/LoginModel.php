@@ -24,6 +24,17 @@
             $_SESSION['user_type'] = 'admin';
 
             echo 'admin';
+          } else if ($row['is_admin'] == 2) {
+            session_start();
+            $_SESSION['id'] = $row['id'];
+            $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['fullname'] = $row['first_name'] . ' ' . $row['last_name'];
+            $_SESSION['user_name'] = $row['username'];
+            $_SESSION['user_role'] = $row['is_admin'];
+            $_SESSION['user_picture'] = $row['picture'];
+            $_SESSION['user_type'] = 'director';
+
+            echo 'director';
           } else {
             session_start();
             $_SESSION['id'] = $row['id'];

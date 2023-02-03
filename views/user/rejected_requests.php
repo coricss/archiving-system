@@ -48,6 +48,7 @@
                 <thead class="bg-success">
                   <tr>
                     <th>#</th>
+                    <th>Request ID</th>
                     <th>File name</th>
                     <th>File type</th>
                     <th>Reason</th>

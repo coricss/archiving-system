@@ -48,6 +48,7 @@
                 <thead class="bg-success">
                   <tr>
                     <th>#</th>
+                    <th>Request ID</th>
                     <th>File name</th>
                     <th>File type</th>
                     <th>Reason</th>
@@ -56,7 +57,6 @@
                     <th>Date approved</th>
                     <th>Approved by</th>
                     <th>Status</th>
-                    <!-- <th>Action</th> -->
                   </tr>
                 </thead>
               </table>

@@ -253,6 +253,22 @@ $(function(){
             },
           });
 
+        } else if (result == "director_exists"){
+
+          Swal.fire({
+            title: 'There is already a director',
+            icon: 'info',
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end',
+            timer: 1500,
+            timerProgressBar: true,
+            iconColor: 'white',
+            customClass: {
+              popup: 'colored-toast'
+            },
+          });
+
         } else{
 
           Swal.fire({
@@ -294,7 +310,13 @@ $(function(){
         $('#txt_edit_email').val(result.email);
         $('#txt_edit_address').val(result.address);
         $('#txt_edit_username').val(result.username);
-        $('#slc_edit_role').val(result.is_admin);
+        if(result.is_admin == '2') {
+          $('#slc_edit_role').html('<option selected value="2">Director</option>');
+        } else if(result.is_admin == '0' || result.is_admin == '1'){
+          $('#slc_edit_role').html('<option value="">Select Role</option><option value="0">User</option><option value="1">Admin</option>');
+          $('#slc_edit_role').val(result.is_admin);
+        }
+        
         if(result.status == 1){
           $('#btn_activate').addClass('d-none');
           $('#btn_deactivate').removeClass('d-none');

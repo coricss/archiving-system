@@ -4,7 +4,7 @@
     session_start();
   }
 
-  if ((!isset($_SESSION['user_id'])) || ($_SESSION['user_type'] != 'admin')) {
+  if ((!isset($_SESSION['user_id'])) || ($_SESSION['user_type'] != 'admin') && ($_SESSION['user_type'] != 'director')) {
     header('location: /digital_archiving_management_system');
   }
 
@@ -146,8 +146,9 @@
                   <label for="slc_role">Role</label>
                   <select class="form-control" id="slc_role" name="slc_role" required>
                     <option value="">Select Role</option>
-                    <option value="1">Admin</option>
                     <option value="0">User</option>
+                    <option value="1">Admin</option>
+                    <option value="2">Director</option>
                   </select>
                 </div>
               </div>
@@ -231,8 +232,8 @@
                   <label for="slc_edit_role">Role</label>
                   <select class="form-control" id="slc_edit_role" name="slc_edit_role" required>
                     <option value="">Select Role</option>
-                    <option value="1">Admin</option>
                     <option value="0">User</option>
+                    <option value="1">Admin</option>
                   </select>
                 </div>
               </div>

@@ -31,11 +31,12 @@ $(function (){
       { data: "reason" },
       { data: "date_requested" },
       { data: "status" },
-      { data: "action"}
+      { data: "action"},
+      { data: "track"},
     ],
     columnDefs: [
       {
-        targets: [6, 7],
+        targets: [6, 7, 8],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -290,6 +291,7 @@ $(function (){
     },
     columns: [
       { data: "id" },
+      { data: "request_id" },
       { data: "file_name" },
       { data: "file_type" },
       { data: "reason" },
@@ -298,12 +300,11 @@ $(function (){
       { data: "date_approved" },
       { data: "approved_by" },
       { data: "status" }
-      // { data: "action" }
     ],
     columnDefs: [
       {
         // targets: [8, 9],
-        targets: [8],
+        targets: [9],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -386,6 +387,7 @@ $(function (){
     },
     columns: [
       { data: "id" },
+      { data: "request_id" },
       { data: "file_name" },
       { data: "file_type" },
       { data: "reason" },
@@ -397,7 +399,7 @@ $(function (){
     ],
     columnDefs: [
       {
-        targets: [8],
+        targets: [9],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -447,8 +449,8 @@ $(function (){
           $(node).removeClass("dt-button");
         },
         action: function (e, dt, node, config) {
-          $("#tbl_approved_user").DataTable().ajax.reload();
-          $("#tbl_approved_user").DataTable().order([0, "asc"]).draw();
+          $("#tbl_rejected_user").DataTable().ajax.reload();
+          $("#tbl_rejected_user").DataTable().order([0, "asc"]).draw();
         },
       },
     ]

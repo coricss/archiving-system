@@ -55,6 +55,7 @@
                     <th>Date requested</th>
                     <th>Status</th>
                     <th>Actions</th>
+                    <th>Track</th>
                   </tr>
                 </thead>
               </table>
