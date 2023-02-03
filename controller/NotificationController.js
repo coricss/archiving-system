@@ -64,8 +64,8 @@ $(function(){
                   $("#file_process_file_name").html(data.file_name);
                   $("#file_process_file_type").html(data.file_type);
                   $("#file_process_reason").html(data.reason);
-                  $("#file_process_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-                  $("#file_process_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+                  $("#file_process_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+                  $("#file_process_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
                 }
               });
               $('#frm_approve_reject').parents("div.modal").modal({ backdrop: "static", keyboard: true });
@@ -83,8 +83,8 @@ $(function(){
                   $("#file_approve_notif_file_type").html(data.file_type);
                   $("#file_approve_notif_reason").html(data.reason);
                   $("#file_approve_notif_remarks").html(data.remarks);
-                  $("#file_approve_notif_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-                  $("#file_approve_notif_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+                  $("#file_approve_notif_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+                  $("#file_approve_notif_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
                 }
               });
               $('#frm_approve_notif').parents("div.modal").modal({ backdrop: "static", keyboard: true });
@@ -102,8 +102,8 @@ $(function(){
                   $("#file_reject_notif_file_type").html(data.file_type);
                   $("#file_reject_notif_reason").html(data.reason);
                   $("#file_reject_notif_remarks").html(data.remarks);
-                  $("#file_reject_notif_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-                  $("#file_reject_notif_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+                  $("#file_reject_notif_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+                  $("#file_reject_notif_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
                 }
               });
               $('#frm_reject_notif').parents("div.modal").modal({ backdrop: "static", keyboard: true });
@@ -139,8 +139,8 @@ $(function(){
                   $("#file_approve_notif_file_type").html(data.file_type);
                   $("#file_approve_notif_reason").html(data.reason);
                   $("#file_approve_notif_remarks").html(data.remarks);
-                  $("#file_approve_notif_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-                  $("#file_approve_notif_date_requested").html(new Date(data.date_processed).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+                  $("#file_approve_notif_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+                  $("#file_approve_notif_date_requested").html(new Date(data.date_processed).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
                 }
               });
               $('#frm_approve_notif').parents("div.modal").modal({ backdrop: "static", keyboard: true });
@@ -158,8 +158,8 @@ $(function(){
                   $("#file_reject_notif_file_type").html(data.file_type);
                   $("#file_reject_notif_reason").html(data.reason);
                   $("#file_reject_notif_remarks").html(data.remarks);
-                  $("#file_reject_notif_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-                  $("#file_reject_notif_date_requested").html(new Date(data.date_processed).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+                  $("#file_reject_notif_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+                  $("#file_reject_notif_date_requested").html(new Date(data.date_processed).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
                 }
               });
               $('#frm_reject_notif').parents("div.modal").modal({ backdrop: "static", keyboard: true });

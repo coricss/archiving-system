@@ -215,8 +215,8 @@ $(function (){
         $("#file_track_name").html(data.file_name);
         $("#track_file_type").html(data.file_type);
         $("#txt_track_reason").html(data.reason);
-        $("#track_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-        $("#track_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+        $("#track_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+        $("#track_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
         
         if (data.is_approved == 0) {
           $('#step_requested').addClass('completed active');
@@ -260,8 +260,8 @@ $(function (){
         $("#file_edit_name").html(data.file_name);
         $("#edit_file_type").html(data.file_type);
         $("#txt_edit_reason").summernote('code', data.reason);
-        $("#edit_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-        $("#edit_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+        $("#edit_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+        $("#edit_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
       }
     })
     $('#editRequestFileModal').modal({ backdrop: 'static', keyboard: false });
@@ -734,8 +734,8 @@ $(function (){
         $("#file_approve_file_name").html(data.file_name);
         $("#file_approve_file_type").html(data.file_type);
         $("#file_approve_reason").html(data.reason);
-        $("#file_approve_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-        $("#file_approve_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+        $("#file_approve_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+        $("#file_approve_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
       }
     })
 
@@ -1156,8 +1156,8 @@ $(function (){
         $("#file_reject_file_name").html(data.file_name);
         $("#file_reject_file_type").html(data.file_type);
         $("#file_reject_reason").html(data.reason);
-        $("#file_reject_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
-        $("#file_reject_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+        $("#file_reject_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
+        $("#file_reject_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'}));
       }
     })
 
