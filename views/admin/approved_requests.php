@@ -62,6 +62,7 @@
                     <th>Date approved</th>
                     <th>Approved by</th>
                     <th>Status</th>
+                    <th>Release</th>
                   </tr>
                 </thead>
               </table>

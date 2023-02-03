@@ -14,6 +14,7 @@
   unset($_SESSION['archives']);
   unset($_SESSION['pending']);
   unset($_SESSION['rejected']);
+  unset($_SESSION['track']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');

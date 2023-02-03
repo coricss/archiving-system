@@ -73,7 +73,7 @@
 
         $request_id = 'IETI'.random_int(100000, 999999);
     
-        $sql = "INSERT INTO file_requests (request_id, file_id, user_id, reason, is_approved, remarks, status, date_requested) VALUES ('$request_id', $file_id, $user_id, '$reason', 0, NULL, 1, '$date_requested')";
+        $sql = "INSERT INTO file_requests (request_id, file_id, user_id, reason, is_approved, is_director_approved, is_released, remarks, status, date_requested) VALUES ('$request_id', $file_id, $user_id, '$reason', 0, 0, 0, NULL, 1, '$date_requested')";
 
         // $notif = "INSERT INTO notifications (user_id, file_id, activity, status, date_created) VALUES ($user_id, $file_id, 'request', 1, '$date_created')";
     

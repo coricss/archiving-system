@@ -58,5 +58,4 @@ $(function() {
       $('.fb-page-box').hide();
       }
   });
-
 });

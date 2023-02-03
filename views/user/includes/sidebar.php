@@ -40,14 +40,20 @@
             <p>My Archives</p>
           </a>
         </li>
-        <li class="nav-item <?php echo isset($_SESSION['pending']) || isset($_SESSION['approved']) || isset($_SESSION['rejected']) ? 'menu-open' : '' ?>">
-          <a href="#" class="nav-link <?php echo isset($_SESSION['pending']) || isset($_SESSION['approved']) || isset($_SESSION['rejected']) ? 'active' : '' ?>">
+        <li class="nav-item <?php echo isset($_SESSION['track']) || isset($_SESSION['pending']) || isset($_SESSION['approved']) || isset($_SESSION['rejected']) ? 'menu-open' : '' ?>">
+          <a href="#" class="nav-link <?php echo isset($_SESSION['track']) || isset($_SESSION['pending']) || isset($_SESSION['approved']) || isset($_SESSION['rejected']) ? 'active' : '' ?>">
             <i class="nav-icon fas fa-question-circle"></i>
             <p>Requests
               <i class="fas fa-angle-left right"></i>
             </p>
           </a>
           <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="../user/track_requests.php" class="nav-link <?php echo isset($_SESSION['track']) ? 'active' : '' ?>">
+                    <i class="fas fa-eye nav-icon"></i>
+                      <p>Track Requests</p>
+                  </a>
+              </li>
               <li class="nav-item">
                   <a href="../user/pending_requests.php" class="nav-link <?php echo isset($_SESSION['pending']) ? 'active' : '' ?>">
                     <i class="fas fa-file-alt nav-icon"></i>

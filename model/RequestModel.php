@@ -5,8 +5,47 @@
   {
     session_start();
   }
+  if ($_GET['action'] == 'loadTrackRequestUser') {
+    $user_id = $_SESSION['user_id'];
 
-  if ($_GET['action'] == 'loadPendingRequestUser') {
+    $sql = "SELECT requests.request_id AS request_id, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id ";
+    // WHERE requests.user_id = '$user_id' AND (requests.is_approved = 0 OR requests.is_director_approved = 0) AND requests.status = 1
+    $result = mysqli_query($con, $sql);
+
+    $output = [];
+
+    $count = 0;
+
+    while($row = mysqli_fetch_assoc($result)) {
+      $count++;
+      $output[] = [
+        'id' => $count,
+        'request_id' => $row['request_id'],
+        'file_id' => $row['file_id'],
+        'file_name' => $row['file_name'],
+        'file_type_id' => $row['file_type_id'],
+        'file_type' => $row['file_type'],
+        'reason' => $row['reason'],
+        'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
+        'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
+        'action' => "
+                    <button class='btn btn-success btn-sm btn_edit_file_request px-2' title='Edit file request reason' data-id='{$row['id']}'>
+                      <i class='fas fa-edit'></i>
+                    </button>
+                    <button class='btn btn-danger btn-sm btn_cancel_file_request px-2' title='Cancel file request' data-id='{$row['id']}'>
+                      <i class='fas fa-times fa-lg'></i>
+                    </button>
+                  ",
+        'track' => "
+                      <button class='btn btn-primary btn-sm btn_track_request px-2' title='Track request' data-id='{$row['id']}'>
+                        <i class='fas fa-eye'></i>
+                      </button>
+                    "
+      ];
+    }
+
+    echo json_encode($output);
+  } else if ($_GET['action'] == 'loadPendingRequestUser') {
     $user_id = $_SESSION['user_id'];
 
     $sql = "SELECT requests.request_id AS request_id, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.user_id = '$user_id' AND (requests.is_approved = 0 OR requests.is_director_approved = 0) AND requests.status = 1";
@@ -33,14 +72,9 @@
                       <i class='fas fa-edit'></i>
                     </button>
                     <button class='btn btn-danger btn-sm btn_cancel_file_request px-2' title='Cancel file request' data-id='{$row['id']}'>
-                      <i class='fas fa-times'></i>
+                      <i class='fas fa-times fa-lg'></i>
                     </button>
-                  ",
-        'track' => "
-                      <button class='btn btn-primary btn-sm btn_track_request px-2' title='Track' data-id='{$row['id']}'>
-                        <i class='fas fa-search'></i>
-                      </button>
-                    "
+                  "
       ];
     }
 
@@ -202,26 +236,46 @@
 
   } else if ($_GET['action'] == 'rejectRequest') {
     $user_id = $_SESSION['user_id'];
+    $user_type = $_SESSION['user_type'];
 
     $request_id = $_POST['file_reject_id'];
     $file_id = $_POST['file_reject_file_id'];
     $remarks = mysqli_real_escape_string($con, $_POST['file_reject_remarks']);
     $date = date('Y-m-d H:i:s');
 
-    if($remarks === "<br>") {
-      echo 'empty reason';
-    } else {
-      $sql = "UPDATE file_requests SET is_approved = 2, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date', status = 0 WHERE id = '$request_id'";
-      $result = mysqli_query($con, $sql);
-
-
-
-      if ($result) {
-        echo 'success';
+    if($user_type == 'admin') {
+      if($remarks === "<br>") {
+        echo 'empty reason';
       } else {
-        echo 'error';
+        $sql = "UPDATE file_requests SET is_approved = 2, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date', status = 0 WHERE id = '$request_id'";
+        $result = mysqli_query($con, $sql);
+  
+  
+  
+        if ($result) {
+          echo 'success';
+        } else {
+          echo 'error';
+        }
+      }
+    } else if($user_type == 'director'){
+      if($remarks === "<br>") {
+        echo 'empty reason';
+      } else {
+        $sql = "UPDATE file_requests SET is_director_approved = 2, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date', status = 0 WHERE id = '$request_id'";
+        $result = mysqli_query($con, $sql);
+  
+  
+  
+        if ($result) {
+          echo 'success';
+        } else {
+          echo 'error';
+        }
       }
     }
+
+    
 
   } else if ($_GET['action'] == 'rejectNotifRequest') {
     $user_id = $_SESSION['user_id'];
@@ -247,7 +301,7 @@
   } else if ($_GET['action'] == 'getFileRequest') {
     $file_id = $_POST['id'];
 
-    $sql = "SELECT CONCAT(users.first_name, ' ', users.last_name) AS requested_by, CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.remarks AS remarks, files.date_uploaded AS date_uploaded, requests.date_requested AS date_requested, requests.date_processed AS date_processed, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id LEFT JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.id = $file_id";
+    $sql = "SELECT CONCAT(users.first_name, ' ', users.last_name) AS requested_by, CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.remarks AS remarks, files.date_uploaded AS date_uploaded, requests.date_requested AS date_requested, requests.date_processed AS date_processed, requests.status AS status, requests.is_approved AS is_approved, requests.is_director_approved AS is_director_approved, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id LEFT JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.id = $file_id";
     $result = mysqli_query($con, $sql);
 
     $row = mysqli_fetch_assoc($result);
@@ -325,7 +379,7 @@
     
     if($user_type == 'admin') {
 
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_approved = 1 OR requests.is_director_approved = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks, requests.is_director_approved AS is_director_approved, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_approved = 1 OR requests.is_director_approved = 1";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -334,6 +388,10 @@
   
       while($row = mysqli_fetch_assoc($result)) {
         $count++;
+
+        $row['is_director_approved'] == 1 ? $disable = '' : $disable = 'disabled';
+        $row['is_released'] == 1 ? $check = 'checked' : $check = '';
+
         $output[] = [
           'id' => $count,
           'request_id' => $row['request_id'],
@@ -348,13 +406,19 @@
           'date_approved' =>  date('M d, Y - h:i A', strtotime($row['date_approved'])),
           'approved_by' => $row['approved_by'],
           'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
-          'remarks' => $row['remarks']
+          'remarks' => $row['remarks'],
+          'release' => "
+                      <div class='custom-control custom-switch'>
+                        <input type='checkbox' class='custom-control-input switch_release' id='switch_release_{$row['id']}' data-id='{$row['id']}' data-status='{$row['status']}' data-file_id='{$row['file_id']}' data-file_name='{$row['file_name']}' data-file_type_id='{$row['file_type_id']}' data-file_type='{$row['file_type']}' data-request_id='{$row['request_id']}' data-requested_by='{$row['requested_by']}' data-picture='{$row['picture']}' data-reason='{$row['reason']}' data-date_requested='{$row['date_requested']}' data-date_approved='{$row['date_approved']}' data-approved_by='{$row['approved_by']}' data-remarks='{$row['remarks']}' data-status='{$row['status']}' data-toggle='tooltip' data-placement='top' title='Release file' $disable $check>
+                          <label class='custom-control-label' for='switch_release_{$row['id']}'></label>
+                        </div>
+                        "
         ];
       }
   
       echo json_encode($output);
     } else if($user_type == 'director') {
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_director_approved = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_director_approved = 1";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -377,13 +441,47 @@
           'date_approved' =>  date('M d, Y - h:i A', strtotime($row['date_approved'])),
           'approved_by' => $row['approved_by'],
           'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
-          'remarks' => $row['remarks']
+          'remarks' => $row['remarks'],
+          'release' => $row['is_released'] == 1 ? '<span class="badge badge-success">Released</span>' : '<span class="badge badge-primary">For release</span>'
         ];
       }
   
       echo json_encode($output);
     }
     
+  } else if ($_GET['action'] == 'releaseRequest') {
+    
+    $id = $_POST['id'];
+
+    $select_request_sql = "SELECT * FROM file_requests WHERE id = $id";
+    $select_request_result = mysqli_query($con, $select_request_sql);
+    $select_request_row = mysqli_fetch_assoc($select_request_result);
+    
+    if($select_request_row['is_released'] == 0) {
+
+      $release_query = "UPDATE file_requests SET is_released = 1 WHERE id = $id";
+      $release_result = mysqli_query($con, $release_query);
+  
+      if ($release_result) {
+        echo 'success';
+      } else {
+        echo 'error';
+      }
+
+    } else {
+
+      $release_query = "UPDATE file_requests SET is_released = 0 WHERE id = $id";
+      $release_result = mysqli_query($con, $release_query);
+  
+      if ($release_result) {
+        echo 'success';
+      } else {
+        echo 'error';
+      }
+
+    }
+
+
   } else if ($_GET['action'] == 'loadRejectedRequestUser') {
     
     $user_id = $_SESSION['user_id'];

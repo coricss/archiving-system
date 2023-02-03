@@ -32,11 +32,10 @@ $(function (){
       { data: "date_requested" },
       { data: "status" },
       { data: "action"},
-      { data: "track"},
     ],
     columnDefs: [
       {
-        targets: [6, 7, 8],
+        targets: [5, 6, 7],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -110,6 +109,143 @@ $(function (){
     }
    
   );
+
+  var $tbl_track_user = $('#tbl_track_user').DataTable({
+    dom: "Bfrtip",
+    processing: true,
+    responsive: true,
+    order: [[0, "asc"]],
+    lengthMenu: [
+      [10, 25, 50, -1],
+      [
+        "Show 10 entries",
+        "Show 25 entries",
+        "Show 50 entries",
+        "Show all entries",
+      ],
+    ],
+    ajax: {
+      url: "../../model/RequestModel.php?action=loadTrackRequestUser",
+      type: "GET",
+      dataType: "json",
+      dataSrc: "",
+    },
+    columns: [
+      { data: "id" },
+      { data: "request_id" },
+      { data: "file_name" },
+      { data: "file_type" },
+      { data: "reason" },
+      { data: "date_requested" },
+      { data: "status" },
+      { data: "track"}
+    ],
+    columnDefs: [
+      {
+        targets: [6, 7],
+        orderable: false,
+        searchable: false,
+        className: "text-center",
+      }
+    ],
+    buttons: [
+      {
+        text: '<i class="fas fa-eye fa-sm"></i> Show entries',
+        extend: "pageLength",
+        // titleAttr: 'Show entries',
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+      },
+      {
+        text: '<i class="fas fa-download"></i> Export',
+        title: "Digital Archiving System Pending Requests",
+        extend: "excel",
+        titleAttr: "Export to excel",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-print"></i> Print',
+        title: "Digital Archiving System Pending Requests",
+        extend: "print",
+        titleAttr: "Print table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        exportOptions: {
+          columns: ":not(:last-child)",
+        },
+      },
+      {
+        text: '<i class="fas fa-sync fa-sm"></i> Refresh',
+        titleAttr: "Click to refresh table",
+        className: "btn btn-sm bg-primary",
+        init: function (api, node, config) {
+          $(node).removeClass("dt-button");
+        },
+        action: function (e, dt, node, config) {
+          $("#tbl_track_user").DataTable().ajax.reload();
+          $("#tbl_track_user").DataTable().order([0, "asc"]).draw();
+        },
+      },
+    ]
+  });
+
+  // align dt-buttons to filter
+  $("#tbl_track_user_filter").addClass("float-right");
+  $(".btn-group").addClass("float-left");
+ 
+  $tbl_track_user.on("click", ".btn_track_request", function () {
+    var $id = $(this).attr("data-id");
+    $.ajax({
+      url: "../../model/RequestModel.php?action=getFileRequest",
+      type: "POST",
+      data: { id: $id },
+      dataType: "json",
+      success: function (data) {
+        $("#txt_track_request_id").html(data.request_id);
+        $("#file_track_name").html(data.file_name);
+        $("#track_file_type").html(data.file_type);
+        $("#txt_track_reason").html(data.reason);
+        $("#track_date_uploaded").html(new Date(data.date_uploaded).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+        $("#track_date_requested").html(new Date(data.date_requested).toLocaleString('en-us', {year: 'numeric', month: 'long', day: 'numeric'}));
+        
+        if (data.is_approved == 0) {
+          $('#step_requested').addClass('completed active');
+        } else if ((data.is_approved == 1) && (data.is_director_approved == 0)) {
+          $('#step_requested').addClass('completed');
+          $('#step_admin').addClass('completed active');
+        } else if (data.is_approved == 2) {
+          $('#step_requested').addClass('completed');
+          $('#step_admin').addClass('incomplete active');
+        } else if ((data.is_approved == 1) && (data.is_director_approved == 1)) {
+          $('#step_requested, #step_admin').addClass('completed');
+          $('#step_director').addClass('completed active');
+        } else if ((data.is_approved == 1) && (data.is_director_approved == 2)) {
+          $('#step_requested, #step_admin').addClass('completed');
+          $('#step_director').addClass('incomplete active');
+        } if ((data.is_approved == 1) && (data.is_director_approved == 1) && (data.is_released == 1)) {
+          $('#step_requested, #step_admin, #step_director').addClass('completed');
+          $('#step_released').addClass('completed active');
+          $('#step_director').removeClass('active');
+        }
+
+        $('.btn-close-files').click(function () {
+          $('#step_requested, #step_admin, #step_director, #step_released').removeClass('completed incomplete active');
+        });
+
+      }
+    });
+    $('#trackRequestFileModal').modal({ backdrop: 'static', keyboard: false });
+  });
 
   $tbl_pending_user.on("click", ".btn_edit_file_request", function () {
     var $id = $(this).attr("data-id");
@@ -1062,11 +1198,12 @@ $(function (){
       { data: "date_requested" },
       { data: "date_approved" },
       { data: "approved_by" },
-      { data: "status" }
+      { data: "status" },
+      { data: "release" }
     ],
     columnDefs: [
       {
-        targets: [11],
+        targets: [11, 12],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -1141,6 +1278,23 @@ $(function (){
    // align dt-buttons to filter
    $("#tbl_approved_admin_filter").addClass("float-right");
    $(".btn-group").addClass("float-left");
+   
+   $tbl_approved_admin.on("click", ".switch_release", function () {
+      var id = $(this).attr("data-id");
+     
+      $.ajax({
+        url: "../../model/RequestModel.php?action=releaseRequest",
+        type: "POST",
+        data: { id: id },
+        dataType: "json",
+        success: function (data) {
+          if (data == 'success') {
+            $("#tbl_approved_admin").DataTable().ajax.reload();
+            $("#tbl_approved_admin").DataTable().order([0, "asc"]).draw();
+          }
+        },
+      });
+   });
 
    var $tbl_rejected_admin = $('#tbl_rejected_admin').DataTable({
     dom: "Bfrtip",
