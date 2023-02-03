@@ -55,8 +55,8 @@
                     <th>Requested by</th>
                     <th>File name</th>
                     <th>File type</th>
-                    <th width="200px">Reason</th>
-                    <th width="200px">Remarks</th>
+                    <th>Reason</th>
+                    <th>Remarks</th>
                     <th>Date requested</th>
                     <th>Date rejected</th>
                     <th>Rejected by</th>
