@@ -51,6 +51,7 @@
                 <thead class="bg-success">
                   <tr>
                     <th>#</th>
+                    <th>Request ID</th>
                     <th>Picture</th>
                     <th>Requested by</th>
                     <th>File name</th>
@@ -73,7 +74,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-success">
-          <h4 class="modal-title">Approve Request</h4>
+          <h4 class="modal-title">Approve Request ID: <b id="file_approve_request_id"></b></h4>
           <button type="button" class="close btn-close-files" data-dismiss="modal" aria-label="Close">
             <span class="text-white" aria-hidden="true">&times;</span>
           </button>
@@ -141,7 +142,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-success">
-          <h4 class="modal-title">Reject Request</h4>
+          <h4 class="modal-title">Reject Request ID: <b id="file_reject_request_id"></b></h4>
           <button type="button" class="close btn-close-files" data-dismiss="modal" aria-label="Close">
             <span class="text-white" aria-hidden="true">&times;</span>
           </button>

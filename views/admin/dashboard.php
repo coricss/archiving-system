@@ -139,3 +139,4 @@
 <?php
   include_once('includes/footer.php');
 ?>
+<script src="../../controller/DashboardController.js"></script>

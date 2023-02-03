@@ -62,7 +62,6 @@
   <script src="../../assets/dist/js/jquery.validate.js"></script>
   <script src="../../assets/dist/js/adminlte.min.js"></script>
   <script src="../../assets/dist/js/main.js"></script>
-  <script src="../../controller/DashboardController.js"></script>
   <script src="../../controller/UserController.js"></script>
   <script src="../../controller/LoginController.js"></script>
   <script src="../../controller/PasswordController.js"></script>

@@ -63,31 +63,26 @@
 
       $date_created = date('Y-m-d H:i:s');
 
-      // $sql = "SELECT * FROM file_requests WHERE file_id = {$_POST['txt_file_id']} AND user_id = $user_id AND status = 1 AND is_approved != 2";
+      if(mysqli_real_escape_string($con, $_POST['txt_reason']) === "<br>") {
+        echo 'empty reason';
+      } else {
+        $user_id = $_SESSION['user_id'];
+        $file_id = mysqli_real_escape_string($con, $_POST['txt_file_id']);
+        $reason = mysqli_real_escape_string($con, $_POST['txt_reason']);
+        $date_requested = date('Y-m-d H:i:s');
 
-      // $data = mysqli_query($con, $sql);
+        $request_id = 'IETI'.random_int(100000, 999999);
+    
+        $sql = "INSERT INTO file_requests (request_id, file_id, user_id, reason, is_approved, remarks, status, date_requested) VALUES ('$request_id', $file_id, $user_id, '$reason', 0, NULL, 1, '$date_requested')";
 
-      // if(mysqli_num_rows($data) > 0) {
-      //   echo 'already requested';
-      // } else {
-        if(mysqli_real_escape_string($con, $_POST['txt_reason']) === "<br>") {
-          echo 'empty reason';
+        // $notif = "INSERT INTO notifications (user_id, file_id, activity, status, date_created) VALUES ($user_id, $file_id, 'request', 1, '$date_created')";
+    
+        if((mysqli_query($con, $sql))) {
+          echo 'success';
         } else {
-          $user_id = $_SESSION['user_id'];
-          $file_id = mysqli_real_escape_string($con, $_POST['txt_file_id']);
-          $reason = mysqli_real_escape_string($con, $_POST['txt_reason']);
-          $date_requested = date('Y-m-d H:i:s');
-      
-          $sql = "INSERT INTO file_requests (file_id, user_id, reason, is_approved, remarks, status, date_requested) VALUES ($file_id, $user_id, '$reason', 0, NULL, 1, '$date_requested')";
-
-          // $notif = "INSERT INTO notifications (user_id, file_id, activity, status, date_created) VALUES ($user_id, $file_id, 'request', 1, '$date_created')";
-      
-          if((mysqli_query($con, $sql))) {
-            echo 'success';
-          } else {
-            echo 'error';
-          }
+          echo 'error';
         }
-      // }
+      }
+      
     
   }

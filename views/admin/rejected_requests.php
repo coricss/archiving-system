@@ -51,6 +51,7 @@
                 <thead class="bg-success">
                   <tr>
                     <th>#</th>
+                    <th>Request ID</th>
                     <th>Picture</th>
                     <th>Requested by</th>
                     <th>File name</th>

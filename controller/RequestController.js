@@ -25,6 +25,7 @@ $(function (){
     },
     columns: [
       { data: "id" },
+      { data: "request_id" },
       { data: "file_name" },
       { data: "file_type" },
       { data: "reason" },
@@ -34,7 +35,7 @@ $(function (){
     ],
     columnDefs: [
       {
-        targets: [5, 6],
+        targets: [6, 7],
         orderable: false,
         searchable: false,
         className: "text-center",
@@ -117,6 +118,7 @@ $(function (){
       data: { id: $id },
       dataType: "json",
       success: function (data) {
+        $("#txt_edit_request_id").html(data.request_id);
         $("#txt_edit_file_id").val(data.id);
         $("#file_edit_name").html(data.file_name);
         $("#edit_file_type").html(data.file_type);
@@ -477,6 +479,7 @@ $(function (){
     },
     columns: [
       { data: "id" },
+      { data: "request_id" },
       { data: "picture" },
       { data: "requested_by" },
       { data: "file_name" },
@@ -488,13 +491,13 @@ $(function (){
     ],
     columnDefs: [
       {
-        targets: [7, 8],
+        targets: [8, 9],
         orderable: false,
         searchable: false,
         className: "text-center",
       },
       {
-        targets: [1],
+        targets: [2],
         orderable: false,
         className: "text-center",
         render: function (data, type, row) {
@@ -502,7 +505,7 @@ $(function (){
         }
       },
       {
-        targets: [3],
+        targets: [4],
         render: function (data, type, row) {
           return `<a href="../../storage/files/${data}" target="_blank">${data}</a>`;
         }
@@ -586,6 +589,7 @@ $(function (){
       data: { id: $id },
       dataType: "json",
       success: function (data) {
+        $('#file_approve_request_id').html(data.request_id);
         $("#file_approve_id").val(data.id);
         $("#file_approve_file_id").val(data.file_id);
         $('#file_approve_requested_by').html(data.requested_by);
@@ -1007,6 +1011,7 @@ $(function (){
       data: { id: $id },
       dataType: "json",
       success: function (data) {
+        $('#file_reject_request_id').html(data.request_id);
         $("#file_reject_id").val(data.id);
         $("#file_reject_file_id").val(data.file_id);
         $('#file_reject_requested_by').html(data.requested_by);
@@ -1045,6 +1050,7 @@ $(function (){
     },
     columns: [
       { data: "id" },
+      { data: "request_id" },
       { data: "picture" },
       { data: "requested_by" },
       { data: "file_name" },
@@ -1058,13 +1064,13 @@ $(function (){
     ],
     columnDefs: [
       {
-        targets: [10],
+        targets: [11],
         orderable: false,
         searchable: false,
         className: "text-center",
       },
       {
-        targets: [1],
+        targets: [2],
         orderable: false,
         className: "text-center",
         render: function (data, type, row) {
@@ -1072,7 +1078,7 @@ $(function (){
         }
       },
       {
-        targets: [3],
+        targets: [4],
         className: "text-center",
         render: function (data, type, row) {
           return `<a href="../../storage/files/${data}" target="_blank">${data}</a>`;
@@ -1156,6 +1162,7 @@ $(function (){
     },
     columns: [
       { data: "id" },
+      { data: "request_id" },
       { data: "picture" },
       { data: "requested_by" },
       { data: "file_name" },
@@ -1169,13 +1176,13 @@ $(function (){
     ],
     columnDefs: [
       {
-        targets: [10],
+        targets: [11],
         orderable: false,
         searchable: false,
         className: "text-center",
       },
       {
-        targets: [1],
+        targets: [2],
         orderable: false,
         className: "text-center",
         render: function (data, type, row) {
@@ -1183,7 +1190,7 @@ $(function (){
         }
       },
       {
-        targets: [3],
+        targets: [4],
         className: "text-center",
         render: function (data, type, row) {
           return `<a href="../../storage/files/${data}" target="_blank">${data}</a>`;

@@ -48,6 +48,7 @@
                 <thead class="bg-success">
                   <tr>
                     <th>#</th>
+                    <th>Request ID</th>
                     <th>File name</th>
                     <th>File type</th>
                     <th>Reason</th>
@@ -79,12 +80,16 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <div class="row">
+                    <div class="col-md-2">
+                      <b>Request ID</b>
+                      <p id="txt_edit_request_id"></p>
+                    </div>
                     <div class="col-md-6">
                       <b>File name</b>
                       <p id="file_edit_name"></p>
                       <input type="hidden" name="txt_edit_file_id" id="txt_edit_file_id">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <b>File type</b>
                       <p id="edit_file_type"></p>
                     </div>

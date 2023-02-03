@@ -39,6 +39,7 @@ $(function(){
     dataType: 'json',
     data: {years: years},
     success: function(data){
+
       new Chart(file_archive, {
         type: 'bar',
         data: {
@@ -77,15 +78,11 @@ $(function(){
           scales: {
             yAxes: [{
               ticks: {
-                  beginAtZero: true,
-
+                beginAtZero: true,
+                stepSize: 1,
+                min: 0,
+                max: Math.max(...data) + 2,
               }
-            }],
-            xAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    maxTicksLimit: 10
-                }
             }]
           }
         }
@@ -105,7 +102,7 @@ $(function(){
     dataType: 'json',
     success: function(data){
       new Chart(file_type, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
           labels: data.file_type,
           datasets: [{
