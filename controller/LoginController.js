@@ -11,7 +11,7 @@ $(function (){
       cache: false,
       success: function (result){
         if (result == 'admin'){
-          window.location.href = 'views/admin/announcements.php';
+          window.location.href = 'views/admin/dashboard.php';
         } else if(result == 'user'){
           window.location.href = 'views/user/announcements.php';
         } else if(result == 'locked') {

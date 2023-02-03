@@ -58,9 +58,11 @@
   <script src="../../assets/plugins/select2/js/select2.full.min.js"></script>
   <script src="../../assets/plugins/summernote/dist/summernote-bs4.js"></script>
   <script src="../../assets/plugins/sweetalert2/sweetalert2.min.js"></script>
+  <script src="../../assets/plugins/chartJS/chart.min.js"></script>
   <script src="../../assets/dist/js/jquery.validate.js"></script>
   <script src="../../assets/dist/js/adminlte.min.js"></script>
   <script src="../../assets/dist/js/main.js"></script>
+  <script src="../../controller/DashboardController.js"></script>
   <script src="../../controller/UserController.js"></script>
   <script src="../../controller/LoginController.js"></script>
   <script src="../../controller/PasswordController.js"></script>
