@@ -98,7 +98,7 @@
     $user_type = $_SESSION['user_type'];
 
     if($user_type == 'admin') {
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.is_approved AS is_approved, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.is_approved = 0 AND requests.status = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.is_approved AS is_approved, requests.is_director_approved AS is_director_approved, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE (requests.is_approved = 0 OR requests.is_approved = 1) AND requests.is_director_approved = 0 AND requests.status = 1";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -107,6 +107,17 @@
   
       while($row = mysqli_fetch_assoc($result)) {
         $count++;
+
+        if($row['is_approved'] == 0) {
+          $status = '<span class="badge badge-warning">For admin approval</span>';
+          $disable = '';
+        } else if(($row['is_approved'] == 1) && ($row['is_director_approved'] == 0)) {
+          $status = '<span class="badge badge-info">For director approval</span>';
+          $disable = 'disabled';
+        } else if(($row['is_approved'] == 1) && ($row['is_director_approved'] == 1)) {
+          $status = '<span class="badge badge-success">Approved by director</span>';
+          $disable = 'disabled';
+        }
 
         $output[] = [
           'id' => $count,
@@ -119,12 +130,12 @@
           'file_type' => $row['file_type'],
           'reason' => $row['reason'],
           'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
-          'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
+          'status' => $status,
           'action' => "
-                      <button class='btn btn-success btn-sm btn_approve_request px-2' title='Approve' data-id='{$row['id']}'>
+                      <button class='btn btn-success btn-sm btn_approve_request px-2' title='Approve' data-id='{$row['id']}' $disable>
                         <i class='fas fa-thumbs-up'></i>
                       </button>
-                      <button class='btn btn-danger btn-sm btn_reject_request px-2' title='Reject' data-id='{$row['id']}'>
+                      <button class='btn btn-danger btn-sm btn_reject_request px-2' title='Reject' data-id='{$row['id']}' $disable>
                         <i class='fas fa-thumbs-down fa-flip-horizontal'></i>
                       </button>
                     "
@@ -133,7 +144,7 @@
   
       echo json_encode($output);
     } else if($user_type == 'director') {
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.is_approved = 1 AND requests.is_director_approved = 0 AND requests.status = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status, requests.is_approved AS is_approved FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.is_approved = 1 AND requests.is_director_approved = 0 AND requests.status = 1";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -142,6 +153,11 @@
   
       while($row = mysqli_fetch_assoc($result)) {
         $count++;
+
+        if($row['is_approved'] == 1) {
+          $status = '<span class="badge badge-info">Approved by admin</span>';
+        }
+
         $output[] = [
           'id' => $count,
           'request_id' => $row['request_id'],
@@ -153,7 +169,7 @@
           'file_type' => $row['file_type'],
           'reason' => $row['reason'],
           'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
-          'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
+          'status' => $status,
           'action' => "
                       <button class='btn btn-success btn-sm btn_approve_request px-2' title='Approve' data-id='{$row['id']}'>
                         <i class='fas fa-thumbs-up'></i>
@@ -452,7 +468,7 @@
     
     if($user_type == 'admin') {
 
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks, requests.is_director_approved AS is_director_approved, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_approved = 1 OR requests.is_director_approved = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks, requests.is_director_approved AS is_director_approved, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_director_approved = 1";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -462,8 +478,15 @@
       while($row = mysqli_fetch_assoc($result)) {
         $count++;
 
-        $row['is_director_approved'] == 1 ? $disable = '' : $disable = 'disabled';
-        $row['is_released'] == 1 ? $check = 'checked' : $check = '';
+        if($row['is_released'] == 1) {
+          $check = 'checked';
+          $disabled = 'disabled';
+          $status = '<span class="badge badge-success">Released</span>';
+        } else {
+          $check = '';
+          $disabled = '';
+          $status = '<span class="badge badge-info">For release</span>';
+        }
 
         $output[] = [
           'id' => $count,
@@ -478,11 +501,11 @@
           'date_requested' =>  date('M d, Y - h:i A', strtotime($row['date_requested'])),
           'date_approved' =>  date('M d, Y - h:i A', strtotime($row['date_approved'])),
           'approved_by' => $row['approved_by'],
-          'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
+          'status' => $status,
           'remarks' => $row['remarks'],
           'release' => "
                       <div class='custom-control custom-switch'>
-                        <input type='checkbox' class='custom-control-input switch_release' id='switch_release_{$row['id']}' data-id='{$row['id']}' data-status='{$row['status']}' data-file_id='{$row['file_id']}' data-file_name='{$row['file_name']}' data-file_type_id='{$row['file_type_id']}' data-file_type='{$row['file_type']}' data-request_id='{$row['request_id']}' data-requested_by='{$row['requested_by']}' data-picture='{$row['picture']}' data-reason='{$row['reason']}' data-date_requested='{$row['date_requested']}' data-date_approved='{$row['date_approved']}' data-approved_by='{$row['approved_by']}' data-remarks='{$row['remarks']}' data-status='{$row['status']}' data-toggle='tooltip' data-placement='top' title='Release file' $disable $check>
+                        <input type='checkbox' class='custom-control-input switch_release' id='switch_release_{$row['id']}' data-id='{$row['id']}' data-status='{$row['status']}' data-file_id='{$row['file_id']}' data-file_name='{$row['file_name']}' data-file_type_id='{$row['file_type_id']}' data-file_type='{$row['file_type']}' data-request_id='{$row['request_id']}' data-requested_by='{$row['requested_by']}' data-picture='{$row['picture']}' data-reason='{$row['reason']}' data-date_requested='{$row['date_requested']}' data-date_approved='{$row['date_approved']}' data-approved_by='{$row['approved_by']}' data-remarks='{$row['remarks']}' data-status='{$row['status']}' data-toggle='tooltip' data-placement='top' title='Release file' $disabled $check>
                           <label class='custom-control-label' for='switch_release_{$row['id']}'></label>
                         </div>
                         "
@@ -546,17 +569,6 @@
 
         generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Admin <b>'.$admin_name.'</b> released a file: <b>'.$requestid.'</b>.<br><br> Please contact admin for more details.');
 
-        echo 'success';
-      } else {
-        echo 'error';
-      }
-
-    } else {
-
-      $release_query = "UPDATE file_requests SET is_released = 0 WHERE id = $id";
-      $release_result = mysqli_query($con, $release_query);
-  
-      if ($release_result) {
         echo 'success';
       } else {
         echo 'error';

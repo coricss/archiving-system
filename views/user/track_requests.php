@@ -122,6 +122,7 @@
                       <div class="step-counter"></div>
                       <div class="step-name">
                         <span>Requested</span>
+                        <div class="step-line"></div>
                       </div>
                     </div>
                     <div class="stepper-item" id="step_admin">

@@ -19,11 +19,11 @@
     $files_result = mysqli_query($con, $files_query);
     $files_row = mysqli_fetch_assoc($files_result);
 
-    $approved_files = "SELECT COUNT(*) AS approved_files FROM file_requests WHERE is_approved = 1";
+    $approved_files = "SELECT COUNT(*) AS approved_files FROM file_requests WHERE is_approved = 1 OR is_director_approved = 1";
     $approved_files_result = mysqli_query($con, $approved_files);
     $approved_files_row = mysqli_fetch_assoc($approved_files_result);
 
-    $rejected_files = "SELECT COUNT(*) AS rejected_files FROM file_requests WHERE is_approved = 2";
+    $rejected_files = "SELECT COUNT(*) AS rejected_files FROM file_requests WHERE is_approved = 2 OR is_director_approved = 2";
     $rejected_files_result = mysqli_query($con, $rejected_files);
     $rejected_files_row = mysqli_fetch_assoc($rejected_files_result);
     

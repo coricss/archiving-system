@@ -631,7 +631,6 @@ $(function (){
       {
         targets: [8, 9],
         orderable: false,
-        searchable: false,
         className: "text-center",
       },
       {
@@ -1338,7 +1337,6 @@ $(function (){
         url: "../../model/RequestModel.php?action=releaseRequest",
         type: "POST",
         data: { id: id },
-        dataType: "json",
         beforeSend: function () {
           Swal.fire({
             title: "Releasing file request...",
@@ -1347,15 +1345,13 @@ $(function (){
             allowEscapeKey: false,
             allowEnterKey: false,
             showConfirmButton: false,
-            timer: 1500,
             didOpen: () => {
               Swal.showLoading();
             },
-          });
+          })
         },
         success: function (data) {
           if (data == 'success') {
-
             Swal.fire({
               title: 'File has been released',
               icon: 'success',
