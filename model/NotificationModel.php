@@ -65,8 +65,39 @@
 
   if($_GET['action'] == 'countNotif') {
     $user_id = $_SESSION['user_id'];
+    $user_type = $_SESSION['user_type'];
 
-    $query_admin_notif = "SELECT 
+    if($user_type != 'director'){
+      $query_admin_notif = "SELECT 
+                              requests.id AS request_id,
+                              requests.user_id AS user_id,
+                              users.picture AS user_picture,
+                              CONCAT(users.first_name, ' ', users.last_name) AS requested_by,
+                              requests.file_id AS file_id,
+                              requests.is_approved AS activity,
+                              requests.status AS request_status,
+                              requests.date_requested AS date_created,
+                              admins.picture AS admin_picture,
+                              CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by,
+                              requests.date_processed AS date_processed
+                            FROM
+                                file_requests AS requests
+                                    INNER JOIN
+                                user_accounts AS users ON requests.user_id = users.user_id
+                                    LEFT JOIN
+                                user_accounts AS admins ON requests.processed_by = admins.user_id
+                                WHERE
+                                (requests.processed_by != $user_id
+                                    OR requests.processed_by IS NULL)
+                                    AND (requests.date_processed >= DATE_SUB(NOW(), INTERVAL 3 DAY)
+                                    OR requests.date_processed IS NULL)
+                                    AND (requests.status = 1
+                                    OR requests.is_approved = 2) ORDER BY requests.id DESC ";
+      $result_admin_notif = mysqli_query($con, $query_admin_notif);
+
+      $count_admin_notif = mysqli_num_rows($result_admin_notif);
+
+      $query_user_notif = "SELECT 
                             requests.id AS request_id,
                             requests.user_id AS user_id,
                             users.picture AS user_picture,
@@ -85,134 +116,221 @@
                                   LEFT JOIN
                               user_accounts AS admins ON requests.processed_by = admins.user_id
                               WHERE
-                              (requests.processed_by != $user_id
-                                  OR requests.processed_by IS NULL)
-                                  AND (requests.date_processed >= DATE_SUB(NOW(), INTERVAL 3 DAY)
-                                  OR requests.date_processed IS NULL)
-                                  AND (requests.status = 1
-                                  OR requests.is_approved = 2) ORDER BY requests.id DESC ";
-    $result_admin_notif = mysqli_query($con, $query_admin_notif);
+                        requests.user_id = $user_id
+                                  AND requests.date_processed >= DATE_SUB(NOW(), INTERVAL 3 DAY)
+                                  AND requests.is_approved != 0 ORDER BY requests.id DESC ";
 
-    $count_admin_notif = mysqli_num_rows($result_admin_notif);
+      $result_user_notif = mysqli_query($con, $query_user_notif);
 
-    $query_user_notif = "SELECT 
-                          requests.id AS request_id,
-                          requests.user_id AS user_id,
-                          users.picture AS user_picture,
-                          CONCAT(users.first_name, ' ', users.last_name) AS requested_by,
-                          requests.file_id AS file_id,
-                          requests.is_approved AS activity,
-                          requests.status AS request_status,
-                          requests.date_requested AS date_created,
-                          admins.picture AS admin_picture,
-                          CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by,
-                          requests.date_processed AS date_processed
-                        FROM
-                            file_requests AS requests
-                                INNER JOIN
-                            user_accounts AS users ON requests.user_id = users.user_id
-                                LEFT JOIN
-                            user_accounts AS admins ON requests.processed_by = admins.user_id
-                            WHERE
-                      requests.user_id = $user_id
-                                AND requests.date_processed >= DATE_SUB(NOW(), INTERVAL 3 DAY)
-                                AND requests.is_approved != 0 ORDER BY requests.id DESC ";
+      $count_user_notif = mysqli_num_rows($result_user_notif);
 
-    $result_user_notif = mysqli_query($con, $query_user_notif);
+      $notif_array = [
+        'admin_notif' => $count_admin_notif,
+        'user_notif' => $count_user_notif
+      ];
 
-    $count_user_notif = mysqli_num_rows($result_user_notif);
+      echo json_encode($notif_array);
+    } else {
+      $query_admin_notif = "SELECT 
+                              requests.id AS request_id,
+                              requests.user_id AS user_id,
+                              users.picture AS user_picture,
+                              CONCAT(users.first_name, ' ', users.last_name) AS requested_by,
+                              requests.file_id AS file_id,
+                              requests.is_approved AS activity,
+                              requests.status AS request_status,
+                              requests.date_requested AS date_created,
+                              admins.picture AS admin_picture,
+                              CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by,
+                              requests.date_processed AS date_processed
+                            FROM
+                                file_requests AS requests
+                                    INNER JOIN
+                                user_accounts AS users ON requests.user_id = users.user_id
+                                    LEFT JOIN
+                                user_accounts AS admins ON requests.processed_by = admins.user_id
+                                WHERE
+                                  requests.is_approved = 1 OR requests.is_approved = 2 OR requests.is_released = 1
+                                ORDER BY requests.id DESC ";
+      $result_admin_notif = mysqli_query($con, $query_admin_notif);
 
-    $notif_array = [
-      'admin_notif' => $count_admin_notif,
-      'user_notif' => $count_user_notif
-    ];
+      $count_admin_notif = mysqli_num_rows($result_admin_notif);
 
-    echo json_encode($notif_array);
+      $notif_array = [
+        'admin_notif' => $count_admin_notif
+      ];
+
+      echo json_encode($notif_array);
+    }
   } else if ($_GET['action'] == 'adminNotification') {
     $user_id = $_SESSION['user_id'];
+    $user_type = $_SESSION['user_type'];
 
-    $query_admin_notif = "SELECT 
-                            requests.id AS request_id,
-                            requests.user_id AS user_id,
-                            users.picture AS user_picture,
-                            CONCAT(users.first_name, ' ', users.last_name) AS requested_by,
-                            requests.file_id AS file_id,
-                            requests.is_approved AS activity,
-                            requests.status AS request_status,
-                            requests.date_requested AS date_created,
-                            admins.picture AS admin_picture,
-                            CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by,
-                            requests.date_processed AS date_processed
-                          FROM
-                              file_requests AS requests
-                                  INNER JOIN
-                              user_accounts AS users ON requests.user_id = users.user_id
-                                  LEFT JOIN
-                              user_accounts AS admins ON requests.processed_by = admins.user_id
-                              WHERE
-                              (requests.processed_by != $user_id
-                                  OR requests.processed_by IS NULL)
-                                  AND (requests.date_processed >= DATE_SUB(NOW(), INTERVAL 3 DAY)
-                                  OR requests.date_processed IS NULL)
-                                  AND (requests.status = 1
-                                  OR requests.is_approved = 2) ORDER BY requests.id DESC ";
-    $admin_notif = mysqli_query($con, $query_admin_notif);
+    if($user_type != 'director'){
 
-    if(mysqli_num_rows($admin_notif) > 0) {
-      while($row = mysqli_fetch_assoc($admin_notif)) {
-  
-        $request_id = $row['request_id'];
-        $user_id = $row['user_id'];
-        $file_id = $row['file_id'];
-   
+      $query_admin_notif = "SELECT 
+                              requests.id AS request_id,
+                              requests.user_id AS user_id,
+                              users.picture AS user_picture,
+                              CONCAT(users.first_name, ' ', users.last_name) AS requested_by,
+                              requests.file_id AS file_id,
+                              requests.is_approved AS activity,
+                              requests.status AS request_status,
+                              requests.date_requested AS date_created,
+                              admins.picture AS admin_picture,
+                              CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by,
+                              requests.date_processed AS date_processed
+                            FROM
+                                file_requests AS requests
+                                    INNER JOIN
+                                user_accounts AS users ON requests.user_id = users.user_id
+                                    LEFT JOIN
+                                user_accounts AS admins ON requests.processed_by = admins.user_id
+                                WHERE
+                                (requests.processed_by != $user_id
+                                    OR requests.processed_by IS NULL)
+                                    AND (requests.date_processed >= DATE_SUB(NOW(), INTERVAL 3 DAY)
+                                    OR requests.date_processed IS NULL)
+                                    AND (requests.status = 1
+                                    OR requests.is_approved = 2) ORDER BY requests.id DESC ";
+      $admin_notif = mysqli_query($con, $query_admin_notif);
 
-        if($row['activity'] == 0) {
-          $activity = 'requested a file';
-          $name = $row['requested_by'];
-          $picture = $row['user_picture'];
-          $date = $row['date_created'];
-        } else if($row['activity'] == 1) {
-          $activity = 'approved a request';
-          $name = $row['processed_by'];
-          $picture = $row['admin_picture'];
-          $date = $row['date_processed'];
-        } else if($row['activity'] == 2) {
-          $activity = 'rejected a request';
-          $name = $row['processed_by'];
-          $picture = $row['admin_picture'];
-          $date = $row['date_processed'];
+      if(mysqli_num_rows($admin_notif) > 0) {
+        while($row = mysqli_fetch_assoc($admin_notif)) {
+    
+          $request_id = $row['request_id'];
+          $user_id = $row['user_id'];
+          $file_id = $row['file_id'];
+    
+
+          if($row['activity'] == 0) {
+            $activity = 'requested a file';
+            $name = $row['requested_by'];
+            $picture = $row['user_picture'];
+            $date = $row['date_created'];
+          } else if($row['activity'] == 1) {
+            $activity = 'approved a request';
+            $name = $row['processed_by'];
+            $picture = $row['admin_picture'];
+            $date = $row['date_processed'];
+          } else if($row['activity'] == 2) {
+            $activity = 'rejected a request';
+            $name = $row['processed_by'];
+            $picture = $row['admin_picture'];
+            $date = $row['date_processed'];
+          }
+
+          echo "
+            <div class='dropdown-divider'></div>
+            <button class='dropdown-item bg-light notif-item' request-id={$request_id} activity={$row['activity']}>
+              <div class='notif-row'>
+                <image width='60px' height='60px' src='../../assets/dist/img/users/{$picture}' class='img-circle'>
+                  <div class='notif-activity'>
+                    <p class='notif-msg'>
+                      <b>{$name}</b>
+                      <small>{$activity}</small>
+                    </p>
+                    <div style='align-contents: center;'>
+                      <i class='far fa-clock text-muted' style='font-size: 13px; margin-right: 3px'></i>
+                      <small class='notif-time text-muted' style='font-size: 12px;'>".get_time_ago($date)."</small>
+                    </div>
+                  </div>
+              </div>
+            </button>
+            <div class='dropdown-divider'></div>
+          ";
         }
-
+      } else {
         echo "
           <div class='dropdown-divider'></div>
-          <button class='dropdown-item bg-light notif-item' request-id={$request_id} activity={$row['activity']}>
-            <div class='notif-row'>
-              <image width='60px' height='60px' src='../../assets/dist/img/users/{$picture}' class='img-circle'>
-                <div class='notif-activity'>
-                  <p class='notif-msg'>
-                    <b>{$name}</b>
-                    <small>{$activity}</small>
-                  </p>
-                  <div style='align-contents: center;'>
-                    <i class='far fa-clock text-muted' style='font-size: 13px; margin-right: 3px'></i>
-                    <small class='notif-time text-muted' style='font-size: 12px;'>".get_time_ago($date)."</small>
-                  </div>
-                </div>
+          <button class='dropdown-item bg-light'>
+            <div class='p-3 text-center'>
+              <h5>No notification</h5>
             </div>
           </button>
           <div class='dropdown-divider'></div>
         ";
       }
     } else {
-      echo "
-        <div class='dropdown-divider'></div>
-        <button class='dropdown-item bg-light'>
-          <div class='p-3 text-center'>
-            <h5>No notification</h5>
-          </div>
-        </button>
-        <div class='dropdown-divider'></div>
-      ";
+      $query_admin_notif = "SELECT 
+                              requests.id AS request_id,
+                              requests.user_id AS user_id,
+                              users.picture AS user_picture,
+                              CONCAT(users.first_name, ' ', users.last_name) AS requested_by,
+                              requests.file_id AS file_id,
+                              requests.is_approved AS activity,
+                              requests.status AS request_status,
+                              requests.date_requested AS date_created,
+                              admins.picture AS admin_picture,
+                              CONCAT(admins.first_name, ' ', admins.last_name) AS processed_by,
+                              requests.date_processed AS date_processed
+                            FROM
+                                file_requests AS requests
+                                    INNER JOIN
+                                user_accounts AS users ON requests.user_id = users.user_id
+                                    LEFT JOIN
+                                user_accounts AS admins ON requests.processed_by = admins.user_id
+                                WHERE
+                                  requests.is_approved = 1 OR requests.is_approved = 2 OR requests.is_released = 1
+                                ORDER BY requests.id DESC ";
+      $admin_notif = mysqli_query($con, $query_admin_notif);
+
+      if(mysqli_num_rows($admin_notif) > 0) {
+        while($row = mysqli_fetch_assoc($admin_notif)) {
+    
+          $request_id = $row['request_id'];
+          $user_id = $row['user_id'];
+          $file_id = $row['file_id'];
+    
+
+          if($row['activity'] == 0) {
+            $activity = 'requested a file';
+            $name = $row['requested_by'];
+            $picture = $row['user_picture'];
+            $date = $row['date_created'];
+          } else if($row['activity'] == 1) {
+            $activity = 'approved a request';
+            $name = $row['processed_by'];
+            $picture = $row['admin_picture'];
+            $date = $row['date_processed'];
+          } else if($row['activity'] == 2) {
+            $activity = 'rejected a request';
+            $name = $row['processed_by'];
+            $picture = $row['admin_picture'];
+            $date = $row['date_processed'];
+          }
+
+          echo "
+            <div class='dropdown-divider'></div>
+            <button class='dropdown-item bg-light notif-item' request-id={$request_id} activity={$row['activity']}>
+              <div class='notif-row'>
+                <image width='60px' height='60px' src='../../assets/dist/img/users/{$picture}' class='img-circle'>
+                  <div class='notif-activity'>
+                    <p class='notif-msg'>
+                      <b>{$name}</b>
+                      <small>{$activity}</small>
+                    </p>
+                    <div style='align-contents: center;'>
+                      <i class='far fa-clock text-muted' style='font-size: 13px; margin-right: 3px'></i>
+                      <small class='notif-time text-muted' style='font-size: 12px;'>".get_time_ago($date)."</small>
+                    </div>
+                  </div>
+              </div>
+            </button>
+            <div class='dropdown-divider'></div>
+          ";
+        }
+      } else {
+        echo "
+          <div class='dropdown-divider'></div>
+          <button class='dropdown-item bg-light'>
+            <div class='p-3 text-center'>
+              <h5>No notification</h5>
+            </div>
+          </button>
+          <div class='dropdown-divider'></div>
+        ";
+      }
     }
 
   } else if ($_GET['action'] == 'userNotification') {

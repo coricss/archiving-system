@@ -1,10 +1,24 @@
 <?php 
   include_once('../database/connection.php');
+  include_once('../email/EmailNotification.php');
 
   if(!isset($_SESSION))
   {
     session_start();
   }
+
+  
+  $receiverCC_sql = "SELECT * FROM `user_accounts` WHERE `is_admin` = 1";
+  $receiverCC_query = mysqli_query($con, $receiverCC_sql);
+  $receiverCC = [];
+  while($row = mysqli_fetch_assoc($receiverCC_query)) {
+    array_push($receiverCC, $row['email']);
+  }
+
+  $receiverBCC_sql = "SELECT * FROM `user_accounts` WHERE `is_admin` = 2";
+  $receiverBCC_query = mysqli_query($con, $receiverBCC_sql);
+  $receiverBccRow = mysqli_fetch_assoc($receiverBCC_query);
+  $receiverBCC = $receiverBccRow['email'];
 
   if($_GET['action'] == 'loadActiveFiles') {
 
@@ -61,6 +75,10 @@
 
       $user_id = $_SESSION['user_id'];
 
+      $user_name = $_SESSION['fullname'];
+      $user_email = $_SESSION['email'];
+      $receiverCCUser = [$user_email];
+
       $date_created = date('Y-m-d H:i:s');
 
       if(mysqli_real_escape_string($con, $_POST['txt_reason']) === "<br>") {
@@ -76,8 +94,15 @@
         $sql = "INSERT INTO file_requests (request_id, file_id, user_id, reason, is_approved, is_director_approved, is_released, remarks, status, date_requested) VALUES ('$request_id', $file_id, $user_id, '$reason', 0, 0, 0, NULL, 1, '$date_requested')";
 
         // $notif = "INSERT INTO notifications (user_id, file_id, activity, status, date_created) VALUES ($user_id, $file_id, 'request', 1, '$date_created')";
-    
+
         if((mysqli_query($con, $sql))) {
+
+           //ADMIN EMAIL
+          generateEmail($request_id, 'ieti.system2023@gmail.com', $receiverCC, 'ieti.system2023@gmail.com', 'You have a new file request from <b>'.$user_name.'</b>.<br><br>Reason: '.$reason.'<br><br> Please check your dashboard for more details.');
+
+          //USER EMAIL
+          generateEmail($request_id, $user_email, $receiverCCUser, $user_email, 'You have been successfully requested a file. <br><br> Please wait for furthermore announcements regarding this request. Thank you.');
+
           echo 'success';
         } else {
           echo 'error';

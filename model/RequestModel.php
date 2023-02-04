@@ -1,10 +1,24 @@
 <?php 
   include_once('../database/connection.php');
+  include_once('../email/EmailNotification.php');
 
   if(!isset($_SESSION))
   {
     session_start();
   }
+
+  $receiverCC_sql = "SELECT * FROM `user_accounts` WHERE `is_admin` = 1";
+  $receiverCC_query = mysqli_query($con, $receiverCC_sql);
+  $receiverCC = [];
+  while($row = mysqli_fetch_assoc($receiverCC_query)) {
+    array_push($receiverCC, $row['email']);
+  }
+
+  $receiverBCC_sql = "SELECT * FROM `user_accounts` WHERE `is_admin` = 2";
+  $receiverBCC_query = mysqli_query($con, $receiverBCC_sql);
+  $receiverBccRow = mysqli_fetch_assoc($receiverBCC_query);
+  $receiverBCC = $receiverBccRow['email'];
+
   if ($_GET['action'] == 'loadTrackRequestUser') {
     $user_id = $_SESSION['user_id'];
 
@@ -163,11 +177,18 @@
   } else if ($_GET['action'] == 'approveRequest') {
     $user_id = $_SESSION['user_id'];
     $user_type = $_SESSION['user_type'];
+    $admin_name = $_SESSION['fullname'];
 
     $request_id = $_POST['file_approve_id'];
     $file_id = $_POST['file_approve_file_id'];
     $remarks = mysqli_real_escape_string($con, $_POST['file_approve_remarks']);
     $date = date('Y-m-d H:i:s');
+
+    $user_email_sql = "SELECT users.email AS email, requests.request_id AS requestid FROM file_requests AS requests INNER JOIN user_accounts AS users ON requests.user_id = users.user_id WHERE requests.id = '$request_id'";
+    $user_email_result = mysqli_query($con, $user_email_sql);
+    $user_email_row = mysqli_fetch_assoc($user_email_result);
+    $user_email = $user_email_row['email'];
+    $requestid = $user_email_row['requestid'];
 
     if($user_type == 'admin') {
       if($remarks === "<br>") {
@@ -175,8 +196,11 @@
       } else {
         $sql = "UPDATE file_requests SET is_approved = 1, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date' WHERE id = '$request_id'";
         $result = mysqli_query($con, $sql);
-  
+
         if ($result) {
+
+          generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Admin <b>'.$admin_name.'</b> approved request file: <b>'.$requestid.'</b>.<br><br>Remarks: '.$remarks.'<br><br> Please check the system for more details.');
+
           echo 'success';
         } else {
           echo 'error';
@@ -188,8 +212,11 @@
       } else {
         $sql = "UPDATE file_requests SET is_director_approved = 1, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date' WHERE id = '$request_id'";
         $result = mysqli_query($con, $sql);
-  
+
         if ($result) {
+
+          generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Director <b>'.$admin_name.'</b> approved request file: <b>'.$requestid.'</b>.<br><br>Remarks: '.$remarks.'<br><br> Please check the system for more details.');
+
           echo 'success';
         } else {
           echo 'error';
@@ -200,11 +227,18 @@
   } else if ($_GET['action'] == 'approveNotifRequest') {
     $user_id = $_SESSION['user_id'];
     $user_type = $_SESSION['user_type'];
+    $admin_name = $_SESSION['fullname'];
 
     $request_id = $_POST['file_process_id'];
     $file_id = $_POST['file_process_file_id'];
     $remarks = mysqli_real_escape_string($con, $_POST['file_process_remarks']);
     $date = date('Y-m-d H:i:s');
+
+    $user_email_sql = "SELECT users.email AS email, requests.request_id AS requestid FROM file_requests AS requests INNER JOIN user_accounts AS users ON requests.user_id = users.user_id WHERE requests.id = '$request_id'";
+    $user_email_result = mysqli_query($con, $user_email_sql);
+    $user_email_row = mysqli_fetch_assoc($user_email_result);
+    $user_email = $user_email_row['email'];
+    $requestid = $user_email_row['requestid'];
 
     if($user_type == 'admin') {
       if($remarks === "<br>") {
@@ -214,6 +248,9 @@
         $result = mysqli_query($con, $sql);
   
         if ($result) {
+
+          generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Admin <b>'.$admin_name.'</b> approved request file: <b>'.$requestid.'</b>.<br><br>Remarks: '.$remarks.'<br><br> Please check the system for more details.');
+
           echo 'success';
         } else {
           echo 'error';
@@ -227,6 +264,10 @@
         $result = mysqli_query($con, $sql);
   
         if ($result) {
+
+          
+          generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Director <b>'.$admin_name.'</b> approved request file: <b>'.$requestid.'</b>.<br><br>Remarks: '.$remarks.'<br><br> Please check the system for more details.');
+
           echo 'success';
         } else {
           echo 'error';
@@ -237,11 +278,18 @@
   } else if ($_GET['action'] == 'rejectRequest') {
     $user_id = $_SESSION['user_id'];
     $user_type = $_SESSION['user_type'];
+    $admin_name = $_SESSION['fullname'];
 
     $request_id = $_POST['file_reject_id'];
     $file_id = $_POST['file_reject_file_id'];
     $remarks = mysqli_real_escape_string($con, $_POST['file_reject_remarks']);
     $date = date('Y-m-d H:i:s');
+
+    $user_email_sql = "SELECT users.email AS email, requests.request_id AS requestid FROM file_requests AS requests INNER JOIN user_accounts AS users ON requests.user_id = users.user_id WHERE requests.id = '$request_id'";
+    $user_email_result = mysqli_query($con, $user_email_sql);
+    $user_email_row = mysqli_fetch_assoc($user_email_result);
+    $user_email = $user_email_row['email'];
+    $requestid = $user_email_row['requestid'];
 
     if($user_type == 'admin') {
       if($remarks === "<br>") {
@@ -250,9 +298,10 @@
         $sql = "UPDATE file_requests SET is_approved = 2, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date', status = 0 WHERE id = '$request_id'";
         $result = mysqli_query($con, $sql);
   
-  
-  
         if ($result) {
+
+          generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Admin <b>'.$admin_name.'</b> rejected request file: <b>'.$requestid.'</b>.<br><br>Remarks: '.$remarks.'<br><br> Please check the system for more details.');
+
           echo 'success';
         } else {
           echo 'error';
@@ -264,10 +313,12 @@
       } else {
         $sql = "UPDATE file_requests SET is_director_approved = 2, remarks = '$remarks', processed_by = '$user_id', date_processed = '$date', status = 0 WHERE id = '$request_id'";
         $result = mysqli_query($con, $sql);
-  
-  
+
   
         if ($result) {
+
+          generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Director <b>'.$admin_name.'</b> rejected request file: <b>'.$requestid.'</b>.<br><br>Remarks: '.$remarks.'<br><br> Please check the system for more details.');
+
           echo 'success';
         } else {
           echo 'error';
@@ -279,11 +330,19 @@
 
   } else if ($_GET['action'] == 'rejectNotifRequest') {
     $user_id = $_SESSION['user_id'];
+    $user_type = $_SESSION['user_type'];
+    $admin_name = $_SESSION['fullname'];
 
     $request_id = $_POST['file_process_id'];
     $file_id = $_POST['file_process_file_id'];
     $remarks = mysqli_real_escape_string($con, $_POST['file_process_remarks']);
     $date = date('Y-m-d H:i:s');
+
+    $user_email_sql = "SELECT users.email AS email, requests.request_id AS requestid FROM file_requests AS requests INNER JOIN user_accounts AS users ON requests.user_id = users.user_id WHERE requests.id = '$request_id'";
+    $user_email_result = mysqli_query($con, $user_email_sql);
+    $user_email_row = mysqli_fetch_assoc($user_email_result);
+    $user_email = $user_email_row['email'];
+    $requestid = $user_email_row['requestid'];
 
     if($remarks === "<br>") {
       echo 'empty reason';
@@ -292,6 +351,10 @@
       $result = mysqli_query($con, $sql);
 
       if ($result) {
+
+        
+        generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Admin <b>'.$admin_name.'</b> rejected request file: <b>'.$requestid.'</b>.<br><br>Remarks: '.$remarks.'<br><br> Please check the system for more details.');
+
         echo 'success';
       } else {
         echo 'error';
@@ -326,14 +389,24 @@
     }
   } else if ($_GET['action'] == 'cancelFileRequest') {
     $id = $_POST['id'];
+    $user_name = $_SESSION['fullname'];
 
     $sql = "UPDATE file_requests SET status = 0 WHERE id = '$id'";
     $result = mysqli_query($con, $sql);
 
+    $user_email_sql = "SELECT users.email AS email, requests.request_id AS requestid FROM file_requests AS requests INNER JOIN user_accounts AS users ON requests.user_id = users.user_id WHERE requests.id = $id";
+    $user_email_result = mysqli_query($con, $user_email_sql);
+    $user_email_row = mysqli_fetch_assoc($user_email_result);
+    $user_email = $user_email_row['email'];
+    $requestid = $user_email_row['requestid'];
+
     // $notif_sql = "UPDATE notifications SET status = 0 WHERE notif_id = '$id'";
     // $notif_result = mysqli_query($con, $notif_sql);
 
-    if($result && $notif_result) {
+    if($result) {
+
+      generateEmail($requestid, 'ieti.system2023@gmail.com', $receiverCC, $receiverBCC, '<b>'.$user_name.'</b> canceled a file request: <b>'.$requestid.'<br><br> Please check the system for more details.');
+
       echo 'success';
     } else {
       echo 'error';
@@ -452,6 +525,7 @@
   } else if ($_GET['action'] == 'releaseRequest') {
     
     $id = $_POST['id'];
+    $admin_name = $_SESSION['fullname'];
 
     $select_request_sql = "SELECT * FROM file_requests WHERE id = $id";
     $select_request_result = mysqli_query($con, $select_request_sql);
@@ -461,8 +535,17 @@
 
       $release_query = "UPDATE file_requests SET is_released = 1 WHERE id = $id";
       $release_result = mysqli_query($con, $release_query);
+
+      $user_email_sql = "SELECT users.email AS email, requests.request_id AS requestid FROM file_requests AS requests INNER JOIN user_accounts AS users ON requests.user_id = users.user_id WHERE requests.id = $id";
+      $user_email_result = mysqli_query($con, $user_email_sql);
+      $user_email_row = mysqli_fetch_assoc($user_email_result);
+      $user_email = $user_email_row['email'];
+      $requestid = $user_email_row['requestid'];
   
       if ($release_result) {
+
+        generateEmail($requestid, $user_email, $receiverCC, $receiverBCC, 'Admin <b>'.$admin_name.'</b> released a file: <b>'.$requestid.'</b>.<br><br> Please contact admin for more details.');
+
         echo 'success';
       } else {
         echo 'error';

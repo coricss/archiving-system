@@ -18,6 +18,7 @@
             $_SESSION['id'] = $row['id'];
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['fullname'] = $row['first_name'] . ' ' . $row['last_name'];
+            $_SESSION['email'] = $row['email'];
             $_SESSION['user_name'] = $row['username'];
             $_SESSION['user_role'] = $row['is_admin'];
             $_SESSION['user_picture'] = $row['picture'];
@@ -29,6 +30,7 @@
             $_SESSION['id'] = $row['id'];
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['fullname'] = $row['first_name'] . ' ' . $row['last_name'];
+            $_SESSION['email'] = $row['email'];
             $_SESSION['user_name'] = $row['username'];
             $_SESSION['user_role'] = $row['is_admin'];
             $_SESSION['user_picture'] = $row['picture'];
@@ -40,6 +42,7 @@
             $_SESSION['id'] = $row['id'];
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['fullname'] = $row['first_name'] . ' ' . $row['last_name'];
+            $_SESSION['email'] = $row['email'];
             $_SESSION['user_name'] = $row['username'];
             $_SESSION['user_role'] = $row['is_admin'];
             $_SESSION['user_picture'] = $row['picture'];

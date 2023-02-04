@@ -1,4 +1,5 @@
 $(function() {
+  
   $('.sidebar-overlay').on('click', function() {
     $('body').removeClass('sidebar-open');
     $('body').addClass('sidebar-closed sidebar-collapse');

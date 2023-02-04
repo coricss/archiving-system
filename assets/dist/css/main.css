@@ -124,6 +124,13 @@ div.arrow {
   height: 100% !important;
 }
 
+#admin-notif {
+  max-height: 500px;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .notif-row {
 
   display: flex;

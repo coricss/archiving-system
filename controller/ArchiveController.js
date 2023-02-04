@@ -173,6 +173,19 @@ $(function () {
       contentType: false,
       processData: false,
       cache: false,
+      beforeSend: function () {
+        Swal.fire({
+          title: "Sending request...",
+          html: "Please wait...",
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+          showConfirmButton: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+      },
       success: function (result) {
         if (result == "success") {
           Swal.fire({

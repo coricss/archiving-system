@@ -788,6 +788,19 @@ $(function (){
                   url: "../../model/RequestModel.php?action=approveNotifRequest",
                   type: "POST",
                   data: $(this).serialize(),
+                  beforeSend: function () {
+                    Swal.fire({
+                      title: "Approving file request...",
+                      html: "Please wait...",
+                      allowOutsideClick: false,
+                      allowEscapeKey: false,
+                      allowEnterKey: false,
+                      showConfirmButton: false,
+                      didOpen: () => {
+                        Swal.showLoading();
+                      },
+                    });
+                  },
                   success: function (data) {
                     if (data == "success") {
                       Swal.fire({
@@ -886,6 +899,19 @@ $(function (){
                   url: "../../model/RequestModel.php?action=rejectNotifRequest",
                   type: "POST",
                   data: $(this).serialize(),
+                  beforeSend: function () {
+                    Swal.fire({
+                      title: "Rejecting file request...",
+                      html: "Please wait...",
+                      allowOutsideClick: false,
+                      allowEscapeKey: false,
+                      allowEnterKey: false,
+                      showConfirmButton: false,
+                      didOpen: () => {
+                        Swal.showLoading();
+                      },
+                    });
+                  },
                   success: function (data) {
                     if (data == "success") {
                       Swal.fire({
@@ -1015,6 +1041,19 @@ $(function (){
           url: "../../model/RequestModel.php?action=approveRequest",
           type: "POST",
           data: $(this).serialize(),
+          beforeSend: function () {
+            Swal.fire({
+              title: "Approving file request...",
+              html: "Please wait...",
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              allowEnterKey: false,
+              showConfirmButton: false,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            });
+          },
           success: function (data) {
             if (data == "success") {
               Swal.fire({
@@ -1087,6 +1126,19 @@ $(function (){
           url: "../../model/RequestModel.php?action=rejectRequest",
           type: "POST",
           data: $(this).serialize(),
+          beforeSend: function () {
+            Swal.fire({
+              title: "Rejecting file request...",
+              html: "Please wait...",
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              allowEnterKey: false,
+              showConfirmButton: false,
+              didOpen: () => {
+                Swal.showLoading();
+              },
+            });
+          },
           success: function (data) {
             if (data == "success") {
               Swal.fire({
@@ -1287,6 +1339,16 @@ $(function (){
         type: "POST",
         data: { id: id },
         dataType: "json",
+        beforeSend: function () {
+          Swal.fire({
+            title: "Please wait...",
+            html: "Releasing request...",
+            allowOutsideClick: false,
+            onBeforeOpen: () => {
+              Swal.showLoading();
+            },
+          });
+        },
         success: function (data) {
           if (data == 'success') {
             $("#tbl_approved_admin").DataTable().ajax.reload();
