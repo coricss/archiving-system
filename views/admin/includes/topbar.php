@@ -44,7 +44,7 @@
     <li class="nav-item dropdown user-menu">
         <a href="javascipt:void(0);" class="nav-link dropdown-toggle" data-toggle="dropdown">
             <img src="../../assets/dist/img/users/default.png" class="user-image img-circle display-picture elevation-1 border border-success" alt="User Image">
-            <span class="d-none d-md-inline profile-username" style="font-size: 20px"></span>
+            <span class="d-none d-md-inline profile-username" style="font-size: 18px"></span>
         </a>
         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
             <!-- User image -->
@@ -64,6 +64,9 @@
                 </form>
             </li>
         </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-palette fa-md"></i></a>
     </li>
   </ul>
 </nav>

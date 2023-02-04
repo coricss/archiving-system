@@ -240,3 +240,20 @@ div.arrow {
 .stepper-item:last-child::after {
   content: none;
 }
+
+.bg-theme {
+  opacity: 0;
+}
+
+.bg-theme-img {
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.bg-theme-img.active{
+  border:#28a745 1px solid;
+}
+
+.bg-theme-img:hover {
+  border:#28a745 1px solid;
+}

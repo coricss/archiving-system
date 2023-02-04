@@ -52,6 +52,51 @@
       </div>
   </footer>
 
+  <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark p-3">
+      <!-- Control sidebar content goes here -->
+      <h5 class="text-center">Customize Theme</h5>
+      <hr class="mb-4">
+      <div class="p-3">
+        <!-- Content of the sidebar goes here -->
+        <!-- Choose image background -->
+        <div class="row">
+          <div class="col-12">
+            <input type="radio" name="bg-theme" id="image1" value="1" class="bg-theme">
+            <label for="image1" class="ml-2">
+              <img src="../../assets/dist/img/bg/default-bg.png" alt="bg1" class="img-fluid bg-theme-img active" style="width: 200px; height: 100px;">
+            </label>
+          </div>
+          <div class="col-12">
+            <input type="radio" name="bg-theme" id="image1" value="1" class="bg-theme">
+            <label for="image1" class="ml-2">
+              <img src="../../assets/dist/img/bg/red-moon.jpg" alt="bg1" class="img-fluid bg-theme-img" style="width: 200px; height: 100px;">
+            </label>
+          </div>
+          <div class="col-12">
+            <input type="radio" name="bg-theme" id="image1" value="1" class="bg-theme">
+            <label for="image1" class="ml-2">
+              <img src="../../assets/dist/img/bg/sunrise.jpg" alt="bg1" class="img-fluid bg-theme-img" style="width: 200px; height: 100px;">
+            </label>
+          </div>
+          <div class="col-12">
+            <input type="radio" name="bg-theme" id="image1" value="1" class="bg-theme">
+            <label for="image1" class="ml-2">
+              <img src="../../assets/dist/img/bg/dark-ornaments.jpg" alt="bg1" class="img-fluid bg-theme-img" style="width: 200px; height: 100px;">
+            </label>
+          </div>
+          <div class="col-12">
+            <input type="radio" name="bg-theme" id="image1" value="1" class="bg-theme">
+            <label for="image1" class="ml-2">
+              <img src="../../assets/dist/img/bg/dark-cloud.jpg" alt="bg1" class="img-fluid bg-theme-img" style="width: 200px; height: 100px;">
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+  <!-- /.control-sidebar -->
+
   <script src="../../assets/plugins/jquery/jquery.min.js"></script>
   <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../../assets/plugins/DataTables/datatables.min.js"></script>
