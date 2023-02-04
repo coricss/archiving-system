@@ -1341,16 +1341,35 @@ $(function (){
         dataType: "json",
         beforeSend: function () {
           Swal.fire({
-            title: "Please wait...",
-            html: "Releasing request...",
+            title: "Releasing file request...",
+            html: "Please wait...",
             allowOutsideClick: false,
-            onBeforeOpen: () => {
+            allowEscapeKey: false,
+            allowEnterKey: false,
+            showConfirmButton: false,
+            timer: 1500,
+            didOpen: () => {
               Swal.showLoading();
             },
           });
         },
         success: function (data) {
           if (data == 'success') {
+
+            Swal.fire({
+              title: 'File has been released',
+              icon: 'success',
+              showConfirmButton: false,
+              toast: true,
+              position: "top-end",
+              timer: 1500,
+              timerProgressBar: true,
+              iconColor: "white",
+              customClass: {
+                popup: "colored-toast",
+              },
+            });
+
             $("#tbl_approved_admin").DataTable().ajax.reload();
             $("#tbl_approved_admin").DataTable().order([0, "asc"]).draw();
           }

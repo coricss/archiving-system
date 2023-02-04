@@ -28,7 +28,6 @@
   <link rel="stylesheet" href="../../assets/dist/css/main.css">
 </head>
 <body class="sidebar-mini layout-fixed layout-footer-fixed">
-<div class="loading">Loading&#8230;</div>
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=710821700066021&autoLogAppEvents=1" nonce="53v7m8js"></script>
 

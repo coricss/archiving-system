@@ -95,13 +95,13 @@
 
         // $notif = "INSERT INTO notifications (user_id, file_id, activity, status, date_created) VALUES ($user_id, $file_id, 'request', 1, '$date_created')";
 
+        //ADMIN EMAIL
+        generateEmail($request_id, 'ieti.system2023@gmail.com', $receiverCC, 'ieti.system2023@gmail.com', 'You have a new file request from <b>'.$user_name.'</b>.<br><br>Reason: '.$reason.'<br><br> Please check your dashboard for more details.');
+
+        //USER EMAIL
+        generateEmail($request_id, $user_email, $receiverCCUser, $user_email, 'You have been successfully requested a file. <br><br> Please wait for furthermore announcements regarding this request. Thank you.');
+
         if((mysqli_query($con, $sql))) {
-
-           //ADMIN EMAIL
-          generateEmail($request_id, 'ieti.system2023@gmail.com', $receiverCC, 'ieti.system2023@gmail.com', 'You have a new file request from <b>'.$user_name.'</b>.<br><br>Reason: '.$reason.'<br><br> Please check your dashboard for more details.');
-
-          //USER EMAIL
-          generateEmail($request_id, $user_email, $receiverCCUser, $user_email, 'You have been successfully requested a file. <br><br> Please wait for furthermore announcements regarding this request. Thank you.');
 
           echo 'success';
         } else {
