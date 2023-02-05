@@ -1,5 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-success elevation-4">
+<!-- SIDEBAR BACKGROUND IMAGE -->
+  <div class="sidebar-bg-image"></div>
   <!-- Brand Logo -->
   <a href="/digital_archiving_management_system/views/admin" class="brand-link d-flex align-items-center">
     <img src="../../assets/dist/img/logo/dams-logo.png" alt="DAMS Logo" class="brand-image img-circle elevation-3" style="opacity: .8">

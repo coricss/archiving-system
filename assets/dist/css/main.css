@@ -247,13 +247,51 @@ div.arrow {
 
 .bg-theme-img {
   border-radius: 10px;
+  border:#cacaca 1px solid;
   cursor: pointer;
+  filter: brightness(0.5);
 }
 
 .bg-theme-img.active{
   border:#28a745 1px solid;
+  filter: brightness(1);
 }
 
 .bg-theme-img:hover {
   border:#28a745 1px solid;
+  filter: brightness(1);
+}
+
+.sidebar-bg-image {
+  z-index:-1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  filter: brightness(0.5);
+  background-image: url("../img/bg/default-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.control-sidebar-bg-image {
+  z-index:-1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  filter: brightness(0.5);
+  background-image: url("../img/bg/default-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }

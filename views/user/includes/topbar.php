@@ -64,6 +64,9 @@
             </li>
         </ul>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i class="fas fa-palette fa-md"></i></a>
+    </li>
   </ul>
 </nav>
 <!-- APPROVE REQUEST MODAL -->

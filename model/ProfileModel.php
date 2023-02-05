@@ -138,4 +138,31 @@
     } else {
       echo 'error';
     }
+  } else if ($_GET['action'] == 'loadTheme') {
+    $user_id = $_SESSION['user_id'];
+
+    $query = "SELECT theme.id AS bg_theme_id, theme.bg_theme_img AS bg_theme_img FROM user_accounts AS users INNER JOIN bg_theme AS theme ON theme.id = users.bg_theme_id WHERE users.user_id = '$user_id'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($result);
+
+    $theme = [
+      'theme_id' => $row['bg_theme_id'],
+      'bg_theme_img' => $row['bg_theme_img']
+    ];
+
+    echo json_encode($theme);
+
+  } else if ($_GET['action'] == 'changeTheme') {
+    $user_id = $_SESSION['user_id'];
+    $theme = $_POST['theme_id'];
+
+    $query = "UPDATE user_accounts SET bg_theme_id = $theme WHERE user_id = '$user_id'";
+
+    $result = mysqli_query($con, $query);
+
+    if($result) {
+      echo 'success';
+    } else {
+      echo 'error';
+    }
   }

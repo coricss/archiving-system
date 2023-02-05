@@ -1,3 +1,4 @@
+  <div class="wrapper">
   <!-- MODAL NEW PASSWORD -->
   <div class="modal fade" id="modalNewPassword" tabindex="-1" role="dialog" aria-labelledby="modalNewPasswordLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -50,6 +51,57 @@
       </div>
   </footer>
 
+  <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark p-3" style="overflow-y: scroll; height: 0px !important">
+      <div class="control-sidebar-bg-image"></div>
+        <!-- Control sidebar content goes here -->
+        <h5 class="text-center">Customize Theme</h5>
+        <hr class="mb-2 bg-white">
+        <div class="p-2">
+          <!-- Content of the sidebar goes here -->
+          <!-- Choose image background -->
+          <div class="row">
+            <div class="col-12">
+              <input type="radio" name="bg-theme" id="image1" value="1" class="bg-theme">
+              <label for="image1" class="ml-2" id="label1">
+                <img src="../../assets/dist/img/bg/default-bg.png" alt="bg1" class="img-fluid bg-theme-img active" style="width: 200px; height: 90px;">
+                <small class="float-right mr-2">Default</small>
+              </label>
+
+            </div>
+            <div class="col-12">
+              <input type="radio" name="bg-theme" id="image2" value="2" class="bg-theme">
+              <label for="image2" class="ml-2" id="label2">
+                <img src="../../assets/dist/img/bg/city.jpg" alt="bg2" class="img-fluid bg-theme-img" style="width: 200px; height: 90px;">
+                <small class="float-right mr-2">Night City</small>
+              </label>
+            </div>
+            <div class="col-12">
+              <input type="radio" name="bg-theme" id="image3" value="3" class="bg-theme">
+              <label for="image3" class="ml-2" id="label3">
+                <img src="../../assets/dist/img/bg/sunrise.jpg" alt="bg3" class="img-fluid bg-theme-img" style="width: 200px; height: 90px;">
+                <small class="float-right mr-2">Moon Forest</small>
+              </label>
+            </div>
+            <div class="col-12">
+              <input type="radio" name="bg-theme" id="image4" value="4" class="bg-theme">
+              <label for="image4" class="ml-2" id="label4">
+                <img src="../../assets/dist/img/bg/leaves.jpg" alt="bg4" class="img-fluid bg-theme-img" style="width: 200px; height: 90px;">
+                <small class="float-right mr-2">Leaves</small>
+              </label>
+            </div>
+            <div class="col-12">
+              <input type="radio" name="bg-theme" id="image5" value="5" class="bg-theme">
+              <label for="image5" class="ml-2" id="label5">
+                <img src="../../assets/dist/img/bg/dark-cloud.jpg" alt="bg5" class="img-fluid bg-theme-img" style="width: 200px; height: 90px;">
+                <small class="float-right mr-2">Dark Cloud</small>
+              </label>
+            </div>
+          </div>
+        </div>
+      </aside>
+  <!-- /.control-sidebar -->
+  </div>
   <script src="../../assets/plugins/jquery/jquery.min.js"></script>
   <script src="../../assets/plugins/bootstrap/js/bootstrap.bundle.js"></script>
   <script src="../../assets/plugins/DataTables/datatables.min.js"></script>

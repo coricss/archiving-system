@@ -1,13 +1,16 @@
 $(function(){
 
+    
+  loadProfile();
+  loadTheme();
+
   $(document).keypress(
     function(event){
       if (event.which == '13') {
         event.preventDefault();
       }
   });
-  
-  loadProfile();
+
   $('#btn_deactivate_profile').click(function(){
     Swal.fire({
       title: 'Are you sure?',
@@ -390,6 +393,73 @@ $(function(){
         });
       }
   })()
+
+  function loadTheme(){
+    $.ajax({
+      url: '../../model/ProfileModel.php?action=loadTheme',
+      type: 'GET',
+      dataType: 'json',
+      cache: false,
+      success: function(data){
+        console.log(data.bg_theme_img);
+        $('.bg-theme-img').removeClass('active');
+        $('#label'+data.theme_id+' img').addClass('active');
+        $('.sidebar-bg-image, .control-sidebar-bg-image').css('background-image', 'url(../../assets/dist/img/bg/'+data.bg_theme_img+')');
+      }
+    })
+  } 
+
+  $('.bg-theme').click(function(e){
+    e.preventDefault();
+    var theme_id = $(this).val();
+
+    $.ajax({
+      url: '../../model/ProfileModel.php?action=changeTheme',
+      type: 'POST',
+      data: {theme_id: theme_id},
+      cache: false,
+      beforeSend: function(){
+        $('.bg-theme').attr('disabled', true);
+      },
+      success: function(data){
+        setTimeout(function(){
+          $('.bg-theme').attr('disabled', false);
+          if(data == 'success'){
+            Swal.fire({
+              title: 'Theme changed successfully!',
+              icon: 'success',
+              toast: true,
+              position: 'top-end',
+              timer: 1500,
+              timerProgressBar: true,
+              iconColor: 'white',
+              customClass: {
+                popup: 'colored-toast'
+              },
+              showConfirmButton: false
+            })
+
+            loadTheme();
+          }else{
+            Swal.fire({
+              title: 'Theme change failed!',
+              icon: 'error',
+              toast: true,
+              position: 'top-end',
+              timer: 1500,
+              timerProgressBar: true,
+              iconColor: 'white',
+              customClass: {
+                popup: 'colored-toast'
+              },
+              showConfirmButton: false
+            });
+          }
+        }, 300);
+      }
+    })
+      
+  });
 
 
 });
