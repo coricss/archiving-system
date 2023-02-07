@@ -83,10 +83,10 @@
         if($_FILES['file_picture']['name'] != '') {
           move_uploaded_file($_FILES["file_picture"]["tmp_name"], $file_loc);
   
-          $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, login_attempts, date_added) VALUES ('$userid', '$picture', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 3, '$date_added')";
+          $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, bg_theme_id, login_attempts, date_added) VALUES ('$userid', '$picture', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 1, 3, '$date_added')";
   
         } else {
-          $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, login_attempts, date_added) VALUES ('$userid', 'default.png', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 3, '$date_added')";
+          $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, bg_theme_id, login_attempts, date_added) VALUES ('$userid', 'default.png', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 1, 3, '$date_added')";
         }
   
         $result = mysqli_query($con, $query);
@@ -103,10 +103,10 @@
       if($_FILES['file_picture']['name'] != '') {
         move_uploaded_file($_FILES["file_picture"]["tmp_name"], $file_loc);
 
-        $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, login_attempts, date_added) VALUES ('$userid', '$picture', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 3, '$date_added')";
+        $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, bg_theme_id, login_attempts, date_added) VALUES ('$userid', '$picture', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 1, 3, '$date_added')";
 
       } else {
-        $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, login_attempts, date_added) VALUES ('$userid', 'default.png', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 3, '$date_added')";
+        $query = "INSERT INTO user_accounts (user_id, picture, first_name, middle_name, last_name, phone_no, email, address, username, password, is_admin, status, bg_theme_id, login_attempts, date_added) VALUES ('$userid', 'default.png', '$fname', '$mname', '$lname', '$phone', '$email', '$address', '$username', '$password', '$role', 1, 1, 3, '$date_added')";
       }
 
       $result = mysqli_query($con, $query);
