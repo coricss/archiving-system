@@ -1,5 +1,7 @@
 <?php
   include_once('../database/connection.php');
+  include_once('../email/EmailNotification.php');
+  session_start();
 
   if($_GET['action'] == 'userLogin'){
     $userid = mysqli_real_escape_string($con, $_POST['txt_userid']);
@@ -14,7 +16,7 @@
       if ($row['status'] == 1) {
         if(($row['user_id']==$userid || $row['username'] == $userid) && (password_verify($password, $row['password']))){
           if ($row['is_admin'] == 1) {
-            session_start();
+
             $_SESSION['id'] = $row['id'];
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['fullname'] = $row['first_name'] . ' ' . $row['last_name'];
@@ -26,7 +28,7 @@
 
             echo 'admin';
           } else if ($row['is_admin'] == 2) {
-            session_start();
+
             $_SESSION['id'] = $row['id'];
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['fullname'] = $row['first_name'] . ' ' . $row['last_name'];
@@ -38,7 +40,7 @@
 
             echo 'director';
           } else {
-            session_start();
+
             $_SESSION['id'] = $row['id'];
             $_SESSION['user_id'] = $row['user_id'];
             $_SESSION['fullname'] = $row['first_name'] . ' ' . $row['last_name'];
@@ -92,8 +94,51 @@
     
 
     
+  } else if ($_GET['action'] == 'sendCode') {
+      $email = mysqli_real_escape_string($con, $_POST['registered_email']);
+
+      $query = "SELECT * FROM user_accounts WHERE email = '$email'";
+      $result = mysqli_query($con, $query);
+      $row = mysqli_fetch_assoc($result);
+
+      $_SESSION['id'] = $row['id'];
+
+      if(mysqli_num_rows($result) > 0 ) {
+        $code = rand(100000, 999999);
+        $query = "UPDATE user_accounts SET forgot_pass_code = '$code' WHERE email = '$email'";
+        $result = mysqli_query($con, $query);
+
+        sendCode($email, $code);
+
+        echo 'success';
+
+      } else {
+        echo 'no email found';
+      }
+
+  } else if ($_GET['action'] == 'verifyCode') {
+    $code = mysqli_real_escape_string($con, $_POST['recovery_code']);
+    $id = $_SESSION['id'];
+
+    $query = "SELECT * FROM user_accounts WHERE id = '$id'";
+    $result = mysqli_query($con, $query);
+    $row = mysqli_fetch_assoc($result);
+
+    if ($row['forgot_pass_code'] == $code) {
+
+      $user_id = $row['user_id'];
+
+      $password = password_hash("IETI_".$user_id, PASSWORD_DEFAULT);
+
+      $query = "UPDATE user_accounts SET password = '$password' WHERE id = $id";
+      $result = mysqli_query($con, $query);
+
+      echo 'success';
+    } else {
+      echo 'error';
+    }
+
   } else if ($_GET['action'] == 'logoutUser') {
-    session_start();
     session_destroy();
     echo 'success';
   }

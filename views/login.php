@@ -60,12 +60,68 @@
           </div>
         </form>
        
-        <!-- <p class="mb-1 mt-3">
-          <a href="forgot-password.html">Forgot password?</a>
-        </p> -->
+        <p class="mb-1 mt-3">
+          <a href="" data-toggle="modal" data-target="#forgotPassword">Forgot password?</a>
+        </p>
         <!-- <p class="mb-0">
           <a href="register.html" class="text-center">Register a new membership</a>
         </p> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FORGOT PASSWORD MODAL -->
+  <div class="modal fade" id="forgotPassword" tabindex="-1" role="dialog" aria-labelledby="modalNewPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h5 class="modal-title" id="modalNewPasswordLabel">Forgot Password</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="text-white" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="frm_forgot_password" class="frm_forgot_password">
+          <div class="modal-body">
+          
+              <div class="form-group">
+                <label for="registered_email">Email</label>
+                <input type="email" class="form-control pr-password registered_email" id="registered_email" name="registered_email" placeholder="Enter your registered email" required>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary btn-block btn_forgot_password" id="btn_forgot_password">Send code</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERIFY CODE MODAL -->
+  <div class="modal fade" id="verifyCode" tabindex="-1" role="dialog" aria-labelledby="modalNewPasswordLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-success">
+          <h5 class="modal-title" id="modalNewPasswordLabel">Code Verification</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="text-white" aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="frm_verify_code" class="frm_verify_code">
+          <div class="modal-body">
+          
+              <div class="form-group">
+                <label for="recovery_code">Enter code</label>
+                <input type="text" class="form-control pr-password recovery_code" id="recovery_code" name="recovery_code" placeholder="Enter code from your email" required>
+              </div>
+
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary btn-block btn_submit_code" id="btn_submit_code">Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

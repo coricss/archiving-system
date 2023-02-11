@@ -24,7 +24,7 @@ $(function() {
     'use strict'
     var forms = document.querySelectorAll('.frm_new_password');
     var change_password = document.querySelectorAll('#frm_change_password');
-
+  
     Array.prototype.slice.call(forms)
       .forEach(function (form) {
           $('.btn_new_password').on('click', function(event){

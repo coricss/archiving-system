@@ -401,7 +401,6 @@ $(function(){
       dataType: 'json',
       cache: false,
       success: function(data){
-        console.log(data.bg_theme_img);
         $('.bg-theme-img').removeClass('active');
         $('#label'+data.theme_id+' img').addClass('active');
         $('.sidebar-bg-image, .control-sidebar-bg-image').css('background-image', 'url(../../assets/dist/img/bg/'+data.bg_theme_img+')');
