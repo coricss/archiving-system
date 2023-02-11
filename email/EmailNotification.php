@@ -216,7 +216,7 @@ function sendCode($receiver, $code) {
         </body>
         </html>
         ";
-    // $mail->send();
+    $mail->send();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
