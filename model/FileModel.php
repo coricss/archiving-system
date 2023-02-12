@@ -378,4 +378,55 @@
       echo "error";
     }
     
+  } else if ($_GET['action'] == 'loadOldFiles') {
+
+    //SELECT OLD FILES 5 YEARS AGO
+    $sql = "SELECT files.id AS id, files.user_id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS owner, users.picture AS picture, files.file_name AS file_name, types.id AS file_type_id, types.file_type AS file_type, files.uploaded_by AS uploaded_by_id, CONCAT(uploader.first_name, ' ', uploader.last_name) AS uploader, files.status AS status, files.batch AS batch, files.date_uploaded AS date_uploaded FROM file_details AS files INNER JOIN file_types AS types ON files.file_type_id = types.id INNER JOIN user_accounts AS users ON files.user_id = users.user_id INNER JOIN user_accounts AS uploader ON files.uploaded_by = uploader.user_id WHERE files.date_uploaded <= DATE_SUB(NOW(), INTERVAL 5 YEAR) ORDER BY files.date_uploaded";
+    // $sql = "SELECT files.id AS id, files.user_id AS user_id, CONCAT(users.first_name, ' ', users.last_name) AS owner, users.picture AS picture, files.file_name AS file_name, types.id AS file_type_id, types.file_type AS file_type, files.uploaded_by AS uploaded_by_id, CONCAT(uploader.first_name, ' ', uploader.last_name) AS uploader, files.status AS status, files.batch AS batch, files.date_uploaded AS date_uploaded FROM file_details AS files INNER JOIN file_types AS types ON files.file_type_id = types.id INNER JOIN user_accounts AS users ON files.user_id = users.user_id INNER JOIN user_accounts AS uploader ON files.uploaded_by = uploader.user_id ORDER BY files.date_uploaded";
+    $data = mysqli_query($con, $sql);
+
+    $output = [];
+
+    $count = 0;
+
+    while($row = mysqli_fetch_assoc($data)) {
+
+      $count++;
+
+      $output[] = [
+        'id' => $count,
+        'owner_id' => $row['user_id'],
+        'owner' => $row['owner'],
+        'picture' => $row['picture'],
+        'file_name' => $row['file_name'],
+        'file_type_id' => $row['file_type_id'],
+        'file_type' => $row['file_type'],
+        'uploaded_by_id' => $row['uploaded_by_id'],
+        'uploaded_by' => $row['uploader'],
+        'date_uploaded' => date('M d, Y - h:i A', strtotime($row['date_uploaded'])),
+        'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
+        'batch' => $row['batch'],
+        // 'action' => $row['status'] == 0 ? 
+        //               "
+        //                 <button class='btn btn-success btn-sm btn_edit_file px-2' title='Edit file details' data-id='{$row['id']}'>
+        //                   <i class='fas fa-edit'></i>
+        //                 </button>
+        //                 <button class='btn btn-primary btn-sm btn_activate_file px-2' title='Activate file status' data-id='{$row['id']}'>
+        //                   <i class='fas fa-check-circle'></i>
+        //                 </button>
+        //               " 
+        //             : 
+        //               "
+        //                 <button class='btn btn-success btn-sm btn_edit_file px-2' title='Edit file details' data-id='{$row['id']}'>
+        //                   <i class='fas fa-edit'></i>
+        //                 </button>
+        //                 <button class='btn btn-danger btn-sm btn_deactivate_file px-2' title='Deactivate file status' data-id='{$row['id']}'>
+        //                   <i class='fas fa-ban'></i>
+        //                 </button>
+        //               "
+      ];
+
+    }
+
+    echo json_encode($output);
   }

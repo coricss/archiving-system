@@ -8,7 +8,7 @@
     header('location: /digital_archiving_management_system');
   }
 
-  $_SESSION['file_archive'] = 'active';
+  $_SESSION['file_management'] = 'active';
 
   unset($_SESSION['announcements']);
   unset($_SESSION['profile']);
@@ -17,6 +17,7 @@
   unset($_SESSION['approved_admin']);
   unset($_SESSION['rejected_admin']);
   unset($_SESSION['dashboard']);
+  unset($_SESSION['old_documents']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
@@ -29,7 +30,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>File Archives</h1>
+          <h1>File Management</h1>
         </div>
         <!-- <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">

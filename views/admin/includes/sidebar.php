@@ -49,9 +49,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="../admin/file_archive.php" class="nav-link <?php echo isset($_SESSION['file_archive']) ? 'active' : '' ?>">
+          <a href="../admin/file_management.php" class="nav-link <?php echo isset($_SESSION['file_management']) ? 'active' : '' ?>">
             <i class="nav-icon fas fa-file-alt"></i>
-            <p>File Archives</p>
+            <p>File Management</p>
           </a>
         </li>
         <li class="nav-item <?php echo isset($_SESSION['pending_admin']) || isset($_SESSION['approved_admin']) || isset($_SESSION['rejected_admin']) ? 'menu-open' : '' ?>">
@@ -81,6 +81,12 @@
                   </a>
               </li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a href="../admin/old_documents.php" class="nav-link <?php echo isset($_SESSION['old_documents']) ? 'active' : '' ?>">
+            <i class="nav-icon fas fa-history"></i>
+            <p>Old Documents</p>
+          </a>
         </li>
         <!-- <li class="nav-item">
           <a href="#" class="nav-link active">

@@ -11,11 +11,12 @@
 
   unset($_SESSION['user_management']);
   unset($_SESSION['profile']);
-  unset($_SESSION['file_archive']);
+  unset($_SESSION['file_management']);
   unset($_SESSION['pending_admin']);
   unset($_SESSION['approved_admin']);
   unset($_SESSION['rejected_admin']);
   unset($_SESSION['announcements']);
+  unset($_SESSION['old_documents']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
@@ -65,12 +66,12 @@
               </div>
               <div class="inner">
                   <h3 id="total-file-archives"></h3>
-                  <p>File Archives</p>
+                  <p>Total Files</p>
               </div>
               <div class="icon">
                 <i class="fas fa-copy"></i>
               </div>
-              <a id="small-box-footer-new-emp" href="../admin/file_archive.php" style="cursor: pointer" class="small-box-footer">View details <i class="fas fa-arrow-circle-right"></i></a>
+              <a id="small-box-footer-new-emp" href="../admin/file_management.php" style="cursor: pointer" class="small-box-footer">View details <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <div class="col-md-3">

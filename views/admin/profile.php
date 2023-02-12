@@ -15,11 +15,12 @@
 
   unset($_SESSION['announcements']);
   unset($_SESSION['user_management']);
-  unset($_SESSION['file_archive']);
+  unset($_SESSION['file_management']);
   unset($_SESSION['pending_admin']);
   unset($_SESSION['approved_admin']);
   unset($_SESSION['rejected_admin']);
   unset($_SESSION['dashboard']);
+  unset($_SESSION['old_documents']);
 
   include_once('includes/header.php');
   include_once('includes/topbar.php');
