@@ -411,13 +411,21 @@ $(function () {
       { data: "uploaded_by" },
       { data: "date_uploaded" },
       { data: "batch" },
+      { data: "binary" },
       { data: "status" },
       { data: "action" }
     ],
     deferRender: true,
     lengthChange: false,
     columnDefs: [
-      { targets: [8, 9], className: "text-center", orderable: false },
+      {
+        targets: [8],
+        className: "text-center",
+        render: function (data, type, row) {
+          return `<a href="../../storage/binary_files/${data}" target="_blank"><i class="fas fa-download"></i></a>`;
+        }
+      },
+      { targets: [9, 10], className: "text-center", orderable: false },
       {
         targets: [1],
         orderable: false,
@@ -1006,12 +1014,13 @@ $(function () {
       { data: "uploaded_by" },
       { data: "date_uploaded" },
       { data: "batch" },
-      { data: "status" }
+      { data: "status" },
+      { data: "action" },
     ],
     deferRender: true,
     lengthChange: false,
     columnDefs: [
-      { targets: [8], className: "text-center", orderable: false },
+      { targets: [8, 9], className: "text-center", orderable: false },
       {
         targets: [1],
         orderable: false,
@@ -1210,4 +1219,60 @@ $(function () {
   $("#tbl_old_files_filter").addClass("float-right");
   $(".btn-group").addClass("float-left");
 
+  $tbl_old_files.on("click", ".btn_delete_file", function () {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if(result.isConfirmed) {
+        var file_id = $(this).attr('data-id');
+        $.ajax({
+          url: "../../model/FileModel.php?action=deleteOldFile",
+          type: "POST",
+          data: {
+            file_id: file_id,
+          },
+          cache: false,
+          success: function (response) {
+            if (response == "success") {
+              Swal.fire({
+                title: "Successfully Deleted!",
+                icon: "success",
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end",
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: "white",
+                customClass: {
+                  popup: "colored-toast",
+                },
+              });
+              $("#tbl_old_files").DataTable().ajax.reload();
+            } else {
+              Swal.fire({
+                title: "Something went wrong!",
+                icon: "error",
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end",
+                timer: 1500,
+                timerProgressBar: true,
+                iconColor: "white",
+                customClass: {
+                  popup: "colored-toast",
+                },
+              });
+              $("#tbl_old_files").DataTable().ajax.reload();
+            }
+          }
+        });
+      }
+    });
+  })
 });

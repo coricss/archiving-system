@@ -97,6 +97,7 @@
                         <th>Uploaded by</th>
                         <th>Date uploaded</th>
                         <th>Batch</th>
+                        <th>Binary</th>
                         <th>Status</th>
                         <th>Actions</th>
                       </tr>

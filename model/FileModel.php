@@ -240,6 +240,7 @@
         'uploaded_by' => $row['uploader'],
         'date_uploaded' => date('M d, Y - h:i A', strtotime($row['date_uploaded'])),
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
+        'binary' =>  $row['file_name'] = substr($row['file_name'], 0, strrpos($row['file_name'], '.')).'.txt',
         'batch' => $row['batch'],
         'action' => $row['status'] == 0 ? 
                       "
@@ -281,6 +282,26 @@
     } else if (($file_ext != 'pdf') && ($file_ext != 'docx') && ($file_ext != 'xlsx') && ($file_ext != 'csv') && ($file_ext != 'pptx')) {
       echo "invalid file type";
     } else {
+
+      //convert to binary file format
+      $file_binary = addslashes(file_get_contents($_FILES['file_record']['tmp_name']));
+
+      //change extension to .txt
+      $file_txt = str_replace($file_ext, 'txt', $file);
+
+      $file_loc_binary = "../storage/binary_files/".$file_txt;
+
+      //save into text file
+      $file_save = fopen($file_loc_binary, 'w');
+      fwrite($file_save, $file_binary);
+      fclose($file_save);
+
+      //convert binary to file
+      $file_convert = fopen($file_loc_binary, 'r');
+      $file_content = fread($file_convert, filesize($file_loc_binary));
+      fclose($file_convert);
+      
+
       move_uploaded_file($_FILES["file_record"]["tmp_name"], $file_loc);
 
       $sql = "INSERT INTO file_details (user_id, file_type_id, file_name, status, batch, uploaded_by, date_uploaded) VALUES ('$owner', '$file_type', '$file', 1, '$batch', '$uploaded_by', '$date_uploaded')";
@@ -406,27 +427,38 @@
         'date_uploaded' => date('M d, Y - h:i A', strtotime($row['date_uploaded'])),
         'status' => $row['status'] == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>',
         'batch' => $row['batch'],
-        // 'action' => $row['status'] == 0 ? 
-        //               "
-        //                 <button class='btn btn-success btn-sm btn_edit_file px-2' title='Edit file details' data-id='{$row['id']}'>
-        //                   <i class='fas fa-edit'></i>
-        //                 </button>
-        //                 <button class='btn btn-primary btn-sm btn_activate_file px-2' title='Activate file status' data-id='{$row['id']}'>
-        //                   <i class='fas fa-check-circle'></i>
-        //                 </button>
-        //               " 
-        //             : 
-        //               "
-        //                 <button class='btn btn-success btn-sm btn_edit_file px-2' title='Edit file details' data-id='{$row['id']}'>
-        //                   <i class='fas fa-edit'></i>
-        //                 </button>
-        //                 <button class='btn btn-danger btn-sm btn_deactivate_file px-2' title='Deactivate file status' data-id='{$row['id']}'>
-        //                   <i class='fas fa-ban'></i>
-        //                 </button>
-        //               "
+        'action' => "
+                      <button class='btn btn-danger btn-sm btn_delete_file px-2' title='Delete old file' data-id='{$row['id']}'>
+                        <i class='fas fa-trash'></i>
+                      </button>
+                    " 
+                    
       ];
 
     }
 
     echo json_encode($output);
+  } else if ($_GET['action'] == "deleteOldFile") {
+
+    $file_id = mysqli_real_escape_string($con, $_POST['file_id']);
+
+    $sql = "SELECT file_name FROM file_details WHERE id = $file_id";
+    $data = mysqli_query($con, $sql);
+    $row = mysqli_fetch_assoc($data);
+
+    unlink("../storage/files/".$row['file_name']);
+    unlink("../storage/binary_files/".$row['file_name'] = substr($row['file_name'], 0, strrpos($row['file_name'], '.')).'.txt');
+
+    $sql = "DELETE FROM file_details WHERE id = $file_id";
+    $result = mysqli_query($con, $sql);
+
+    $sql_request = "DELETE FROM file_requests WHERE file_id = $file_id";
+    $result_request = mysqli_query($con, $sql_request);
+
+    if($result && $result_request) {
+      echo "success";
+    } else {
+      echo "error";
+    }
+
   }

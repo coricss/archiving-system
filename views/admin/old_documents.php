@@ -81,6 +81,7 @@
                       <th>Date uploaded</th>
                       <th>Batch</th>
                       <th>Status</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                 </table>
