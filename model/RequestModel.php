@@ -22,7 +22,7 @@
   if ($_GET['action'] == 'loadTrackRequestUser') {
     $user_id = $_SESSION['user_id'];
 
-    $sql = "SELECT requests.request_id AS request_id, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id ";
+    $sql = "SELECT requests.request_id AS request_id, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id ORDER BY requests.date_requested DESC";
     // WHERE requests.user_id = '$user_id' AND (requests.is_approved = 0 OR requests.is_director_approved = 0) AND requests.status = 1
     $result = mysqli_query($con, $sql);
 
@@ -62,7 +62,7 @@
   } else if ($_GET['action'] == 'loadPendingRequestUser') {
     $user_id = $_SESSION['user_id'];
 
-    $sql = "SELECT requests.request_id AS request_id, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.user_id = '$user_id' AND (requests.is_approved = 0 OR requests.is_director_approved = 0) AND requests.status = 1";
+    $sql = "SELECT requests.request_id AS request_id, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.user_id = '$user_id' AND (requests.is_approved = 0 OR requests.is_director_approved = 0) AND requests.status = 1  ORDER BY requests.date_requested DESC";
     $result = mysqli_query($con, $sql);
 
     $output = [];
@@ -98,7 +98,7 @@
     $user_type = $_SESSION['user_type'];
 
     if($user_type == 'admin') {
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.is_approved AS is_approved, requests.is_director_approved AS is_director_approved, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE (requests.is_approved = 0 OR requests.is_approved = 1) AND requests.is_director_approved = 0 AND requests.status = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.is_approved AS is_approved, requests.is_director_approved AS is_director_approved, requests.status AS status FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE (requests.is_approved = 0 OR requests.is_approved = 1) AND requests.is_director_approved = 0 AND requests.status = 1  ORDER BY requests.date_requested DESC";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -144,7 +144,7 @@
   
       echo json_encode($output);
     } else if($user_type == 'director') {
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status, requests.is_approved AS is_approved FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.is_approved = 1 AND requests.is_director_approved = 0 AND requests.status = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.status AS status, requests.is_approved AS is_approved FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id WHERE requests.is_approved = 1 AND requests.is_director_approved = 0 AND requests.status = 1 ORDER BY requests.date_requested DESC";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -431,7 +431,7 @@
 
     $user_id = $_SESSION['user_id'];
 
-    $sql = "SELECT requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.user_id = '$user_id' AND requests.is_director_approved = 1";
+    $sql = "SELECT requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.user_id = '$user_id' AND requests.is_director_approved = 1 ORDER BY requests.date_processed DESC";
     $result = mysqli_query($con, $sql);
 
     $output = [];
@@ -468,7 +468,7 @@
     
     if($user_type == 'admin') {
 
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks, requests.is_director_approved AS is_director_approved, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_director_approved = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks, requests.is_director_approved AS is_director_approved, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_director_approved = 1 ORDER BY requests.date_processed DESC";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -514,7 +514,7 @@
   
       echo json_encode($output);
     } else if($user_type == 'director') {
-      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_director_approved = 1";
+      $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_approved, CONCAT(admins.first_name, ' ', admins.last_name) AS approved_by, requests.status AS status, requests.remarks AS remarks, requests.is_released AS is_released FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_director_approved = 1 ORDER BY requests.date_processed DESC";
       $result = mysqli_query($con, $sql);
   
       $output = [];
@@ -581,7 +581,7 @@
     
     $user_id = $_SESSION['user_id'];
 
-    $sql = "SELECT requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_rejected, CONCAT(admins.first_name, ' ', admins.last_name) AS rejected_by, requests.status AS status, requests.remarks AS remarks FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.user_id = '$user_id' AND (requests.is_approved = 2 OR requests.is_director_approved = 2)";
+    $sql = "SELECT requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_rejected, CONCAT(admins.first_name, ' ', admins.last_name) AS rejected_by, requests.status AS status, requests.remarks AS remarks FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.user_id = '$user_id' AND (requests.is_approved = 2 OR requests.is_director_approved = 2) ORDER BY requests.date_processed DESC";
     $result = mysqli_query($con, $sql);
 
     $output = [];
@@ -610,7 +610,7 @@
   } else if ($_GET['action'] == 'loadRejectedRequestAdmin') {
     
 
-    $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_rejected, CONCAT(admins.first_name, ' ', admins.last_name) AS rejected_by, requests.status AS status, requests.remarks AS remarks FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_approved = 2 OR requests.is_director_approved = 2";
+    $sql = "SELECT users.picture AS picture, CONCAT(users.first_name, ' ', users.last_name) AS requested_by, requests.request_id AS request_id, requests.id AS id, requests.file_id AS file_id, files.file_name, types.id AS file_type_id, types.file_type AS file_type, requests.reason AS reason, requests.date_requested, requests.date_processed AS date_rejected, CONCAT(admins.first_name, ' ', admins.last_name) AS rejected_by, requests.status AS status, requests.remarks AS remarks FROM file_requests AS requests INNER JOIN file_details AS files ON files.id = requests.file_id INNER JOIN file_types AS types ON types.id = files.file_type_id INNER JOIN user_accounts AS users ON users.user_id = files.user_id INNER JOIN user_accounts AS admins ON admins.user_id = requests.processed_by WHERE requests.is_approved = 2 OR requests.is_director_approved = 2 ORDER BY requests.date_processed DESC";
     $result = mysqli_query($con, $sql);
 
     $output = [];
