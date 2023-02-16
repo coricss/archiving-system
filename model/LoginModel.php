@@ -101,9 +101,10 @@
       $result = mysqli_query($con, $query);
       $row = mysqli_fetch_assoc($result);
 
-      $_SESSION['id'] = $row['id'];
-
       if(mysqli_num_rows($result) > 0 ) {
+
+        $_SESSION['id'] = $row['id'];
+
         $code = rand(100000, 999999);
         $query = "UPDATE user_accounts SET forgot_pass_code = '$code' WHERE email = '$email'";
         $result = mysqli_query($con, $query);
